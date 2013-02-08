@@ -1,4 +1,6 @@
 Selfstarter::Application.routes.draw do
+  devise_for :users, path: '', path_names: { sign_in: 'signin', sign_out: 'signout', sign_up: 'signup' }
+
   root                    to: 'project#index'
   
   match '/checkout',      to: 'project#checkout',   via: :get,  as: :checkout

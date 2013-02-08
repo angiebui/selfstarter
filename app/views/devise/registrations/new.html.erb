@@ -1,0 +1,25 @@
+<div id="signup">
+  <div class="container">
+    
+    <div class="well">
+    <h4>New Backer?</h4>
+    <p>Please create an account to continue.</p>
+    
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+    
+      <div><%= f.label :email %><br />
+      <%= f.email_field :email, :autofocus => true %></div>
+    
+      <div><%= f.label :password %><br />
+      <%= f.password_field :password %></div>
+    
+      <div><%= f.label :password_confirmation, "Confirm Password" %><br />
+      <%= f.password_field :password_confirmation %></div>
+
+      <button class="btn btn-primary" type="submit">Sign me up!</button>     
+    <% end %>
+    </div>
+    
+  </div>
+</div>

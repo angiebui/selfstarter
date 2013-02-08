@@ -4,16 +4,20 @@
       <div class="navbar-inner">
         <div class="container">
           <ul class="nav pull-right">
-            <li class="dropdown">
-              <img src="/assets/user_icon.png"/>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
-                User <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu pull-right" role="menu">
-                <li><a href="#">Profile</a></li>                
-                <li class="divider"></li>
-                <li><a href="#">Sign Out</a></li>
-              </ul>               
+            <% if user_signed_in? %>
+              <li class="dropdown">
+                <img src="/assets/user_icon.png"/>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+                  <%= current_user.email %> <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu pull-right" role="menu">
+                  <li><a href="#">Profile</a></li>                
+                  <li class="divider"></li>
+                  <li><%= link_to "Sign Out", destroy_user_session_path, method: "delete" %></li>
+                </ul>
+            <% else %>
+              <li><img src="/assets/user_icon.png"/><%= link_to "Sign In", new_user_session_path %>
+            <% end %>               
             </li>
           </ul>
         </div>

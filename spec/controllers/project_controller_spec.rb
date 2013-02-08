@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PreorderController do
+describe ProjectController do
   [:index, :checkout].each do |method|
     it "should get #{method}" do
       get method

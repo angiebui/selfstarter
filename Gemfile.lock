@@ -33,6 +33,7 @@ GEM
       multi_xml (~> 0.2.0)
       rest-client (~> 1.6.1)
     arel (3.0.2)
+    bootstrap-sass (2.1.0.0)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
@@ -152,6 +153,7 @@ PLATFORMS
 
 DEPENDENCIES
   amazon_flex_pay
+  bootstrap-sass (= 2.1)
   coffee-rails (~> 3.2.1)
   jquery-rails
   pg

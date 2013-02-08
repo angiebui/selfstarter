@@ -5,11 +5,18 @@
     <title><%= @settings.product_name %></title>
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "application" %>
+    <%= render 'layouts/google_analytics' %>
   </head>
   <!--[if lt IE 9 ]><body class="lt-ie9"><![endif]-->
   <!--[if (gt IE 9)|!(IE)]><!--> <body><!--<![endif]-->
-    <%= render 'preorder/header' %>
+    <%= render 'layouts/header' %>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
     <%= yield %>
-    <%= render 'preorder/footer' %>
+    <%= render 'layouts/footer' %>
+    <div id="debug" style="background: white; padding:50px">
+    <%= debug(params) if Rails.env.development? %>
+    </div>
   </body>
 </html>

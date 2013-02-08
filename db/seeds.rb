@@ -8,7 +8,7 @@
 Settings.create(
     [
         {
-          product_name: "Your New Crowdfunding Website",
+          product_name: "Selfstarter",
           project_goal: 100000,
           product_description: "a set of widgets",
           product_image_path: "my-product-image.png",

@@ -16,5 +16,6 @@
 //= require jquery-ui
 //= require jquery.details
 //= require jquery.textchange
-//= require preorder
+//= require project
 //= require_tree .
+//= require bootstrap

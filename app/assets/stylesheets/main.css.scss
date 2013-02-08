@@ -1,8 +1,16 @@
+/* Bootstrap framework for general styling */
+@import "bootstrap";
+
+/* Setting SASS variables for use in all other CSS files */
 @import "variables";
+
+/* Custom site-wide styles */
 @import "primitives";
+
+/* Top level layout sections */
 @import "header";
 @import "footer";
+@import "flash";
 
-@import "homepage";
-@import "share";
-@import "checkout";
+/* Page specific styles */
+@import "project";

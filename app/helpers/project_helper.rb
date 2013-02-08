@@ -1,4 +1,4 @@
-module PreorderHelper
+module ProjectHelper
 
   @settings = Settings.find_by_id(1)
   

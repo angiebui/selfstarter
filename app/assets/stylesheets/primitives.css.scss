@@ -1,76 +1,61 @@
-
-/* For modern browsers */
-.clearfix:before,
-.clearfix:after 
-{
-  content:"";
-  display:table;
-}
-.clearfix:after 
-{
-    clear:both;
-}
-/* For IE 6/7 (trigger hasLayout) */
-.clearfix {
-    zoom:1;
-}
-
- code
- {
-  border: 1px solid #CCC;
-  padding: 1px;
-  vertical-align: middle;
-  font-family: "Consolas", "Inconsolata", "Meslo", "Inconsolata-dz", monospace;
-  text-shadow: none;
-  font-size: 10pt;
- }
-
-html, body {
-  width: 100%;
+h1 {
+  margin: 0 auto;
+  font-family: Helvetica;
+  font-size: 42px;
+  font-weight: bold;
+  color: $h1_color;
+  letter-spacing: -.05em;
+  a {
+    color: $h1_color;
+    text-decoration: none;
+    &:hover {
+      color: $h1_color;
+      text-decoration: none;      
+    }
+  }
 }
 
-body {
-  background: $body_background;
-}
-
-.disabled
-{
-  opacity: 0.65;
-  pointer-events: none;
-}
-
-form
-{
-  margin-top: 15px;
-}
-
-body, input, textarea 
-{
-  font-size: $font_size;
+h2 {
   font-family: $primary_font, $secondary_font, $tertiary_font;
-  color: $text_color;
-  text-shadow: $text_shadow;
-  -webkit-font-smoothing: antialiased;
+  font-size: 45px;
+  color: $h2_color;
+  margin-bottom: 50px;
+  font-weight: normal;
 }
 
-a 
-{
-  text-decoration: none;
-  color: $link_color;
+h3 {
+  font-family: $primary_font, $secondary_font, $tertiary_font;
+  font-size: 40px;
+  color: $h3_color;
+  margin-bottom: 40px;
+  font-weight: normal;
 }
 
-a:hover 
-{
-  text-decoration: underline;
+h4 {
+  font-size: 36px;
+  color: $h4_color;
+  margin-bottom: 30px;
+  font-weight: normal;
 }
 
-i 
-{
-  font-style: italic;
+h5 {
+  font-family: $primary_font, $secondary_font, $tertiary_font;
+  margin-bottom: 10px;
+  color: $h5_color;
+  font-weight: normal;
 }
 
+p {
+  font-family: "Helvetica Neue","Helvetica","Arial";
+  color: #6b6b6b;
+  font-size: 18px;
+  line-height: 1.5;
+  text-shadow: 0 1px 0px #fff;
+}
 
-
+.center {
+  text-align: center;
+}
 
 // Used in the FAQ
 details, summary
@@ -98,73 +83,6 @@ details summary::-webkit-details-marker { display:none; content: ""; }
 .no-details details { display: block }
 .no-details details > summary::before { content:none }
 .no-details details.open > summary::before {   content:none }
-
-
-
-h1 {
-  margin: 0 auto;
-  margin-left: 380px;
-  width: 174px;
-  font-family: Helvetica;
-  font-size: 42px;
-  font-weight: bold;
-  color: $h1_color;
-  letter-spacing: -.05em;
-  float: left;
-  a
-  {
-    color: $h1_color;
-    text-decoration: none;
-  }
-  a:hover
-  {
-    color: $h1_color;
-    text-decoration: none;
-  }
-}
-
-h2 {
-  font-family: $primary_font, $secondary_font, $tertiary_font;
-  font-size: 45px;
-  color: $h2_color;
-  margin-bottom: 50px;
-}
-
-h4 {
-  font-size: 36px;
-  color: $h4_color;
-  margin-bottom: 30px;
-}
-
-h5 {
-  font-family: $primary_font, $secondary_font, $tertiary_font;
-  margin-bottom: 10px;
-  color: $h5_color;
-}
-
-.wrapper {
-  width: 935px;
-  margin: 0 auto;
-}
-
-.center {
-  text-align: center;
-}
-
-.gray_background 
-{
-  width:  100%;
-  padding: 50px 0;
-  background: $gray_background_top_color; /* Old browsers */
-  background: -moz-linear-gradient(top,  $gray_background_top_color 0%, $gray_background_middle_color 50%, $gray_background_bottom_color 100%); /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$gray_background_top_color), color-stop(50%,$gray_background_middle_color), color-stop(100%,$gray_background_bottom_color)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top,  $gray_background_top_color 0%,$gray_background_middle_color 50%,$gray_background_bottom_color 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top,  $gray_background_top_color 0%,$gray_background_middle_color 50%,$gray_background_bottom_color 100%); /* Opera 11.10+ */
-  background: -ms-linear-gradient(top,  $gray_background_top_color 0%,$gray_background_middle_color 50%,$gray_background_bottom_color 100%); /* IE10+ */
-  background: linear-gradient(to bottom,  $gray_background_top_color 0%,$gray_background_middle_color 50%,$gray_background_bottom_color 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#f6f6f6', endColorstr = '#fafafa', GradientType = 0);
-  border-bottom: 1px solid $gray_background_border_color;
-}
 
 .button:hover {
   text-decoration: none;

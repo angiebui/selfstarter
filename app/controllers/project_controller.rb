@@ -1,4 +1,4 @@
-class PreorderController < ApplicationController
+class ProjectController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :ipn
 
   def index

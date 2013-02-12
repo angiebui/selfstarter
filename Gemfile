@@ -32,3 +32,5 @@ gem 'jquery-rails'
 
 # Kickstarter's awesome Amazon Flexible Payments gem
 gem 'amazon_flex_pay'
+
+gem 'crowdtilt', path: "lib/gems/crowdtilt-ruby-lib"

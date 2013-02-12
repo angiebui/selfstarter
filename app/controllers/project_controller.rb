@@ -6,7 +6,24 @@ class ProjectController < ApplicationController
 
   def checkout
   end
-
+  
+  def ajax_checkout
+    card_id = params[:card][:id]     
+    amount = params[:amount].to_f * 100
+    
+    # TODO: should be a setting to determine whether or not this is applied
+    user_fee_amount = amount * 0.025
+    
+    Crowdtilt.configure {key Rails.configuration.crowdtilt_key; secret Rails.configuration.crowdtilt_secret; env Rails.env}
+    
+    payment = Crowdtilt::Payment.new amount: amount, user_fee_amount: user_fee_amount, admin_fee_amount: 0, 
+                                     user_id: current_user.ct_user_id, card_id: card_id, 
+                                     campaign_id: "CMP892E0CA46FEE11E28CA0ABD956AC4F1A"
+    payment.save  
+    
+    render text: "payment: " + payment.id
+  end
+  
   def prefill
     @user  = User.find_or_create_by_email!(params[:email])
 

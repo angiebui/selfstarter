@@ -37,4 +37,8 @@ Selfstarter::Application.configure do
   
   # Set the host for application mailer (required by Devise)
   config.action_mailer.default_url_options = { :host => 'localhost:3000' } 
+  
+  #Crowdtilt API key/secret
+  config.crowdtilt_key = "63fccb7868c5f018c167a44d9f6540"
+  config.crowdtilt_secret = "76d8019033728a7a8d7222fcf288fefcd13f316c"
 end

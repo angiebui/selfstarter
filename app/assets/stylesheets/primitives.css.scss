@@ -20,7 +20,8 @@ h2 {
   font-size: 45px;
   color: $h2_color;
   margin-bottom: 50px;
-  font-weight: normal;
+  font-weight: 200;
+  letter-spacing: 2px;
 }
 
 h3 {
@@ -32,9 +33,9 @@ h3 {
 }
 
 h4 {
-  font-size: 36px;
+  font-size: 20px;
   color: $h4_color;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-weight: normal;
 }
 

@@ -9,11 +9,6 @@
 
   <div><%= f.label :password %>
   <%= f.password_field :password %></div>
-
-  <div><%= f.label :password_confirmation, "Confirm Password" %>
-  <%= f.password_field :password_confirmation %></div>
-  
-  <input type="hidden" name="location" value="<%= params[:action] %>"/>
   
   <button class="btn btn-primary" type="submit">Register</button>     
 <% end %>

@@ -1,7 +1,14 @@
 class ProjectController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :ipn
+  before_filter :check_init
 
-  def index
+  def check_init
+    if !@settings.initialized_flag
+      redirect_to start_path, :flash => { :error => "App is not initialized" }
+    end
+  end
+  
+  def homepage
   end
 
   def checkout
@@ -22,6 +29,9 @@ class ProjectController < ApplicationController
     payment.save  
     
     render text: "payment: " + payment.id
+  end
+  
+  def confirmation
   end
   
   def prefill

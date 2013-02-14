@@ -1,13 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :initialize_settings
+  before_filter :load_settings
   
-  def initialize_settings
+  def load_settings
     @settings = Settings.find_by_id(1)   
-    if(!@settings)
+    
+    if !@settings
       redirect_to :status => 404
-    end
-  end
+    end   
+  end 
   
 end

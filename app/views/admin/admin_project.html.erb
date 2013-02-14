@@ -1,0 +1,103 @@
+<div id="admin_project">
+  <div class="container clearfix">
+  
+    <%= form_for(@settings, :url => admin_project_path) do |f| %>
+     
+      <fieldset>
+      <legend>Basic Information</legend>
+      
+        <label>Product Name</label>
+        <%= f.text_field :product_name %>
+  
+        <label>Project Goal</label>
+        <%= f.text_field :project_goal %>
+        
+        <label>Expiration Date</label>
+        <%= f.text_field :expiration_date %>      
+  
+        <label>Value Proposition</label>
+        <%= f.text_field :value_proposition %>
+  
+        <label>Product Description</label>
+        <%= f.text_field :product_description %>
+  
+        <label>Video Embed URL</label>
+        <%= f.text_field :video_embed_url %>
+  
+        <label>Use Video Placeholder?</label>
+        <%= f.check_box :use_video_placeholder %>
+  
+      </fieldset>
+      
+      <fieldset>
+      <legend>Payment Details</legend>
+      
+        <label>Amazon Access Key</label>
+        <%= f.text_field :amazon_access_key %>
+   
+        <label>Amazon Secret Key</label>
+        <%= f.text_field :amazon_secret_key %>
+  
+        <label>Price</label>
+        <%= f.text_field :price %>
+  
+        <label>Payment Description</label>
+        <%= f.text_field :payment_description %>      
+  
+        <label>Charge Limit</label>
+        <%= f.text_field :charge_limit %>
+  
+        <label>Ships</label>
+        <%= f.text_field :ships %>
+      
+      </fieldset>
+      
+      <fieldset>
+      <legend>Marketing Speak</legend>
+      
+        <label>Primary Stat</label>
+        <%= f.text_field :primary_stat %>
+   
+        <label>Primary Stat Verb</label>
+        <%= f.text_field :primary_stat_verb %>
+  
+        <label>Progress Text</label>
+        <%= f.text_field :progress_text %>
+  
+        <label>Middle Reserve Text</label>
+        <%= f.text_field :middle_reserve_text %>
+  
+        <label>Call to Action</label>
+        <%= f.text_field :call_to_action %>    
+  
+        <label>Price Human</label>
+        <%= f.text_field :price_human %>
+  
+        <label>Don't Give Them a Reason to Say No</label>
+        <%= f.text_field :dont_give_them_a_reason_to_say_no %>
+  
+      </fieldset>
+  
+      <fieldset>
+      <legend>Sharing Details</legend>
+      
+        <label>Tweet Text</label>
+        <%= f.text_field :tweet_text %>
+  
+        <label>Facebook App Id</label>
+        <%= f.text_field :facebook_app_id %>      
+      
+      </fieldset>
+      
+      <fieldset>
+      <legend>Google Analytics</legend>
+      
+        <label>Google Analytics ID</label>
+        <%= f.text_field :google_id %>
+      
+      </fieldset>
+      
+      <%= f.submit "Update", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -8,6 +8,7 @@
 Settings.create(
     [
         {
+          initialized_flag: false,
           product_name: "Selfstarter",
           project_goal: 100000,
           product_description: "a set of widgets",

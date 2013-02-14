@@ -1,0 +1,32 @@
+<div id="navbar">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav pull-right">
+          <% if user_signed_in? %>
+            <li class="dropdown">
+              <img src="/assets/user_icon.png"/>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
+                <%= current_user.fullname %> <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu pull-right" role="menu">
+                <li><a href="#">Profile</a></li>
+                
+                <% if current_user.admin? %>
+                
+                <li><%= link_to "Admin", admin_project_path %></li>
+                
+                <% end %>
+                                
+                <li class="divider"></li>
+                <li><%= link_to "Sign Out", destroy_user_session_path, method: "delete" %></li>
+              </ul>
+          <% else %>
+            <li><img src="/assets/user_icon.png"/><%= link_to "Sign In", new_user_session_path %>
+          <% end %>               
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

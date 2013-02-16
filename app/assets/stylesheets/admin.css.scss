@@ -4,3 +4,31 @@
     margin-top: 60px;
   }
 }
+
+#admin_project {
+  
+  fieldset {
+    margin-bottom: 30px;
+  }
+  
+  legend {
+    font-size: 26px;
+  }
+  
+  .field {
+    background: rgba(128, 128, 128, 0.17);
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    
+    .explanation {
+      float: right;
+      width: 400px;
+    }
+    
+    label {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+  }
+}

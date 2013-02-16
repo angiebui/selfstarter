@@ -1,14 +1,16 @@
 <div id="funding_area">
   <div class="container clearfix">
 
-    <div class="center">
-      <h2><%= @settings.value_proposition %></h2>
-    </div>
+    <% if @settings.tagline != '' %>
+      <div class="center">
+        <h2><%= @settings.tagline %></h2>
+      </div>
+    <% end %>
     
     <div id="video">
       <% if @settings.use_video_placeholder %>
         <div id="video_image">
-          <img alt="video_place_holder" width='512px' height='385px' src="/assets/video_placeholder.png" />
+          <%= image_tag @settings.video_placeholder.url(:main), alt: "video_place_holder" %>
         </div>
         <div id="player" class="hidden" style="display: none;">
           <object width="512" height="385">
@@ -27,7 +29,7 @@
       <ul>
         <li class="stats" id="backers">
           <%= number_with_delimiter Order.backers, :delimiter => "," %>
-          <span><%= @settings.primary_stat %></span>
+          <span><%= pluralize(2, @settings.contributor_reference) %></span>
         </li>
         <li class="stats">
           <%= number_to_currency Order.revenue, :precision => 0 %>
@@ -49,7 +51,7 @@
       
       <% if Order.revenue.to_f < Order.goal.to_f %>
         <div id='progress_bg' class='small'>
-          <div id='progress' class='' style='width: <%= Order.percent %>%;'>
+          <div id='progress' class='' style='width: 7<%= Order.percent %>%;'>
           </div>
         </div>
       <% else %>
@@ -61,10 +63,12 @@
       <% end %>
       
       <div id="reserve_container">
-        <p id="ship_date"><%= @settings.ships %></p>
-        <a href="<%= url_for checkout_path %>" class="btn btn-primary reserve"><%= @settings.call_to_action %></a>
-        <p id="price"><%= @settings.price_human %></p>
-        <p><%= @settings.dont_give_them_a_reason_to_say_no %></p>
+        <div class="call_to_action_button">
+          <a href="<%= url_for checkout_path %>" class="blue_button reserve"><%= @settings.primary_call_to_action_button %></a>
+        </div>
+        <div class="call_to_action_description">
+          <%= raw(@settings.primary_call_to_action_description) %>
+        </div>
         <%= like_button %>
       </div>
     

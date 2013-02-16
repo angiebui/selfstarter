@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212231331) do
+ActiveRecord::Schema.define(:version => 20130215194710) do
+
+  create_table "ckeditor_assets", :force => true do |t|
+    t.string   "data_file_name",                  :null => false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    :limit => 30
+    t.string   "type",              :limit => 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
 
   create_table "orders", :id => false, :force => true do |t|
     t.string   "token"
@@ -49,34 +65,37 @@ ActiveRecord::Schema.define(:version => 20130212231331) do
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "product_name"
+    t.string   "project_name"
     t.float    "project_goal"
-    t.string   "product_description"
-    t.string   "product_image_path"
-    t.string   "value_proposition"
+    t.string   "tagline"
     t.string   "video_embed_url"
     t.boolean  "use_video_placeholder"
     t.string   "amazon_access_key"
     t.string   "amazon_secret_key"
     t.float    "price"
     t.boolean  "use_payment_options"
-    t.text     "payment_description"
     t.float    "charge_limit"
-    t.string   "primary_stat"
-    t.string   "primary_stat_verb"
-    t.string   "middle_reserve_text"
+    t.string   "contributor_reference"
     t.datetime "expiration_date"
     t.string   "progress_text"
-    t.string   "ships"
-    t.string   "call_to_action"
-    t.string   "price_human"
-    t.string   "dont_give_them_a_reason_to_say_no"
+    t.string   "primary_call_to_action_button"
     t.string   "facebook_app_id"
     t.string   "tweet_text"
     t.string   "google_id"
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
-    t.boolean  "initialized_flag",                  :default => false, :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.boolean  "initialized_flag",                     :default => false, :null => false
+    t.string   "video_placeholder_file_name"
+    t.string   "video_placeholder_content_type"
+    t.integer  "video_placeholder_file_size"
+    t.datetime "video_placeholder_updated_at"
+    t.string   "contributor_verb"
+    t.string   "secondary_call_to_action_button"
+    t.string   "checkout_header"
+    t.text     "checkout_sidebar"
+    t.text     "primary_call_to_action_description"
+    t.text     "secondary_call_to_action_description"
+    t.text     "main_content"
   end
 
   create_table "users", :force => true do |t|

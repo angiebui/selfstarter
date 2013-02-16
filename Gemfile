@@ -4,6 +4,9 @@ gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.1'
 gem 'devise'
 
+gem 'paperclip', '~> 3.0'
+gem 'ckeditor'
+
 group :development do
   gem 'sqlite3'
   gem 'pry-rails'

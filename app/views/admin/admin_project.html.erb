@@ -1,32 +1,57 @@
 <div id="admin_project">
   <div class="container clearfix">
   
-    <%= form_for(@settings, :url => admin_project_path) do |f| %>
+    <%= form_for(@settings, url: admin_project_path, multipart: true) do |f| %>
      
       <fieldset>
       <legend>Basic Information</legend>
-      
-        <label>Product Name</label>
-        <%= f.text_field :product_name %>
-  
-        <label>Project Goal</label>
-        <%= f.text_field :project_goal %>
         
-        <label>Expiration Date</label>
-        <%= f.text_field :expiration_date %>      
+        <div class="field">
+          <p class="explanation">This'll be both the page title (&lt;title&gt;&lt;/title&gt;) and the name in the header</p>
+          <label>Project Name</label>
+          <%= f.text_field :project_name %> 
+        </div>
+        
+        <div class="field">
+          <p class="explanation">Shows up centered at the top of the homepage...leave blank if you don't want to include this.</p>
+          <label>Tagline</label>
+          <%= f.text_area :tagline, rows: 2 %>
+        </div>
   
-        <label>Value Proposition</label>
-        <%= f.text_field :value_proposition %>
+        <div class="field">
+          <p class="explanation">The dollar amount you'd like to raise.</p>
+          <label>Project Goal</label>
+          <%= f.text_field :project_goal, value: (number_with_precision(f.object.project_goal, :precision => 2) || 0) %>
+        </div>
   
-        <label>Product Description</label>
-        <%= f.text_field :product_description %>
+        <div class="field">        
+          <p class="explanation">When your campaign to raise money should end.</p>
+          <label>Expiration Date</label>
+          <%= f.date_select :expiration_date, { order: [ :month, :day, :year ] }, { style: "width:120px" } %>
+        </div>      
   
-        <label>Video Embed URL</label>
-        <%= f.text_field :video_embed_url %>
+        <div class="field">
+          <p class="explanation">We STRONGLY recommend including a video with your project.</p>
+          <label>Video Embed URL</label>
+          <%= f.text_field :video_embed_url %>
+        </div>
   
-        <label>Use Video Placeholder?</label>
-        <%= f.check_box :use_video_placeholder %>
-  
+        <div class="field">        
+          <p class="explanation">If you'd like to display a custom image instead of your video's default thumbnail, upload it here.</p>
+          <label>Video Placeholder</label>
+          <% if @settings.video_placeholder.file? %>
+            <%= image_tag @settings.video_placeholder.url(:thumb) %><br/>
+            <%= f.file_field :video_placeholder %>
+            <%= f.check_box :video_placeholder_delete %><span>Delete current image</span>
+          <% else %>           
+            <%= f.file_field :video_placeholder %>
+          <% end  %>
+        </div>
+          
+        <div class="field">       
+          <label>Main Content</label>
+          <%= f.cktext_area :main_content %>        
+        </div>
       </fieldset>
       
       <fieldset>
@@ -41,40 +66,31 @@
         <label>Price</label>
         <%= f.text_field :price %>
   
-        <label>Payment Description</label>
-        <%= f.text_field :payment_description %>      
-  
         <label>Charge Limit</label>
         <%= f.text_field :charge_limit %>
   
-        <label>Ships</label>
-        <%= f.text_field :ships %>
-      
       </fieldset>
       
       <fieldset>
       <legend>Marketing Speak</legend>
       
-        <label>Primary Stat</label>
-        <%= f.text_field :primary_stat %>
-   
-        <label>Primary Stat Verb</label>
-        <%= f.text_field :primary_stat_verb %>
+        <label>How To Reference a Contributor (i.e. 'backer' )</label>
+        <%= f.text_field :contributor_reference %>
   
         <label>Progress Text</label>
         <%= f.text_field :progress_text %>
   
-        <label>Middle Reserve Text</label>
-        <%= f.text_field :middle_reserve_text %>
+        <label>Primary Call to Action Button</label>
+        <%= f.text_field :primary_call_to_action_button %>
   
-        <label>Call to Action</label>
-        <%= f.text_field :call_to_action %>    
+        <label>Primary Call to Action Description</label>
+        <%= f.cktext_area :primary_call_to_action_description %>    
   
-        <label>Price Human</label>
-        <%= f.text_field :price_human %>
+        <label>Secondary Call to Action Button</label>
+        <%= f.text_field :secondary_call_to_action_button %>
   
-        <label>Don't Give Them a Reason to Say No</label>
-        <%= f.text_field :dont_give_them_a_reason_to_say_no %>
+        <label>Secondary Call to Action Description</label>
+        <%= f.cktext_area :secondary_call_to_action_description %>
   
       </fieldset>
   

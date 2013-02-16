@@ -16,6 +16,8 @@
 //= require jquery-ui
 //= require jquery.details
 //= require jquery.textchange
+//= require ckeditor/init
 //= require bootstrap
 //= require project
+
 

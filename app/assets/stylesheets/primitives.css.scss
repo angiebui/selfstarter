@@ -106,7 +106,7 @@ body.lt-ie9 {
 }
 
 .blue_button {
-  display: block;
+  display: inline-block;
   color: $button_color; /* text color */
   text-shadow: 0 -1px 1px $button-text_shadow_color; /* drop shadow */
   -moz-box-shadow:
@@ -126,6 +126,7 @@ body.lt-ie9 {
   font-family: $primary_font, $secondary_font, $tertiary_font;
 }
 .blue_button:hover {
+  color: white;
   -moz-box-shadow:
     0 1px 1px $button_box_shadow_color /* drop shadow */,
     inset 0 -1px 1px $button_box_shadow_inset_color /* inner shadow */;
@@ -144,6 +145,7 @@ body.lt-ie9 {
 }
 
 .blue_button:active {
+  color: white;
   -moz-box-shadow:
     0 1px 1px $button_box_shadow_color /* drop shadow */,
     inset 0 3px 5px $button_box_shadow_inset_color /* inner shadow */;

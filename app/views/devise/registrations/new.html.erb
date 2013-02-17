@@ -2,8 +2,14 @@
   <div class="container">
     
     <div class="well">
-    <h4>New Backer?</h4>
-    <p>Please create an account to continue.</p>
+    
+    <% if @settings.initialized_flag %>
+      <h4>New <%= @settings.contributor_reference %>?</h4>
+      <p>Please create an account to continue.</p>
+    <% else %>
+      <h4>New Crowdhoster App</h4>
+      <p>Looks like this is a new Crowdhoster App! Go ahead and create a user that will serve as your project admin:</p>
+    <% end %>
     
     <%= render "devise/registrations/registration_form" %>
     

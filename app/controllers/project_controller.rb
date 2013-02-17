@@ -1,10 +1,24 @@
 class ProjectController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :ipn
   before_filter :check_init
-
+    
+  #Function to initialize a new app
+  #The first user to sign in automatically becomes the admin user
   def check_init
     if !@settings.initialized_flag
-      redirect_to start_path, :flash => { :error => "App is not initialized" }
+      if current_user
+        # Create the Admin User
+        current_user.update_attribute :admin, true  
+        
+        # Set intiatilized flag to true
+        @settings.initialized_flag = true;
+        @settings.save
+        
+        # Put user back on admin area
+        redirect_to admin_project_path, :flash => { :success => "Nice! Your app is now initialized." }        
+      else
+        redirect_to new_user_registration_path, :flash => { :error => "App is not initialized" }
+      end 
     end
   end
   
@@ -12,6 +26,12 @@ class ProjectController < ApplicationController
   end
 
   def checkout
+  end
+  
+  def checkout_payment
+    if !current_user
+      redirect_to new_user_registration_path
+    end
   end
   
   def ajax_checkout

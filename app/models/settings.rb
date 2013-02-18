@@ -3,7 +3,8 @@ attr_accessible :project_name, :tagline, :project_goal,  :expiration_date, :cont
                 :primary_call_to_action_button, :primary_call_to_action_description, :secondary_call_to_action_button,
                 :secondary_call_to_action_description, :main_content, :amazon_access_key, :amazon_secret_key, :charge_limit, 
                 :facebook_app_id, :google_id, :price, :progress_text, :tweet_text, :use_payment_options, 
-                :use_video_placeholder, :video_embed_url, :initialized_flag, :video_placeholder, :video_placeholder_delete
+                :use_video_placeholder, :video_embed_url, :initialized_flag, :video_placeholder, :video_placeholder_delete,
+                :ct_campaign_id
                 
 attr_accessor :video_placeholder_delete
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215194710) do
+ActiveRecord::Schema.define(:version => 20130218004943) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20130215194710) do
     t.text     "primary_call_to_action_description"
     t.text     "secondary_call_to_action_description"
     t.text     "main_content"
+    t.string   "ct_campaign_id"
   end
 
   create_table "users", :force => true do |t|

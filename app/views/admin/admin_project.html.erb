@@ -1,3 +1,15 @@
+<div class="container clearfix">
+  <ul class="nav nav-pills">
+    <li class="active">
+      <%= link_to "Project", admin_project_path %>
+    </li>
+    <li>
+      <%= link_to "Contributors", admin_contributors_path %>
+    </li>
+    <li><a href="#">Payment Settings</a></li>
+  </ul>
+</div>
+
 <div id="admin_project">
   <div class="container clearfix">
   
@@ -21,7 +33,10 @@
         <div class="field">
           <p class="explanation">The dollar amount you'd like to raise.</p>
           <label>Project Goal</label>
-          <%= f.text_field :project_goal, value: (number_with_precision(f.object.project_goal, :precision => 2) || 0) %>
+          <div class="amount_input" style="position:relative">
+            <%= f.text_field :project_goal, value: (number_with_precision(f.object.project_goal, :precision => 2) || 0) %>
+            <span style="position:absolute">$</span>
+          </div>
         </div>
   
         <div class="field">        

@@ -31,4 +31,21 @@
       font-size: 18px;
     }
   }
+  
+  .amount_input {
+    position: relative;
+    
+    input {
+      padding-left: 24px;
+      width: 200px;
+    }
+    
+    span {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+    }
+  
+  }
+  
 }

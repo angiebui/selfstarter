@@ -10,6 +10,7 @@ Selfstarter::Application.routes.draw do
   match '/ajax/checkout',        to: 'project#ajax_checkout',     via: :post
   
   match '/admin/project',        to: 'admin#admin_project',                   as: :admin_project
+  match '/admin/contributors',   to: 'admin#admin_contributors',              as: :admin_contributors
   
   match '/share/:uuid',          to: 'project#share',             via: :get,  as: :share
   match '/ipn',                  to: 'project#ipn',               via: :post, as: :ipn  

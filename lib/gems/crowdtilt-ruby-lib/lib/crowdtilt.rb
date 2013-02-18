@@ -29,7 +29,7 @@ module Crowdtilt
 
     def config
       if @config.nil?
-        raise "Crowdtilt not initialize, please configure using Crowdtilt.configure"
+        raise "Crowdtilt not initialized, please configure using Crowdtilt.configure"
       end
       @config
     end

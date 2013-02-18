@@ -28,11 +28,11 @@
     <div id="backing">
       <ul>
         <li class="stats" id="backers">
-          <%= number_with_delimiter Order.backers, :delimiter => "," %>
-          <span><%= pluralize(2, @settings.contributor_reference) %></span>
+          <%= number_with_delimiter @campaign.stats["number_of_contributions"].to_i, :delimiter => "," %>
+          <span><%= @settings.contributor_reference.pluralize(@campaign.stats["number_of_contributions"].to_i) %></span>
         </li>
         <li class="stats">
-          <%= number_to_currency Order.revenue, :precision => 0 %>
+          <%= number_to_currency @campaign.stats["raised_amount"].to_f/100, :precision => 0 %>
           <span>of <%= number_to_currency @settings.project_goal.to_f, :precision => 0 %></span>
         </li>
   
@@ -48,17 +48,16 @@
             </li>
         <% end %>
       </ul>
-      
-      <% if Order.revenue.to_f < Order.goal.to_f %>
+      <% if @campaign.stats["raised_amount"].to_f/100 < @settings.project_goal.to_f %>
         <div id='progress_bg' class='small'>
-          <div id='progress' class='' style='width: 7<%= Order.percent %>%;'>
+          <div id='progress' class='' style='width: <%= @campaign.stats["tilt_percent"].to_i %>%;'>
           </div>
         </div>
       <% else %>
         <div id="progress_bg">
           <div id="progress">
           </div>
-          <div id='progress_text'><%= Order.percent %>% <%= @settings.progress_text %></div>
+          <div id='progress_text'><%= @campaign.stats["tilt_percent"].to_i %>% <%= @settings.progress_text %></div>
         </div>
       <% end %>
       

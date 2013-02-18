@@ -1,28 +1,10 @@
 class ProjectController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :ipn
   before_filter :check_init
-    
-  #Function to initialize a new app
-  #The first user to sign in automatically becomes the admin user
-  def check_init
-    if !@settings.initialized_flag
-      if current_user
-        # Create the Admin User
-        current_user.update_attribute :admin, true  
-        
-        # Set intiatilized flag to true
-        @settings.initialized_flag = true;
-        @settings.save
-        
-        # Put user back on admin area
-        redirect_to admin_project_path, :flash => { :success => "Nice! Your app is now initialized." }        
-      else
-        redirect_to new_user_registration_path, :flash => { :error => "App is not initialized" }
-      end 
-    end
-  end
+  before_filter :check_project, only: [:checkout, :checkout_payment]
   
   def homepage
+    @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
   end
 
   def checkout
@@ -41,11 +23,9 @@ class ProjectController < ApplicationController
     # TODO: should be a setting to determine whether or not this is applied
     user_fee_amount = amount * 0.025
     
-    Crowdtilt.configure {key Rails.configuration.crowdtilt_key; secret Rails.configuration.crowdtilt_secret; env Rails.env}
-    
     payment = Crowdtilt::Payment.new amount: amount, user_fee_amount: user_fee_amount, admin_fee_amount: 0, 
                                      user_id: current_user.ct_user_id, card_id: card_id, 
-                                     campaign_id: "CMP892E0CA46FEE11E28CA0ABD956AC4F1A"
+                                     campaign_id: @settings.ct_campaign_id
     payment.save  
     
     render text: "payment: " + payment.id
@@ -100,4 +80,33 @@ class ProjectController < ApplicationController
 
   def ipn
   end
+  
+  protected
+  
+    #Function to initialize a new app
+    #The first user to sign in automatically becomes the admin user
+    def check_init
+      if !@settings.initialized_flag
+        if current_user
+          # Create the Admin User
+          current_user.update_attribute :admin, true  
+          
+          # Set intiatilized flag to true
+          @settings.update_attribute :initialized_flag, true
+          
+          # Put user back on admin area
+          redirect_to admin_project_path, :flash => { :success => "Nice! Your app is now initialized." }        
+        else
+          redirect_to new_user_registration_path, :flash => { :error => "App is not initialized" }
+        end 
+      end
+    end
+    
+    def check_project
+      if !@settings.ct_campaign_id
+        redirect_to root_path, :flash => { :error => "Project is not set up yet!" }
+      end
+    end
+  
+  
 end

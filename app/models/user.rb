@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   
     def create_crowdtilt_user
       if !self.ct_user_id
-        Crowdtilt.configure {key Rails.configuration.crowdtilt_key; secret Rails.configuration.crowdtilt_secret; env Rails.env}
 
         ct_user = Crowdtilt::User.new name: self.fullname, email: self.email
         

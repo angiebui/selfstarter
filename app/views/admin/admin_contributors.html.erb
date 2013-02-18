@@ -1,0 +1,40 @@
+<div class="container clearfix">
+  <ul class="nav nav-pills">
+    <li>
+      <%= link_to "Project", admin_project_path %>
+    </li>
+    <li class="active">
+      <%= link_to "Contributors", admin_contributors_path %>
+    </li>
+    <li><a href="#">Payment Settings</a></li>
+  </ul>
+</div>
+
+<div id="admin_contributors">
+  <div class="container clearfix">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @contributors.each do |contributor| %>
+        <tr>
+          <td><%= contributor.user.firstname %></td>
+          <td><%= contributor.user.lastname %></td>
+          <td><%= contributor.user.email %></td>
+          <td><%= contributor.amount.to_f/100 %></td>
+          <td><%= DateTime.parse(contributor.creation_date).strftime("%m/%d/%Y") %></td>
+          <td><%= contributor.status %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>  
+</div>

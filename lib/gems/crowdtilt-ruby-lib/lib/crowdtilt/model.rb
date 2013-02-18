@@ -23,7 +23,6 @@ module Crowdtilt
       end
 
       def coerce(hash)
-        puts coercions
         coercions.merge! hash
       end
     

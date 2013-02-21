@@ -3,18 +3,17 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.1'
 gem 'devise'
+  gem 'pg'
 
 gem 'paperclip', '~> 3.0'
 gem 'ckeditor'
 
 group :development do
-  gem 'sqlite3'
   gem 'pry-rails'
 end
 
 group :production do
   gem 'thin'
-  gem 'pg'
 end
 
 # Gems used only for assets and not required

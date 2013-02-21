@@ -1,6 +1,12 @@
 module Crowdtilt
   class Campaign < Model
     include Crowdtilt::Model::Finders
+    
+    def initialize(attributes)
+      super attributes
+      @user_id ||= admin.id
+    end
+    
     uri_prefix '/campaigns'
 
     attr_accessor :admin, :creation_date, :description, :expiration_date, :fixed_payment_amount, :first_contributor, 
@@ -18,8 +24,15 @@ module Crowdtilt
                         "expiration_date"  => expiration_date,
                         "tilt_amount"      => tilt_amount } }
     end
-    alias_method :update_json, :create_json
-
+    
+    def update_json
+      { "campaign" => { "title"            => title,
+                        "description"      => description,
+                        "expiration_date"  => expiration_date,
+                        "tilt_amount"      => tilt_amount } }
+    end
+                        
+                        
     def payments
       raise "Can't verify a user without an ID" unless id
       Crowdtilt::PaymentsArray.new self, Crowdtilt.get("/campaigns/#{id}/payments").body['payments'].map{|h| Crowdtilt::Payment.new(h)}
@@ -34,7 +47,7 @@ module Crowdtilt
     end
 
     def find(id)
-      Crowdtilt::Campaign.new Crowdtilt.get("/user/#{user.id}/campaigns/"+id).body['campaign']
+      Crowdtilt::Campaign.new Crowdtilt.get("/campaigns/"+id).body['campaign']
     end
 
     def build(params)

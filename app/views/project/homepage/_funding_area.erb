@@ -8,7 +8,7 @@
     <% end %>
     
     <div id="video">
-      <% if @settings.use_video_placeholder %>
+      <% if @settings.video_placeholder.file? %>
         <div id="video_image">
           <%= image_tag @settings.video_placeholder.url(:main), alt: "video_place_holder" %>
         </div>

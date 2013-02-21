@@ -13,7 +13,13 @@ module Crowdtilt
                     "lastname"  => lastname,
                     "email"     => email } }
     end
-    alias_method :update_json, :create_json
+    
+    def update_json
+      { "user" => { "firstname" => firstname,
+                    "lastname"  => lastname,
+                    "email"     => email,
+                    "metadata"  => metadata } }
+    end
 
     def name=(name)
       _a = name.split(' ')
@@ -35,11 +41,23 @@ module Crowdtilt
       Crowdtilt::UserCampaignsArray.new self, Crowdtilt.get("/users/#{id}/campaigns").body['campaigns'].map{|h| Crowdtilt::Campaign.new(h)}
     end
 
-    def cards
-      raise "Can't load cards for a user without an ID" unless id
-      Crowdtilt::CardsArray.new self, Crowdtilt.get("/users/#{id}/cards").body['cards'].map{|h| Crowdtilt::Card.new(h)}
+    def card(params)
+      card = Crowdtilt::Card.new params.merge(user: self)
+      card.save
+      card
     end
 
+    def cards
+      raise "Can't load cards for a user without an ID" unless id
+      Crowdtilt::CardsArray.new self, Crowdtilt.get("/users/#{id}/cards").body['cards'].map{|h| Crowdtilt::Card.new(h.merge(:user => self.as_json))}
+    end
+    
+    def bank(params)
+      bank = Crowdtilt::Bank.new params.merge(user: self)
+      bank.save
+      bank
+    end
+    
     def banks
       raise "Can't load banks for a user without an ID" unless id
       Crowdtilt::BanksArray.new self, Crowdtilt.get("/users/#{id}/banks").body['banks'].map{|h| Crowdtilt::Bank.new(h)}

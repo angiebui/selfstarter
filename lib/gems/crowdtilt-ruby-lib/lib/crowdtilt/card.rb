@@ -28,7 +28,7 @@ module Crowdtilt
     end
 
     def find(id)
-      Crowdtilt::Card.new Crowdtilt.get("/users/#{user.id}/cards/"+id).body['card'].merge(:user => user)
+      Crowdtilt::Card.new Crowdtilt.get("/users/#{user.id}/cards/"+id).body['card'] #.merge(:user => user)
     end
 
     def build(params)

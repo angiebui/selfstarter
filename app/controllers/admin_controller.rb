@@ -23,24 +23,21 @@ class AdminController < ApplicationController
           redirect_to admin_project_path, :flash => { :success => "Project updated!" }
         end          
       
-      else
-        redirect_to admin_project_path, :flash => { :success => "Project updated!" }
+      else   
+        campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
+       
+        campaign.title = @settings.project_name
+        campaign.description = @settings.tagline
+        campaign.tilt_amount = @settings.project_goal*100
+        campaign.expiration_date = @settings.expiration_date
 
-#TODO: campaign updates through the API is broken at the moment      
-#         campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
-#        
-#         campaign.title = @settings.project_name
-#         campaign.description = @settings.tagline
-#         campaign.tilt_amount = @settings.project_goal*100
-#         campaign.expiration_date = @settings.expiration_date
-# 
-#         begin
-#           campaign.save
-#         rescue => exception     
-#           redirect_to admin_project_path, :flash => { :error => exception.to_s }
-#         else
-#           redirect_to admin_project_path, :flash => { :success => "Project updated!" }
-#         end          
+        begin
+          campaign.save
+        rescue => exception     
+          redirect_to admin_project_path, :flash => { :error => exception.to_s }
+        else
+          redirect_to admin_project_path, :flash => { :success => "Project updated!" }
+        end          
       end    
       
     end

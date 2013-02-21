@@ -48,11 +48,11 @@ module Crowdtilt
       
       res = conn.send method.to_sym, *args
       
-#       puts 
-#       puts "#{method.to_s.upcase} #{args[0]} #{args[1]}"
-#       puts "Response #{res.status}"
-#       puts res.body if res.body
-#       puts
+      puts 
+      puts "#{method.to_s.upcase} #{args[0]} #{args[1]}"
+      puts "Response #{res.status}"
+      puts res.body if res.body
+      puts
       
       case res.status
       when 400...499

@@ -4,7 +4,11 @@ class ProjectController < ApplicationController
   before_filter :check_project, only: [:checkout, :checkout_payment]
   
   def homepage
-    @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
+    if @settings.ct_campaign_id
+      @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
+    else
+      redirect_to admin_project_path, flash: { notice: "Project is not yet set up!" }
+    end
   end
 
   def checkout

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :load_settings, :initialize_crowdtilt_api
+  before_filter :load_settings
   after_filter :store_location
   
   def load_settings
@@ -10,10 +10,6 @@ class ApplicationController < ActionController::Base
     if !@settings
       redirect_to :status => 404
     end   
-  end
-  
-  def initialize_crowdtilt_api
-    Crowdtilt.configure {key Rails.configuration.crowdtilt_key; secret Rails.configuration.crowdtilt_secret; env Rails.env}
   end
   
   def store_location

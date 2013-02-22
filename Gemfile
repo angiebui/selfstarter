@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.1'
 gem 'devise'
-  gem 'pg'
+gem 'pg'
 
 gem 'paperclip', '~> 3.0'
 gem 'ckeditor'
@@ -35,4 +35,4 @@ gem 'jquery-rails'
 # Kickstarter's awesome Amazon Flexible Payments gem
 gem 'amazon_flex_pay'
 
-gem 'crowdtilt', path: "lib/gems/crowdtilt-ruby-lib"
+gem 'crowdtilt', github: 'Crowdtilt/crowdtilt-ruby', branch: 'tweaks'

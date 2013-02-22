@@ -1,5 +1,7 @@
-PATH
-  remote: lib/gems/crowdtilt-ruby-lib
+GIT
+  remote: git://github.com/Crowdtilt/crowdtilt-ruby.git
+  revision: f1a0b67fa7797cb12015147be8bb29c86665abc0
+  branch: tweaks
   specs:
     crowdtilt (0.0.1)
       activemodel

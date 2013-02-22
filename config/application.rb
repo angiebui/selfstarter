@@ -20,5 +20,9 @@ module Selfstarter
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     # --- Standard Rails Config ---
+    
+    #Crowdtilt API key/secret
+    config.crowdtilt_key = "63fccb7868c5f018c167a44d9f6540"
+    config.crowdtilt_secret = "76d8019033728a7a8d7222fcf288fefcd13f316c"
   end
 end

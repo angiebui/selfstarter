@@ -7,23 +7,33 @@
       </div>
     <% end %>
     
-    <div id="video">
-      <% if @settings.video_placeholder.file? %>
-        <div id="video_image">
-          <%= image_tag @settings.video_placeholder.url(:main), alt: "video_place_holder" %>
-        </div>
-        <div id="player" class="hidden" style="display: none;">
-          <object width="512" height="385">
-            <param name="movie" value="<%= @settings.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" />
-            <param name="allowFullScreen" value="true" />
-            <param name="allowscriptaccess" value="always" />
-            <embed src="<%= @settings.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" type="application/x-shockwave-flash" width="512" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
-          </object>
-        </div>
-      <% else %>
-        <iframe width='512' height='385' src="<%= video_url %>"></iframe>
-      <% end %>
-    </div>
+    <% if @settings.media_type == 'video' %>
+    
+      <div id="video">
+        <% if @settings.video_placeholder.file? %>
+          <div id="video_image">
+            <%= image_tag @settings.video_placeholder.url(:main), alt: "video_place_holder" %>
+          </div>
+          <div id="player" class="hidden" style="display: none;">
+            <object width="512" height="385">
+              <param name="movie" value="<%= @settings.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" />
+              <param name="allowFullScreen" value="true" />
+              <param name="allowscriptaccess" value="always" />
+              <embed src="<%= @settings.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" type="application/x-shockwave-flash" width="512" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
+            </object>
+          </div>
+        <% else %>
+          <iframe width='512' height='385' src="<%= video_url %>"></iframe>
+        <% end %>
+      </div>
+    
+    <% else %>
+
+      <div id="image">
+        <%= image_tag @settings.project_image.url(:main), alt: "project_image" %>
+      </div>
+    
+    <% end %>
   
     <div id="backing">
       <ul>

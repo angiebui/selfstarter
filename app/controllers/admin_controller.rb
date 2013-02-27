@@ -4,23 +4,36 @@ class AdminController < ApplicationController
   before_filter :verify_admin
   
   def admin_project
+    @faqs = Faq.all
     if request.put?
       @settings.update_attributes(params[:settings])
       
+      if params.has_key?(:faq)
+        Faq.delete_all
+        params[:faq].each do |faq|
+          if !faq['question'].empty?
+            Faq.create question: faq['question'], answer: faq['answer']
+          end 
+        end
+        @faqs = Faq.all
+      end
+            
       #Whenever the project details are saved, we'll update (or create) a corresponding 
       #campaign through the Crowdtilt API     
       if !@settings.ct_campaign_id
       
-        campaign = Crowdtilt::Campaign.new title: @settings.project_name, description: @settings.tagline, 
-                                           tilt_amount: @settings.project_goal*100, expiration_date: @settings.expiration_date, 
+        campaign = Crowdtilt::Campaign.new title: @settings.project_name, 
+                                           description: @settings.tagline, 
+                                           tilt_amount: @settings.project_goal*100, 
+                                           expiration_date: @settings.expiration_date, 
                                            user_id: current_user.ct_user_id
         begin
           campaign.save
         rescue => exception     
-          redirect_to admin_project_path, :flash => { :error => exception.to_s }
+          flash.now[:error] = exception.to_s
         else
           @settings.update_attribute :ct_campaign_id, campaign.id
-          redirect_to admin_project_path, :flash => { :success => "Project updated!" }
+          flash.now[:success] = "Project updated!"
         end          
       
       else   
@@ -34,12 +47,11 @@ class AdminController < ApplicationController
         begin
           campaign.save
         rescue => exception     
-          redirect_to admin_project_path, :flash => { :error => exception.to_s }
+          flash.now[:error] = exception.to_s
         else
-          redirect_to admin_project_path, :flash => { :success => "Project updated!" }
-        end          
+          flash.now[:success] = "Project updated!"
+        end    
       end    
-      
     end
   end
   

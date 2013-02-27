@@ -30,8 +30,9 @@ group :development, :test do
   gem 'shoulda'
 end
 
-# jQuery
+# jQuery & jQuery UI
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Kickstarter's awesome Amazon Flexible Payments gem
 gem 'amazon_flex_pay'

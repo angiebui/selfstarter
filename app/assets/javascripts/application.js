@@ -17,7 +17,12 @@
 //= require jquery.details
 //= require jquery.textchange
 //= require ckeditor/init
+//= require ckeditor/config.js
 //= require bootstrap
 //= require project
+//= require admin
+//= require checkout
+
+
 
 

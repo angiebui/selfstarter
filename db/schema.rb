@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218004943) do
+ActiveRecord::Schema.define(:version => 20130226064633) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(:version => 20130218004943) do
 
   add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
+
+  create_table "faqs", :force => true do |t|
+    t.text     "question"
+    t.text     "answer"
+    t.integer  "sort_order"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "orders", :id => false, :force => true do |t|
     t.string   "token"
@@ -82,9 +90,9 @@ ActiveRecord::Schema.define(:version => 20130218004943) do
     t.string   "facebook_app_id"
     t.string   "tweet_text"
     t.string   "google_id"
-    t.datetime "created_at",                                              :null => false
-    t.datetime "updated_at",                                              :null => false
-    t.boolean  "initialized_flag",                     :default => false, :null => false
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
+    t.boolean  "initialized_flag",                     :default => false,   :null => false
     t.string   "video_placeholder_file_name"
     t.string   "video_placeholder_content_type"
     t.integer  "video_placeholder_file_size"
@@ -97,6 +105,20 @@ ActiveRecord::Schema.define(:version => 20130218004943) do
     t.text     "secondary_call_to_action_description"
     t.text     "main_content"
     t.string   "ct_campaign_id"
+    t.string   "media_type",                           :default => "video", :null => false
+    t.string   "payment_type",                         :default => "any",   :null => false
+    t.float    "min_payment_amount"
+    t.float    "fix_payment_amount"
+    t.float    "user_fee_amount"
+    t.text     "checkout_content"
+    t.string   "logo_image_file_name"
+    t.string   "logo_image_content_type"
+    t.integer  "logo_image_file_size"
+    t.datetime "logo_image_updated_at"
+    t.string   "project_image_file_name"
+    t.string   "project_image_content_type"
+    t.integer  "project_image_file_size"
+    t.datetime "project_image_updated_at"
   end
 
   create_table "users", :force => true do |t|

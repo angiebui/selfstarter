@@ -1,12 +1,14 @@
 <div class="container clearfix">
   <ul class="nav nav-pills">
     <li>
-      <%= link_to "Project", admin_project_path %>
+      <%= link_to "Project", admin_project_path, class: 'show-loader' %>
     </li>
     <li class="active">
-      <%= link_to "Contributors", admin_contributors_path %>
+      <%= link_to "Contributors", admin_contributors_path, class: 'show-loader' %>
     </li>
-    <li><a href="#">Payment Settings</a></li>
+    <li>
+      <%= link_to "Bank Setup", admin_bank_setup_path, class: 'show-loader' %>
+    </li>
   </ul>
 </div>
 

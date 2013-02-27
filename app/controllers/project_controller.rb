@@ -6,6 +6,7 @@ class ProjectController < ApplicationController
   def homepage
     if @settings.ct_campaign_id
       @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
+      @faqs = Faq.all
     else
       redirect_to admin_project_path, flash: { notice: "Project is not yet set up!" }
     end
@@ -18,24 +19,42 @@ class ProjectController < ApplicationController
     if !current_user
       redirect_to new_user_registration_path
     end
+    
+    if !params.has_key? :amount
+      redirect_to checkout_path, flash: { error: "Invalid amount!" } 
+    elsif params[:amount].to_f <= 0
+      redirect_to checkout_path, flash: { error: "Invalid amount!" }
+    else
+      @amount = ((params[:amount].to_f)*100).ceil/100.0
+      @fee = ((@amount * @settings.user_fee_amount/100)*100).ceil/100.0
+      @total = ((@amount + @fee)*100).ceil/100.0
+    end 
+    
   end
   
-  def ajax_checkout
-    card_id = params[:card][:id]     
+  def checkout_confirmation
+  
+    if !(params[:ct_user_id] && params[:ct_card_id] && params[:amount] && params[:fee])
+      redirect_to checkout_path, flash: { error: "An error occurred" }
+    end
+  
+    ct_user_id = params[:ct_user_id]
+    ct_card_id = params[:ct_card_id]     
     amount = params[:amount].to_f * 100
+    user_fee_amount = params[:fee].to_f * 100
+        
+    if !ct_user_id == current_user.ct_user_id
+      redirect_to checkout_payment_path(:amount => params[:amount]), flash: { error: "Invalid user!" }
+    end
     
-    # TODO: should be a setting to determine whether or not this is applied
-    user_fee_amount = amount * 0.025
+    #TODO: Check to make sure the amount is valid here
     
     payment = Crowdtilt::Payment.new amount: amount, user_fee_amount: user_fee_amount, admin_fee_amount: 0, 
-                                     user_id: current_user.ct_user_id, card_id: card_id, 
+                                     user_id: ct_user_id, card_id: ct_card_id, 
                                      campaign_id: @settings.ct_campaign_id
-    payment.save  
+    payment.save
     
-    render text: "payment: " + payment.id
-  end
-  
-  def confirmation
+    @payment = payment.id  
   end
   
   def prefill

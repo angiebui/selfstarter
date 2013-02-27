@@ -1,5 +1,13 @@
 <div id="header">
   <div class="container center">
-    <h1><a href="/"><%= @settings.project_name %></a></h1>
+    <% if @settings.logo_image.file? %>
+      
+      <%= image_tag @settings.logo_image.url, alt: "logo" %>
+    
+    <% else %>
+    
+      <h1><a href="/"><%= @settings.project_name %></a></h1>
+    
+    <% end %>
   </div>
 </div>

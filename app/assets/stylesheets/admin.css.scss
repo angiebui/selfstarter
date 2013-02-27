@@ -26,10 +26,27 @@
       width: 400px;
     }
     
+    .explanation.inline {
+      float: none;
+      width: 100%;
+    }
+    
+    choices {
+      margin-bottom: 15px;
+    }
+    
     label {
       margin-bottom: 15px;
       font-size: 18px;
     }
+    
+    label.inline {
+      display: inline-block;
+    }
+  }
+  
+  input[type="radio"] {
+    margin: 0px 6px 6px 0px
   }
   
   .amount_input {
@@ -45,7 +62,26 @@
       top: 5px;
       left: 10px;
     }
+  }
   
+  .faq.sortable {
+    margin-left: 0px;
+    
+    li {
+      background-color: rgba(128, 128, 128, 0.35);
+      padding: 12px;
+      margin-bottom: 8px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      vertical-align: middle;
+      
+      textarea {
+        width: 400px;
+        max-width: 400px;
+        margin-bottom: 0px;
+      }
+    }
   }
   
 }

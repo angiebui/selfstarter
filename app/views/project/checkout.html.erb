@@ -2,11 +2,27 @@
   <div class="container clearfix">
     <div class="main_content <%= "payment_options" if @settings.use_payment_options %>">
       <h3>Back This Project</h3>
-      <div class="well">
-        <p id="amount" data-amount="<%= @settings.price %>">Amount: $<%= @settings.price %></p>
-      </div>
       
-      <%= link_to "Continue to next step", checkout_payment_path, class: "btn btn-primary" %>
+      <form accept-charset="UTF-8" action="/" method="post" id="amount_form">
+        <% if @settings.payment_type == 'min' %>
+        <p>The minimum contribution per person is $<%= @settings.min_payment_amount %> ...but feel free to contribute more!</p>
+        <input id="amount" type="text" name="amount" value="<%= @settings.min_payment_amount %>"/>
+        
+        <% elsif @settings.payment_type == 'fixed' %>
+    
+        <p>The preset contribution is $<%= @settings.fix_payment_amount %> each. You may multiply it to contribute more.</p>
+        <input id="amount" type="text" name="amount" value="<%= @settings.fix_payment_amount %>"/>
+        
+        <% else %>
+        
+        <p>Please enter how much you would like to contribute:</p>
+        <input id="amount" type="text" name="amount"/>
+        
+        <% end %>
+    
+        <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+      
+      </form>
       
     </div>
     <%= render 'project/checkout_sidebar' %>

@@ -8,15 +8,15 @@ class AdminController < ApplicationController
     if request.put?
       @settings.update_attributes(params[:settings])
       
-      if params.has_key?(:faq)
-        Faq.delete_all
+      Faq.delete_all
+      if params.has_key?(:faq)        
         params[:faq].each do |faq|
           if !faq['question'].empty?
             Faq.create question: faq['question'], answer: faq['answer']
           end 
         end
-        @faqs = Faq.all
       end
+      @faqs = Faq.all
             
       #Whenever the project details are saved, we'll update (or create) a corresponding 
       #campaign through the Crowdtilt API     
@@ -56,7 +56,56 @@ class AdminController < ApplicationController
   end
   
   def admin_contributors
-    @contributors = Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments
+    if !@settings.ct_campaign_id
+      redirect_to admin_project_path, :flash => { :error => "Project is not set up yet!" }
+    else
+      @contributors = Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments
+    end
+  end
+  
+  def admin_bank_setup
+    user = Crowdtilt::User.find(current_user.ct_user_id)
+  
+    if current_user.has_default_bank
+      @bank = user.get_default_bank 
+    elsif request.post?
+      if params[:ct_bank_id].blank?
+        flash.now[:error] = "An error occurred, please try again"
+      else
+        begin
+          @bank = user.get_bank(params[:ct_bank_id])
+          @bank.set_as_default
+        rescue => exception
+          flash.now[:error] = exception.to_s
+        else
+          current_user.has_default_bank = true
+          current_user.save
+        end
+      end
+    end
+    
+  end
+  
+  def ajax_verify
+    if params[:name].blank? || params[:phone].blank? || params[:street_address].blank? || params[:postal_code].blank? || params[:dob].blank?
+      render text: "error" #not all fields filled out
+    else
+      user = Crowdtilt::User.find(current_user.ct_user_id)
+      
+      if !user.verified?      
+        begin
+          user.verify name: params[:name], phone_number: params[:phone], 
+                      street_address: params[:street_address], postal_code: params[:postal_code], 
+                      dob: params[:dob]
+        rescue => exception
+          render text: exception.to_s #failed to verify through Crowdtilt API
+        else
+          render text: "success" #successfully verified through Crowdtilt API
+        end
+      else
+        render text: "success"  #already verified
+      end
+    end
   end
   
   

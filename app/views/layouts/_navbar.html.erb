@@ -13,7 +13,7 @@
                 <%= current_user.fullname %> <b class="caret"></b>
               </a>
               <ul class="dropdown-menu pull-right" role="menu">
-                <li><a href="#">Profile</a></li>
+                <li><%= link_to "Account", user_payments_path %></li>
                 
                 <% if current_user.admin? %>
                 

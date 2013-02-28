@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Crowdtilt/crowdtilt-ruby.git
-  revision: f1a0b67fa7797cb12015147be8bb29c86665abc0
+  revision: f13106b16329d982d59a2cbac67e8386d91e52de
   branch: tweaks
   specs:
     crowdtilt (0.0.1)
@@ -72,12 +72,12 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    faraday (0.8.5)
+    faraday (0.8.6)
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
     hike (1.2.1)
-    i18n (0.6.1)
+    i18n (0.6.4)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
@@ -85,7 +85,7 @@ GEM
     jquery-ui-rails (4.0.1)
       jquery-rails
       railties (>= 3.1.0)
-    json (1.7.6)
+    json (1.7.7)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -95,9 +95,9 @@ GEM
     mime-types (1.19)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
-    multi_json (1.5.0)
+    multi_json (1.6.1)
     multi_xml (0.2.2)
-    multipart-post (1.1.5)
+    multipart-post (1.2.0)
     orm_adapter (0.4.0)
     paperclip (3.4.0)
       activemodel (>= 3.0.0)

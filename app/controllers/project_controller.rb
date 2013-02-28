@@ -32,9 +32,8 @@ class ProjectController < ApplicationController
     
   end
   
-  def checkout_confirmation
-  
-    if !(params[:ct_user_id] && params[:ct_card_id] && params[:amount] && params[:fee])
+  def checkout_confirmation  
+    if params[:ct_user_id].blank? || params[:ct_card_id].blank? || params[:amount].blank? || params[:fee].blank?
       redirect_to checkout_path, flash: { error: "An error occurred" }
     end
   

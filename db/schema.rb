@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226064633) do
+ActiveRecord::Schema.define(:version => 20130228071510) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20130226064633) do
     t.string   "fullname"
     t.string   "ct_user_id"
     t.boolean  "admin",                  :default => false
+    t.boolean  "has_default_bank",       :default => false, :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

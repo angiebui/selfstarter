@@ -11,7 +11,20 @@
       <p>Looks like this is a new Crowdhoster App! Go ahead and create a user that will serve as your project admin:</p>
     <% end %>
     
-    <%= render "devise/registrations/registration_form" %>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+    
+      <div><%= f.label :fullname, "Full Name" %>
+      <%= f.text_field :fullname, :autofocus => true %></div>
+    
+      <div><%= f.label :email %>
+      <%= f.email_field :email %></div>
+    
+      <div><%= f.label :password %>
+      <%= f.password_field :password %></div>
+      
+      <button class="btn btn-primary" type="submit">Create my account</button>     
+    <% end %>
     
      <%= link_to "Already have an account?", new_session_path(resource_name) %><br />
     

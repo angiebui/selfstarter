@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :fullname, :ct_user_id
+                  :has_default_bank
   
   validates :fullname, presence: true
   
@@ -18,7 +19,6 @@ class User < ActiveRecord::Base
   
     def create_crowdtilt_user
       if !self.ct_user_id
-
         ct_user = Crowdtilt::User.new name: self.fullname, email: self.email
         
         begin
@@ -29,7 +29,22 @@ class User < ActiveRecord::Base
         else
           self.ct_user_id = ct_user.id
         end          
-   
+#
+#TODO: Add this back in when the API is updated
+#
+#      else
+#         ct_user = Crowdtilt::User.find(self.ct_user_id)
+#         ct_user.name = self.fullname
+#         ct_user.email = self.email
+# 
+#         begin
+#           ct_user.save
+#         rescue => exception     
+#           errors.add(:base, exception.to_s)
+#           false
+#         else
+#           true
+#        end 
       end
     end
 end

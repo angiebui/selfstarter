@@ -145,7 +145,7 @@
           
         <div class="field clearfix">       
           <label>Main Content</label>
-          <p class="explanation inline">This is the meat and potatoes of your website - include rich text and images to really get potential contributors excited!</p>
+          <p class="explanation inline">This is the meat and potatoes of your website - include rich text and images to get your contributors excited!</p>
           <%= f.cktext_area :main_content %>        
         </div>        
         
@@ -171,7 +171,7 @@
               <span><%= iterator %></span>            
               <textarea name="faq[][question]" placeholder="Question"><%= faq.question %></textarea>
               <textarea name="faq[][answer]" placeholder="Answer"><%= faq.answer %></textarea>
-              <a href="#" class="faq-delete">delete</a>          
+              <a href="#" class="faq-delete icon-trash"></a>         
             </li>
             <% iterator+=1 %>
             <% end %>
@@ -179,7 +179,7 @@
               <span><%= @faqs.count + 1 %></span>            
               <textarea name="faq[][question]" placeholder="Question"></textarea>
               <textarea name="faq[][answer]" placeholder="Answer"></textarea>
-              <a href="#" class="faq-delete">delete</a> 
+              <a href="#" class="faq-delete icon-trash"></a>
              </li>                     
           </ul>
           
@@ -193,7 +193,7 @@
 
         <div class="field clearfix">
           <label>Sidebar Content</label>
-          <p class="explanation inline">This content is displayed along the right sidebar of the checkout page. A question/answer format is often used here.</p>
+          <p class="explanation inline">This content is displayed on the right sidebar of the checkout page. A question/answer format is often used.</p>
           <%= f.cktext_area :checkout_content %> 
         </div>      
       

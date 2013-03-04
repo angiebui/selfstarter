@@ -7,6 +7,7 @@
       </div>
     <% end %>
     
+    <div class="clearfix">
     <% if @settings.media_type == 'video' %>
     
       <div id="video">
@@ -73,14 +74,21 @@
       
       <div id="reserve_container">
         <div class="call_to_action_button">
-          <a href="<%= url_for checkout_path %>" class="blue_button reserve"><%= @settings.primary_call_to_action_button %></a>
+          <a href="<%= url_for checkout_amount_path %>" class="blue_button reserve"><%= @settings.primary_call_to_action_button %></a>
         </div>
         <div class="call_to_action_description">
           <%= raw(@settings.primary_call_to_action_description) %>
         </div>
-        <%= like_button %>
-      </div>
-    
+      </div>  
+    </div>
+  </div>
+  
+  <div class="share">
+    <div id="share_buttons">
+      <div class="like"><%= like_button %></div>
+      <div class="tweet"><%= tweet_button %></div>
+      <div class="pin"><%= pin_it_button %></div>
+    </div>
   </div>
   
   </div>

@@ -13,6 +13,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Date</th>
           <th>Amount</th>
           <th>Credit Card</th>
@@ -22,6 +23,7 @@
       <tbody>
         <% @payments.each do |payment| %>
         <tr>
+          <td><%= payment.id %></td>
           <td><%= DateTime.parse(payment.creation_date).strftime("%m/%d/%Y") %></td>
           <td>$<%= number_with_precision(payment.amount.to_f/100.0 + payment.user_fee_amount.to_f/100.0, precision: 2) %></td>
           <td>

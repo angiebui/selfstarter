@@ -6,7 +6,16 @@ class AdminController < ApplicationController
   def admin_project
     @faqs = Faq.all
     if request.put?
-      @settings.update_attributes(params[:settings])
+      @settings.update_attributes(params[:settings])   # THIS MUST BE ASSIGN - TODO TODO
+      if !@settings.valid?   
+        message = ''
+        @settings.errors.each do |key, error|
+          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+        end
+        @settings = Settings.find_by_id(1)
+        flash.now[:error] = message[0...-2]
+        return
+      end
       
       Faq.delete_all
       if params.has_key?(:faq)        
@@ -29,11 +38,14 @@ class AdminController < ApplicationController
                                            user_id: current_user.ct_user_id
         begin
           campaign.save
-        rescue => exception     
+        rescue => exception  
+          @settings = Settings.find_by_id(1)
           flash.now[:error] = exception.to_s
+          return
         else
-          @settings.update_attribute :ct_campaign_id, campaign.id
-          flash.now[:success] = "Project updated!"
+          @settings.ct_campaign_id = campaign.id
+          @settings.save
+          flash.now[:success] = "Project updated!"               
         end          
       
       else   
@@ -46,9 +58,12 @@ class AdminController < ApplicationController
 
         begin
           campaign.save
-        rescue => exception     
+        rescue => exception   
+          @settings = Settings.find_by_id(1)
           flash.now[:error] = exception.to_s
+          return
         else
+          @settings.save
           flash.now[:success] = "Project updated!"
         end    
       end    

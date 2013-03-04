@@ -54,6 +54,9 @@
           <div id="preset-amount" style="<%= @settings.payment_type == 'fixed' ? "" : "display:none" %>">
             <label class="inline"><strong>Preset amount: $ &nbsp;</strong></label>
             <%= f.text_field :fix_payment_amount, value: (number_with_precision(f.object.fix_payment_amount, :precision => 2) || 0) %>
+            <br/>
+            <label class="inline"><strong>Limit per person: &nbsp;</strong></label>
+            <input type="text"/>        
           </div>
           
           <label><input id="settings_payment_type_min" name="settings[payment_type]" value="min" type="radio" <%= @settings.payment_type == 'min' ? "checked" : "" %>>Require a <strong>minimum amount</strong> for each contribution. <i>(ex. $10 min. contribution)</i></label>

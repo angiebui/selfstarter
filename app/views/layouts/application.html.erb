@@ -10,6 +10,8 @@
   </head>
   <!--[if lt IE 9 ]><body class="lt-ie9"><![endif]-->
   <!--[if (gt IE 9)|!(IE)]><!--> <body><!--<![endif]-->
+    <%= render 'layouts/facebook_js' %>
+    <%= render 'layouts/twitter_js' %>
     <%= render 'layouts/navbar' %>
     <%= render 'layouts/header' %>
     <% flash.each do |key, value| %>

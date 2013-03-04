@@ -30,13 +30,38 @@
       padding: 15px;
       border: none;
     }
+    
+    .amount_input {
+      position: relative;
+      display: inline-block;
+      
+      input {
+        padding-left: 24px;
+        width: 200px;
+      }
+      
+      span {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+      }
+    }
+    
     fieldset {
       display: inline-block;
       margin-right: 10px;
     }
-    #errors p{
-      color: red;
-      font-size: 14px;
+    
+    .new-account {
+      input {
+        width: 500px;
+      }
+    }
+    
+    .crowdhoster-powered {
+      vertical-align: bottom;
+      font-size: 12px;
+      color: black;
     }
   }
   

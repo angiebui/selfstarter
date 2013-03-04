@@ -107,9 +107,9 @@ ActiveRecord::Schema.define(:version => 20130228071510) do
     t.string   "ct_campaign_id"
     t.string   "media_type",                           :default => "video", :null => false
     t.string   "payment_type",                         :default => "any",   :null => false
-    t.float    "min_payment_amount"
-    t.float    "fix_payment_amount"
-    t.float    "user_fee_amount"
+    t.float    "min_payment_amount",                   :default => 1.0,     :null => false
+    t.float    "fix_payment_amount",                   :default => 1.0,     :null => false
+    t.float    "user_fee_amount",                      :default => 0.0,     :null => false
     t.text     "checkout_content"
     t.string   "logo_image_file_name"
     t.string   "logo_image_content_type"

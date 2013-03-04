@@ -12,29 +12,32 @@ class ProjectController < ApplicationController
     end
   end
 
-  def checkout
+  def checkout_amount
+    if @settings.payment_type == "fixed"
+      redirect_to checkout_payment_path
+      return
+    end
   end
   
   def checkout_payment
-    if !current_user
-      redirect_to new_user_registration_path
+  
+    if @settings.payment_type == "fixed"
+      @amount = ((@settings.fix_payment_amount.to_f)*100).ceil/100.0
+    elsif params.has_key?(:amount) && params[:amount].to_f >= @settings.min_payment_amount
+      @amount = ((params[:amount].to_f)*100).ceil/100.0 
+    else
+      redirect_to checkout_amount_path, flash: { error: "Invalid amount!" }
+      return
     end
     
-    if !params.has_key? :amount
-      redirect_to checkout_path, flash: { error: "Invalid amount!" } 
-    elsif params[:amount].to_f <= 0
-      redirect_to checkout_path, flash: { error: "Invalid amount!" }
-    else
-      @amount = ((params[:amount].to_f)*100).ceil/100.0
-      @fee = ((@amount * @settings.user_fee_amount/100)*100).ceil/100.0
-      @total = ((@amount + @fee)*100).ceil/100.0
-    end 
+    @fee = ((@amount * @settings.user_fee_amount/100)*100).ceil/100.0
+    @total = ((@amount + @fee)*100).ceil/100.0
     
   end
   
   def checkout_confirmation  
     if params[:ct_user_id].blank? || params[:ct_card_id].blank? || params[:amount].blank? || params[:fee].blank?
-      redirect_to checkout_path, flash: { error: "An error occurred" }
+      redirect_to checkout_amount_path, flash: { error: "An error occurred" }
     end
   
     ct_user_id = params[:ct_user_id]

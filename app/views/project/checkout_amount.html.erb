@@ -1,0 +1,28 @@
+<div id="checkout">
+  <div class="container clearfix">
+    <div class="main_content <%= "payment_options" if @settings.use_payment_options %>">
+      <h3>Checkout</h3>
+      
+      <div class="well" style="background-color: #ffffff">
+        <form accept-charset="UTF-8" action="/" method="post" id="amount_form">
+          
+          <div>
+          <p>Please enter an amount: </p>
+          <br/>
+          <div class="amount_input" style="position:relative">
+            <input id="amount" type="text" name="amount"/>&nbsp;&nbsp;
+            <span style="position:absolute">$</span>
+          </div>
+          <span>Minimum is $<%= number_with_precision(@settings.min_payment_amount, precision: 2) %></span>
+          </div>
+          
+          <br/>
+          <button type="submit" class="btn btn-primary">Continue to next step</button>
+        
+        </form>
+      </div>
+      
+    </div>
+    <%= render 'project/checkout_sidebar' %>
+  </div>
+</div>

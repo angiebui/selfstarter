@@ -6,7 +6,7 @@ Selfstarter::Application.routes.draw do
   end
 
   root                              to: 'project#homepage'
-  match '/checkout',                to: 'project#checkout',                via: :get,  as: :checkout
+  match '/checkout/amount',         to: 'project#checkout_amount',         via: :get,  as: :checkout_amount
   match '/checkout/payment',        to: 'project#checkout_payment',                    as: :checkout_payment
   match '/checkout/confirmation',   to: 'project#checkout_confirmation',               as: :checkout_confirmation
   

@@ -72,3 +72,30 @@ p {
   height: 15px;
   background: url('/assets/loading.gif');
 }
+
+#errors p{
+  color: red;
+  font-size: 14px;
+}
+
+#share_buttons {
+
+  position: relative;
+  .like {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+  
+  .tweet {
+    position: absolute;
+    top: 0px;
+    left: 110px;
+  }
+  
+  .pin {
+    position: absolute;
+    top: 0px;
+    left: 225px;
+  }
+}

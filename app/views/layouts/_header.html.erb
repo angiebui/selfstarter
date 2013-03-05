@@ -2,7 +2,7 @@
   <div class="container center">
     <% if @settings.logo_image.file? %>
       
-      <%= image_tag @settings.logo_image.url, alt: "logo" %>
+      <a href="/"><%= image_tag @settings.logo_image.url, alt: "logo" %></a>
     
     <% else %>
     

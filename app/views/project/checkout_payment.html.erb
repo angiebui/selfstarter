@@ -7,7 +7,9 @@
         <thead>
           <tr>
             <th>Payment Amount</th>
-            <th>Processing Fee (<%= @settings.user_fee_amount %>%)</th>
+            <% if @fee > 0 %>
+              <th>Processing Fee (<%= @settings.user_fee_amount %>%)</th>
+            <% end %>
             <th>Total</th>
           </tr>
         </thead>
@@ -17,7 +19,9 @@
               $<%= number_with_precision(@amount, precision: 2) %>
               <%= link_to "edit", checkout_amount_path if @settings.payment_type != 'fixed' %>
             </td>
-            <td>$<%= number_with_precision(@fee, precision: 2) %></td>
+            <% if @fee > 0 %>
+              <td>$<%= number_with_precision(@fee, precision: 2) %></td>
+            <% end %>
             <td>$<%= number_with_precision(@total, precision: 2) %></td>
           </tr>
         </tbody>

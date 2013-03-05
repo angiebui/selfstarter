@@ -4,9 +4,17 @@ class AdminController < ApplicationController
   before_filter :verify_admin
   
   def admin_project
+    
+    #Load the faqs
     @faqs = Faq.all
+    
+    #Handle the form submission if request is PUT
     if request.put?
+      
+      #First assign the new settings values from the form entries
       @settings.update_attributes(params[:settings])   # THIS MUST BE ASSIGN - TODO TODO
+      
+      #Check if the new settings pass validations...if not, re-render form and display errors in flash msg
       if !@settings.valid?   
         message = ''
         @settings.errors.each do |key, error|
@@ -17,6 +25,7 @@ class AdminController < ApplicationController
         return
       end
       
+      #Completely refresh the FAQ data 
       Faq.delete_all
       if params.has_key?(:faq)        
         params[:faq].each do |faq|
@@ -71,10 +80,28 @@ class AdminController < ApplicationController
   end
   
   def admin_contributors
+    
+    page = params[:page] || 1
+  
     if !@settings.ct_campaign_id
       redirect_to admin_project_path, :flash => { :error => "Project is not set up yet!" }
     else
-      @contributors = Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments
+      
+      if params.has_key?(:payment_id) && !params[:payment_id].blank?
+        begin
+          @contributors = [Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments.find(params[:payment_id])]
+          @page = @total_pages = 1
+        rescue => exception
+          @contributors = Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments(page, 50)
+          @page = @contributors.pagination['page'].to_i
+          @total_pages = @contributors.pagination['total_pages'].to_i
+          flash.now[:error] = "Contributor not found for " + params[:payment_id]
+        end
+      else
+        @contributors = Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments(page, 50)
+        @page = @contributors.pagination['page'].to_i
+        @total_pages = @contributors.pagination['total_pages'].to_i
+      end
     end
   end
   

@@ -93,6 +93,18 @@
 }
 
 #admin_contributors {
+
+  .search {
+    margin: 20px 0px 40px;
+    form {
+      float: left;
+      margin-right: 10px;
+      input {
+        width: 350px;
+        margin: 0 2px 0px 0px;
+      }
+    }
+  }
 }
 
 .admin.bank_setup {

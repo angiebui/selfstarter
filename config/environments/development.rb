@@ -37,4 +37,18 @@ Selfstarter::Application.configure do
   
   # Set the host for application mailer (required by Devise)
   config.action_mailer.default_url_options = { :host => 'localhost:3000' } 
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"  
+
+  config.action_mailer.smtp_settings = {
+     :authentication => :plain,
+     :address => "smtp.mailgun.org",
+     :port => 587,
+     :domain => "crowdhoster.mailgun.org",
+     :user_name => "postmaster@crowdhoster.mailgun.org",
+     :password => "1xkmy8y4i9q3"
+    }
+ 
+    
 end

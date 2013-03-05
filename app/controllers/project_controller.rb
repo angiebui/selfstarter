@@ -56,6 +56,8 @@ class ProjectController < ApplicationController
                                      campaign_id: @settings.ct_campaign_id
     payment.save
     
+    UserMailer.payment_confirmation(payment).deliver
+    
     @payment = payment.id  
   end
   

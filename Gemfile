@@ -15,6 +15,7 @@ end
 
 group :production do
   gem 'thin'
+  gem 'newrelic_rpm'
 end
 
 # Gems used only for assets and not required

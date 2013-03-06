@@ -22,8 +22,8 @@ module Selfstarter
     # --- Standard Rails Config ---
     
     #Crowdtilt API key/secret
-    config.crowdtilt_key = "63fccb7868c5f018c167a44d9f6540"
-    config.crowdtilt_secret = "76d8019033728a7a8d7222fcf288fefcd13f316c"
+    config.crowdtilt_key = ENV['CROWDTILT_KEY']
+    config.crowdtilt_secret = ENV['CROWDTILT_SECRET']
     
     #loading for ckeditor
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)
@@ -36,9 +36,9 @@ module Selfstarter
        :authentication => :plain,
        :address => "smtp.mailgun.org",
        :port => 587,
-       :domain => "crowdhoster.mailgun.org",
-       :user_name => "postmaster@crowdhoster.mailgun.org",
-       :password => "1xkmy8y4i9q3"
+       :domain => ENV['MAILGUN_DOMAIN'],
+       :user_name => ENV['MAILGUN_USERNAME'],
+       :password => ENV['MAILGUN_PASSWORD']
       }
      
   end

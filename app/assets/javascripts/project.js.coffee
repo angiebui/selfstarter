@@ -52,11 +52,4 @@ window.Selfstarter =
         $(this).children(".payment_radio").attr "checked", "checked"
         onScroll()
         $('.checkout_controls_wrapper').addClass "checkout_ready"
-            
-$ ->
-  Selfstarter.init()
-  Selfstarter.admin.init()
-  Selfstarter.checkout.init()
-  crowdtilt.init('sandbox');
-  $("#email").focus() if $('.payment_options').length == 0
   

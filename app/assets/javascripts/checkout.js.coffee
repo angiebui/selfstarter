@@ -11,6 +11,7 @@ Selfstarter.checkout =
     $('#payment_form').on "submit", (e) ->
       e.preventDefault()
       $('.loader').show()
+      $('button[type="submit"]').attr('disabled', true)
       $('#errors').html('')        
       $this = $(this)
       
@@ -25,6 +26,7 @@ Selfstarter.checkout =
         $.each errors, (index, value) -> 
           $('#errors').append('<p>' + value + '</p>')
         $('.loader').hide()
+        $('button[type="submit"]').attr('disabled', false)
       else
         user_id = $this.find('#ct_user_id').val()
         crowdtilt.card.create(user_id, cardData, _this.cardResponseHandler)   
@@ -40,6 +42,7 @@ Selfstarter.checkout =
         form.submit()          
       else 
          $('#errors').append('<p>An error occurred. Please try again.</p>')
-         $('.loader').hide() 
+         $('.loader').hide()
+         $('button[type="submit"]').attr('disabled', false) 
 
     

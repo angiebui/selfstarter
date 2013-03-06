@@ -8,7 +8,7 @@ class ProjectController < ApplicationController
       @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
       @faqs = Faq.all
     else
-      redirect_to admin_project_path, flash: { notice: "Project is not yet set up!" }
+      redirect_to admin_project_path, flash: { notice: "Project is not yet set up! Please fill out form on the project tab." }
     end
   end
 

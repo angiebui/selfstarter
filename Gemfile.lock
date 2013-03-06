@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Crowdtilt/crowdtilt-ruby.git
-  revision: 59529c2ccd10f34e657f43199774adae1060b5e1
+  revision: 8a284572db6e1a0bb2d3dbca5869f0c32ed4af52
   branch: tweaks
   specs:
     crowdtilt (0.0.1)

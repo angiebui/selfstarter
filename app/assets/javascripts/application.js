@@ -19,5 +19,6 @@
 //= require ckeditor/init
 //= require bootstrap
 //= require project
-//= require admin
 //= require checkout
+//= require admin
+//= require main

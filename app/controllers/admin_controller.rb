@@ -12,7 +12,7 @@ class AdminController < ApplicationController
     if request.put?
       
       #First assign the new settings values from the form entries
-      @settings.update_attributes(params[:settings])   # THIS MUST BE ASSIGN - TODO TODO
+      @settings.assign_attributes(params[:settings])   # THIS MUST BE ASSIGN - TODO TODO
       
       #Check if the new settings pass validations...if not, re-render form and display errors in flash msg
       if !@settings.valid?   
@@ -84,7 +84,7 @@ class AdminController < ApplicationController
     page = params[:page] || 1
   
     if !@settings.ct_campaign_id
-      redirect_to admin_project_path, :flash => { :error => "Project is not set up yet!" }
+      redirect_to admin_project_path, :flash => { :notice => "Project is not yet set up! Please fill out form on the project tab." }
     else
       
       if params.has_key?(:payment_id) && !params[:payment_id].blank?

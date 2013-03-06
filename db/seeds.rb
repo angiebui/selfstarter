@@ -21,20 +21,10 @@ Settings.create(
           main_content: "<p>Awesome content goes here</p>", 
           amazon_access_key: "YOUR_AMAZON_ACCESS_KEY",
           amazon_secret_key: "YOUR_AMAZON_SECRET_KEY",
-          checkout_content: '<p style="margin: 0px 0px 10px; font-size: 18px; line-height: 27px; font-weight: bold; font-family: sans-serif;">Which payment methods do you accept?</p>
-
-<p style="margin: 0px 0px 40px; font-size: 18px; line-height: 27px; color: rgb(109, 110, 112); font-family: sans-serif;">We accept Visa, Mastercard, and American Express.</p>
-
-<p style="margin: 0px 0px 10px; font-size: 18px; line-height: 27px; font-weight: bold; font-family: sans-serif;">Is my payment secure?</p>
-
-<p style="margin: 0px 0px 40px; font-size: 18px; line-height: 27px; color: rgb(109, 110, 112); font-family: sans-serif;">Your credit card details will be sent directly to our payment processor.<br />
-We never receive or store your credit card info.</p>'
-          price: 19.95,
+          checkout_content: '<p style="margin: 0px 0px 10px; font-size: 18px; line-height: 27px; font-weight: bold; font-family: sans-serif;">Which payment methods do you accept?</p><p style="margin: 0px 0px 40px; font-size: 18px; line-height: 27px; color: rgb(109, 110, 112); font-family: sans-serif;">We accept Visa, Mastercard, and American Express.</p><p style="margin: 0px 0px 10px; font-size: 18px; line-height: 27px; font-weight: bold; font-family: sans-serif;">Is my payment secure?</p><p style="margin: 0px 0px 40px; font-size: 18px; line-height: 27px; color: rgb(109, 110, 112); font-family: sans-serif;">Your credit card details will be sent directly to our payment processor.<br />We never receive or store your credit card info.</p>',
           use_payment_options: false,
           charge_limit: 25.00,
-          facebook_app_id: "1234567890",
-          tweet_text: "to crowdfund",
-          google_id: "1234567890"
+          tweet_text: "to crowdfund"
         }
     ]
 )

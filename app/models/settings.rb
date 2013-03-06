@@ -10,7 +10,7 @@ class Settings < ActiveRecord::Base
   attr_accessor :video_placeholder_delete, :logo_image_delete, :project_image_delete
   
   validates :project_name, :project_goal, :expiration_date, :contributor_reference, presence: true
-  validate :expiration_date_cannot_be_in_the_past
+  #validate :expiration_date_cannot_be_in_the_past
   validates :min_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
   validates :fix_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
   validates :user_fee_amount, numericality: { greater_than_or_equal_to: 0 }

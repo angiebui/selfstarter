@@ -31,6 +31,15 @@ module Selfstarter
     #Fix for getting Devise to work on Heroku deploy
     #Forcing app to not access the DB or models when precompiling
     config.assets.initialize_on_precompile = false
+
+    config.action_mailer.smtp_settings = {
+       :authentication => :plain,
+       :address => "smtp.mailgun.org",
+       :port => 587,
+       :domain => "crowdhoster.mailgun.org",
+       :user_name => "postmaster@crowdhoster.mailgun.org",
+       :password => "1xkmy8y4i9q3"
+      }
      
   end
 end

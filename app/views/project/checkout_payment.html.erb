@@ -7,6 +7,9 @@
         <thead>
           <tr>
             <th>Payment Amount</th>
+            <% if @settings.payment_type == 'fixed' %>
+              <th>Quantity</th>
+            <% end %>   
             <% if @fee > 0 %>
               <th>Processing Fee (<%= @settings.user_fee_amount %>%)</th>
             <% end %>
@@ -15,14 +18,32 @@
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td id="table_amount">
               $<%= number_with_precision(@amount, precision: 2) %>
               <%= link_to "edit", checkout_amount_path if @settings.payment_type != 'fixed' %>
             </td>
+
+            <% if @settings.payment_type == 'fixed' %>
+              <td id="table_quantity">
+                <select id="table_quantity_value" style="width:50px">
+                  <option value="01" selected>01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09">09</option>
+                  <option value="10">10</option>
+                </select>  
+              </td>
+            <% end %>            
+            
             <% if @fee > 0 %>
-              <td>$<%= number_with_precision(@fee, precision: 2) %></td>
+              <td id="table_fee">$<%= number_with_precision(@fee, precision: 2) %></td>
             <% end %>
-            <td>$<%= number_with_precision(@total, precision: 2) %></td>
+            <td id="table_total">$<%= number_with_precision(@total, precision: 2) %></td>
           </tr>
         </tbody>
       </table>      
@@ -74,8 +95,8 @@
                     
           <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= current_user.ct_user_id %>" >
           
-          <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
-          <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
+          <input id="amount" type="hidden" name="amount" data-original="<%= @amount %>" value="<%= @amount %>">
+          <input id="fee" type="hidden" name="fee" data-original="<%= @fee %>" value="<%= @fee %>">
     
           <button class="btn btn-primary" type="submit">Confirm Payment</button>
           <span id="loader" class="loader" style="display:none"></span>     

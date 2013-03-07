@@ -34,6 +34,7 @@ class ProjectController < ApplicationController
   def checkout_confirmation  
     if params[:ct_user_id].blank? || params[:ct_card_id].blank? || params[:amount].blank? || params[:fee].blank?
       redirect_to checkout_amount_path, flash: { error: "An error occurred" }
+      return
     end
   
     ct_user_id = params[:ct_user_id]
@@ -47,14 +48,15 @@ class ProjectController < ApplicationController
     
     #TODO: Check to make sure the amount is valid here
     
-    payment = Crowdtilt::Payment.new amount: amount, user_fee_amount: user_fee_amount, admin_fee_amount: 0, 
+    @payment = Crowdtilt::Payment.new amount: amount, user_fee_amount: user_fee_amount, admin_fee_amount: 0, 
                                      user_id: ct_user_id, card_id: ct_card_id, 
                                      campaign_id: @settings.ct_campaign_id
-    payment.save
+    @payment.save
     
-    UserMailer.payment_confirmation(payment).deliver
-    
-    @payment = payment.id  
+    begin
+      UserMailer.payment_confirmation(@payment).deliver
+    rescue => exception
+    end
   end
   
   def prefill

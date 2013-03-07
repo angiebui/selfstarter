@@ -192,10 +192,16 @@
       <legend>Checkout Page Content</legend>
 
         <div class="field clearfix">
-          <label>Sidebar Content</label>
+          <label>Checkout Sidebar Content</label>
           <p class="explanation inline">This content is displayed on the right sidebar of the checkout page. A question/answer format is often used.</p>
           <%= f.cktext_area :checkout_content %> 
-        </div>      
+        </div>   
+        
+        <div class="field clearfix">
+          <label>Confirmation Page Content</label>
+          <p class="explanation inline">This content appears on the confirmation page when one of your contributors copmletes a successful transaction!</p>
+          <%= f.cktext_area :confirmation_page_content %> 
+        </div>     
       
       </fieldset>
   

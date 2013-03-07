@@ -1,37 +1,21 @@
 <div id="checkout">
   <div class="container clearfix">
-  
-  <p>Payment ID: <%= @payment %></p>
-  
-  </div>
-</div>
-
-
-
-
-
-<div class="gray_background" id='share_container'>
-  <div class="wrapper center" id="congrats">
-    <h2>
-      Hooray! You've just reserved <%= @settings.product_description %>!
-    </h2>
-    <p>Congratulations, you're <%= @settings.primary_stat_verb %> number <span id="backer_number"><%= number_with_delimiter Order.backers, :delimiter => "," %></span>,  in supporting <%= @settings.product_name %>. Share the great news!</p>
-    <br />
-    <br />
-    <div id="share" class="clearfix">
-      <div id='pin_button_container'>
-        <%= pin_it_button %>
-      </div>
-      <div id='tweet_button_container'>
-        <%= tweet_button %>
-      </div>
-      <div id='facebook_button_container'>
-        <%= like_button(450, true) %>
-      </div>
+    <div class="main_content">
+      <%= raw(@settings.confirmation_page_content) %>
+      <div class="share">
+        <%= render 'shared/share_buttons' %>
+      </div>      
+    </div>  
+    <div class="well confirmation_sidebar">
+      <h4>Payment Details</h4>
+      <p>
+      <strong>Date:</strong><br/> <%= DateTime.parse(@payment.creation_date).strftime("%m/%d/%Y") %> <br/><br/>
+      <strong>Amount:</strong><br/> $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/><br/>
+      <strong>Card:</strong><br/> <%= @payment.card.card_type %> ************<%= @payment.card.last_four %> 
+      (<%= @payment.card.expiration_month.to_s + '/' + @payment.card.expiration_year.to_s %>) <br/><br/>
+      <strong>Status:</strong><br/> <%= @payment.status %> <br/><br/>
+      <strong>ID:</strong><br/> <%= @payment.id %>
+      </p>
     </div>
-     <div id="order_id">Reservation ID: <%= @order.uuid %>. You can bookmark or print this page for your records.</div>
   </div>
 </div>
-
-<%= render 'preorder/share/twitter_js' %>
-<%= render 'preorder/share/facebook_js' %>

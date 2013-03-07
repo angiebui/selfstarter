@@ -10,10 +10,10 @@ module Selfstarter
   
   class Application < Rails::Application
     
-    config.crowdtilt_mode = 'sandbox'  #sandbox or production
+    config.crowdtilt_mode = 'production'  #sandbox or production
     #Crowdtilt API key/secret
-    config.crowdtilt_key = ENV['CROWDTILT_KEY']
-    config.crowdtilt_secret = ENV['CROWDTILT_SECRET']
+    config.crowdtilt_production_key = ENV['CROWDTILT_PRODUCTION_KEY']
+    config.crowdtilt_production_secret = ENV['CROWDTILT_PRODUCTION_SECRET']
     config.crowdtilt_sandbox_key = ENV['CROWDTILT_SANDBOX_KEY']
     config.crowdtilt_sandbox_secret = ENV['CROWDTILT_SANDBOX_SECRET']
     
@@ -27,8 +27,6 @@ module Selfstarter
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     # --- Standard Rails Config ---
-    
-
     
     #loading for ckeditor
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)

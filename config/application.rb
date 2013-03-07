@@ -9,7 +9,14 @@ end
 module Selfstarter
   
   class Application < Rails::Application
-
+    
+    config.crowdtilt_mode = 'sandbox'  #sandbox or production
+    #Crowdtilt API key/secret
+    config.crowdtilt_key = ENV['CROWDTILT_KEY']
+    config.crowdtilt_secret = ENV['CROWDTILT_SECRET']
+    config.crowdtilt_sandbox_key = ENV['CROWDTILT_SANDBOX_KEY']
+    config.crowdtilt_sandbox_secret = ENV['CROWDTILT_SANDBOX_SECRET']
+    
     # --- Standard Rails Config ---
     config.time_zone = 'Pacific Time (US & Canada)'
     config.encoding = "utf-8"
@@ -21,9 +28,7 @@ module Selfstarter
     config.assets.version = '1.0'
     # --- Standard Rails Config ---
     
-    #Crowdtilt API key/secret
-    config.crowdtilt_key = ENV['CROWDTILT_KEY']
-    config.crowdtilt_secret = ENV['CROWDTILT_SECRET']
+
     
     #loading for ckeditor
     config.autoload_paths += %W(#{config.root}/app/models/ckeditor)

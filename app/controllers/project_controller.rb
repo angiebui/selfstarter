@@ -1,15 +1,11 @@
 class ProjectController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => :ipn
   before_filter :check_init
-  before_filter :check_project, only: [:checkout, :checkout_payment]
+  before_filter :check_project, only: [:homepage, :checkout_amount, :checkout_payment]
   
   def homepage
-    if @settings.ct_campaign_id
-      @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
-      @faqs = Faq.all
-    else
-      redirect_to admin_project_path, flash: { notice: "Project is not yet set up! Please fill out form on the project tab." }
-    end
+    @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
+    @faqs = Faq.all
   end
 
   def checkout_amount
@@ -131,7 +127,11 @@ class ProjectController < ApplicationController
     
     def check_project
       if !@settings.ct_campaign_id
-        redirect_to root_path, :flash => { :error => "Project is not set up yet!" }
+        if user_signed_in? && current_user.admin?
+          redirect_to admin_project_path, :flash => { :notice => "Please submit the project form to confirm your settings." }
+        else
+          redirect_to user_settings_path, :flash => { :notice => "Sorry, the project is not set up yet!" }
+        end
       end
     end
   

@@ -1,7 +1,7 @@
 <div id="navbar">
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-      <div class="container">
+      <div class="container clearfix">
         <ul class="nav pull-left">
           <li><a href="http://www.crowdhoster.com" target="_blank">Powered by Crowdhoster</a></li>
         </ul>
@@ -28,8 +28,11 @@
             <li><img src="/assets/user_icon.png"/><%= link_to "Sign In", new_user_session_path %>
           <% end %>               
           </li>
-        </ul>
+        </ul>     
       </div>
+      <% if Rails.configuration.crowdtilt_mode == 'sandbox' %>
+        <div style="background: red; text-align: center; color: white">Sandbox Mode: no transactions will be processed</div>
+      <% end %>
     </div>
   </div>
 </div>

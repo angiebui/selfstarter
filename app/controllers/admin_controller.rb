@@ -84,7 +84,7 @@ class AdminController < ApplicationController
     page = params[:page] || 1
   
     if !@settings.ct_campaign_id
-      redirect_to admin_project_path, :flash => { :notice => "Please submit the project form to confirm your settings" }
+      redirect_to admin_project_path, :flash => { :notice => "Please submit the project form below to confirm your settings." }
     else
       
       if params.has_key?(:payment_id) && !params[:payment_id].blank?

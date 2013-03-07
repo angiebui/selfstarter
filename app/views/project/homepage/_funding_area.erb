@@ -18,16 +18,16 @@
           <% if !@settings.video_embed_url.blank? %>
             <div id="player" class="hidden" style="display: none;">
               <object width="512" height="385">
-                <param name="movie" value="<%= @settings.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" />
+                <param name="movie" value="https://www.youtube.com/v/<%= @settings.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" />
                 <param name="allowFullScreen" value="true" />
                 <param name="allowscriptaccess" value="always" />
-                <embed src="<%= @settings.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" type="application/x-shockwave-flash" width="512" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
+                <embed src="https://www.youtube.com/v/<%= @settings.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" type="application/x-shockwave-flash" width="512" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
               </object>
             </div>
           <% end %>
         <% else %>
           <% if !@settings.video_embed_url.blank? %>
-            <iframe width='512' height='385' src="<%= video_url %>"></iframe>
+            <iframe width='512' height='385' src="http://www.youtube.com/embed/<%= video_url %>?rel=0"></iframe>
           <% end %>
         <% end %>
       </div>

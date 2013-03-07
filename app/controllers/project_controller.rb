@@ -128,7 +128,7 @@ class ProjectController < ApplicationController
     def check_project
       if !@settings.ct_campaign_id
         if user_signed_in? && current_user.admin?
-          redirect_to admin_project_path, :flash => { :notice => "Please submit the project form to confirm your settings." }
+          redirect_to admin_project_path, :flash => { :notice => "Please submit the project form below to confirm your settings." }
         else
           redirect_to user_settings_path, :flash => { :notice => "Sorry, the project is not set up yet!" }
         end

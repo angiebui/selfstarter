@@ -14,17 +14,13 @@ Settings.create(
           project_goal: 100000,
           expiration_date: DateTime.strptime("12/31/2013 8:00", "%m/%d/%Y %H:%M"),
           contributor_reference: "backer",
-          video_embed_url: "http://www.youtube.com/v/es1OJfSDthI",
-          use_video_placeholder: true,
+          video_embed_url: "D1L3o88GKew",
           primary_call_to_action_button: "Reserve Now",
           secondary_call_to_action_button: "Reserve Now",
           main_content: "<p>Awesome content goes here</p>", 
-          amazon_access_key: "YOUR_AMAZON_ACCESS_KEY",
-          amazon_secret_key: "YOUR_AMAZON_SECRET_KEY",
           checkout_content: '<p style="margin: 0px 0px 10px; font-size: 18px; line-height: 27px; font-weight: bold; font-family: sans-serif;">Which payment methods do you accept?</p><p style="margin: 0px 0px 40px; font-size: 18px; line-height: 27px; color: rgb(109, 110, 112); font-family: sans-serif;">We accept Visa, Mastercard, and American Express.</p><p style="margin: 0px 0px 10px; font-size: 18px; line-height: 27px; font-weight: bold; font-family: sans-serif;">Is my payment secure?</p><p style="margin: 0px 0px 40px; font-size: 18px; line-height: 27px; color: rgb(109, 110, 112); font-family: sans-serif;">Your credit card details will be sent directly to our payment processor.<br />We never receive or store your credit card info.</p>',
           use_payment_options: false,
-          charge_limit: 25.00,
-          tweet_text: "to crowdfund"
+          tweet_text: "Come check out our awesome campaign"
         }
     ]
 )

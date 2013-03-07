@@ -99,7 +99,8 @@
       <div><%= f.label :password %>
       <%= f.password_field :password %></div>
       <br/>
-      <button class="btn btn-primary" type="submit">Continue to next step</button>     
+      <button class="btn btn-primary show_loader" data-loader="user_form" type="submit">Continue to next step</button>     
+      <span class="loader" data-loader="user_form" style="display:none"></span>  
       <% end %>
     
       <%= link_to "Already have an account?", new_session_path(resource_name) %>

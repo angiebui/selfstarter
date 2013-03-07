@@ -2,8 +2,8 @@
   <div class="container clearfix">
   
     <h3>
-      Admin > <%= link_to @settings.project_name, root_url, class: 'show-loader' %>
-      <span id="header-loader" class="loader" style="display:none"></span>  
+      Admin > <%= link_to @settings.project_name, root_url, :class => 'show_loader', :'data-loader' => "admin_header" %>
+      <span class="loader" data-loader="admin_header" style="display:none"></span>  
     </h3>
     
     

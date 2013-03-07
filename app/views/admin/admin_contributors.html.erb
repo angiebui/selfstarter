@@ -1,13 +1,13 @@
 <div class="container clearfix">
   <ul class="nav nav-pills">
     <li>
-      <%= link_to "Project", admin_project_path, class: 'show-loader' %>
+      <%= link_to "Project", admin_project_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
     </li>
     <li class="active">
-      <%= link_to "Contributors", admin_contributors_path, class: 'show-loader' %>
+      <%= link_to "Contributors", admin_contributors_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
     </li>
     <li>
-      <%= link_to "Bank Setup", admin_bank_setup_path, class: 'show-loader' %>
+      <%= link_to "Bank Setup", admin_bank_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
     </li>
   </ul>
 </div>
@@ -19,11 +19,11 @@
       <form accept-charset="UTF-8" action="/admin/contributors" method="get">
         
         <input id="payment_id" type="text" name="payment_id" placeholder="Search by ID" value="<%= params[:payment_id] if params.has_key?(:payment_id) %>"/>  
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-primary show_loader" data-loader="admin_header">Search</button>
       
       </form>
       <% if params.has_key?(:payment_id) %>
-        <%= link_to "clear", admin_contributors_path %>
+        <%= link_to "clear", admin_contributors_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
       <% end %>
     </div>
 

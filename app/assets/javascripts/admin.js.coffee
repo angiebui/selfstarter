@@ -4,9 +4,6 @@ Selfstarter.admin =
   
     _this = this
 
-    $('a.show-loader').on "click", ->
-      $('#header-loader').show()
-
     #
     # Admin Project
     #

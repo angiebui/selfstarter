@@ -1,4 +1,4 @@
-window.Selfstarter =
+Selfstarter.project =
   
   firstTime: true
 

@@ -23,7 +23,8 @@
       <div><%= f.label :password %>
       <%= f.password_field :password %></div>
       
-      <button class="btn btn-primary" type="submit">Create my account</button>     
+      <button class="btn btn-primary show_loader" data-loader="user_form" type="submit" >Create my account</button>
+      <span class="loader" data-loader="user_form" style="display:none"></span>     
     <% end %>
     
      <%= link_to "Already have an account?", new_session_path(resource_name) %><br />

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130228071510) do
+ActiveRecord::Schema.define(:version => 20130307085308) do
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -77,12 +77,7 @@ ActiveRecord::Schema.define(:version => 20130228071510) do
     t.float    "project_goal"
     t.string   "tagline"
     t.string   "video_embed_url"
-    t.boolean  "use_video_placeholder"
-    t.string   "amazon_access_key"
-    t.string   "amazon_secret_key"
-    t.float    "price"
     t.boolean  "use_payment_options"
-    t.float    "charge_limit"
     t.string   "contributor_reference"
     t.datetime "expiration_date"
     t.string   "progress_text"
@@ -97,10 +92,7 @@ ActiveRecord::Schema.define(:version => 20130228071510) do
     t.string   "video_placeholder_content_type"
     t.integer  "video_placeholder_file_size"
     t.datetime "video_placeholder_updated_at"
-    t.string   "contributor_verb"
     t.string   "secondary_call_to_action_button"
-    t.string   "checkout_header"
-    t.text     "checkout_sidebar"
     t.text     "primary_call_to_action_description"
     t.text     "secondary_call_to_action_description"
     t.text     "main_content"
@@ -119,6 +111,15 @@ ActiveRecord::Schema.define(:version => 20130228071510) do
     t.string   "project_image_content_type"
     t.integer  "project_image_file_size"
     t.datetime "project_image_updated_at"
+    t.string   "copyright_text"
+    t.text     "confirmation_page_content"
+    t.text     "confirmation_email_content"
+    t.string   "facebook_title"
+    t.text     "facebook_description"
+    t.string   "facebook_image_file_name"
+    t.string   "facebook_image_content_type"
+    t.integer  "facebook_image_file_size"
+    t.datetime "facebook_image_updated_at"
   end
 
   create_table "users", :force => true do |t|

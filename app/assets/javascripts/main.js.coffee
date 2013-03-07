@@ -5,6 +5,8 @@ window.Selfstarter =
       $this = $(this)
       target = $this.attr('data-loader')
       $('.loader').filter('[data-loader="' + target + '"]').show()
+    
+    $('.show_tooltip').tooltip()
 
 $ ->
   Selfstarter.init()

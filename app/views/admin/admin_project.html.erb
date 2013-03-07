@@ -53,10 +53,7 @@
           
           <div id="preset-amount" style="<%= @settings.payment_type == 'fixed' ? "" : "display:none" %>">
             <label class="inline"><strong>Preset amount: $ &nbsp;</strong></label>
-            <%= f.text_field :fix_payment_amount, value: (number_with_precision(f.object.fix_payment_amount, :precision => 2) || 0) %>
-            <br/>
-            <label class="inline"><strong>Limit per person: &nbsp;</strong></label>
-            <input type="text"/>        
+            <%= f.text_field :fix_payment_amount, value: (number_with_precision(f.object.fix_payment_amount, :precision => 2) || 0) %>      
           </div>
           
           <label><input id="settings_payment_type_min" name="settings[payment_type]" value="min" type="radio" <%= @settings.payment_type == 'min' ? "checked" : "" %>>Require a <strong>minimum amount</strong> for each contribution. <i>(ex. $10 min. contribution)</i></label>
@@ -212,10 +209,34 @@
         </div>
         
         <div class="field clearfix">
-          <p class="explanation">Include your facebook app ID here to properly set up your social sharing buttons. Visit https://developers.facebook.com/apps to create an app for your site.</p>
+          <p class="explanation">Include your facebook app ID here to properly set up your social sharing buttons. Visit https://developers.facebook.com/apps to create an app for your site. The like button will NOT show up unless you provide this ID.</p>
           <label>Facebook App ID</label>
           <%= f.text_field :facebook_app_id %>
-        </div>      
+        </div>
+        
+        <div class="field clearfix">
+          <p class="explanation">The title shown when your site is shared via facebook. Leave blank if you just want this to use your project name.</p>
+          <label>Facebook Title</label>
+          <%= f.text_field :facebook_title %>
+        </div>
+        
+        <div class="field clearfix">
+          <p class="explanation">The description shown when your site is shared via facebook.</p>
+          <label>Facebook Description</label>
+          <%= f.text_area :facebook_description, rows: 2 %>
+        </div>
+        
+        <div class="field clearfix">
+          <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px</p>
+          <label>Facebook Image</label>
+          <% if @settings.facebook_image.file? %>
+            <%= image_tag @settings.facebook_image.url(:thumb) %><br/>
+            <%= f.file_field :facebook_image %><br/>
+            <%= f.check_box :facebook_image_delete %><span>Delete current image</span>
+          <% else %>           
+            <%= f.file_field :facebook_image %>
+          <% end  %>
+        </div>              
       
       </fieldset>
       
@@ -226,6 +247,17 @@
           <p class="explanation">If would like to add tracking to your site, sign up for an account at https://google.com/analytics, then paste your tracking ID here.</p>
           <label>Google Analytics ID</label>
           <%= f.text_field :google_id %>
+        </div>
+      
+      </fieldset>
+      
+      <fieldset>
+      <legend>Footer Content</legend>
+      
+        <div class="field clearfix">
+          <p class="explanation">The text shown in the footer beside the copyright symbol.</p>
+          <label>Copyright Text</label>
+          <%= f.text_field :copyright_text %>
         </div>
       
       </fieldset>

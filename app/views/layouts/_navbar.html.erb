@@ -6,7 +6,7 @@
           <li><a href="http://www.crowdhoster.com" target="_blank">Powered by Crowdhoster</a></li>
           
           <% if Rails.configuration.crowdtilt_mode == 'sandbox' %>
-          <li style="background: red; color: white; margin-top: 5px; border-radius: 5px">&nbsp;Sandbox Mode&nbsp;</li>
+          <li style="background: red; color: white; margin-top: 5px; border-radius: 5px" class="show_tooltip" data-placement="bottom" data-title="Transactions will NOT be processed">&nbsp;Sandbox Mode&nbsp;</li>
           <% end %>
         
         </ul>

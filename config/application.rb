@@ -34,7 +34,21 @@ module Selfstarter
     #Fix for getting Devise to work on Heroku deploy
     #Forcing app to not access the DB or models when precompiling
     config.assets.initialize_on_precompile = false
-
+    
+    #Paperclip default options
+    config.paperclip_defaults = {
+      storage: :s3,
+      s3_credentials: { 
+        access_key_id: ENV['AWS_ACCESS_KEY_ID'], 
+        access_key_secret: ENV['AWS_SECRET_ACCESS_KEY']  
+      },
+      path: ENV['CROWDTILT_PRODUCTION_KEY'] + "/:id/:style.:extension",
+      bucket: "crowdhoster",
+      s3_protocol: 'https',
+      default_url: '/images/missing_:style.jpg'
+    }
+    
+    #Mailgun options
     config.action_mailer.smtp_settings = {
        :authentication => :plain,
        :address => "smtp.mailgun.org",

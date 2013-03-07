@@ -8,6 +8,7 @@ gem 'pg'
 
 gem 'paperclip', '~> 3.0'
 gem 'ckeditor'
+gem 'aws-sdk'
 
 group :development do
   gem 'pry-rails'

@@ -27,6 +27,5 @@ config/environments/*.local.yml
 # yes, we use macs
 .DS_Store
 
-# Ignore uploaded images
-/public/system
-/public/ckeditor_assets
+# Ignore local environment file
+.env

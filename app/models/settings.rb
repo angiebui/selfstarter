@@ -20,11 +20,19 @@ class Settings < ActiveRecord::Base
   before_validation { project_image.clear if project_image_delete == '1' }
   before_validation { facebook_image.clear if project_image_delete == '1' }
   
-  has_attached_file :video_placeholder, styles: { main: "512x385!", thumb: "100x100#" }  #The hash indicates cropping, use ! for forced scaling
+  has_attached_file :video_placeholder, 
+                    styles: { main: "512x385!", thumb: "100x100#" }  #The hash indicates cropping, use ! for forced scaling
+
   
-  has_attached_file :logo_image, styles: { thumb: "100x100#" }
-  has_attached_file :project_image, styles: { main: "512x385!", thumb: "100x100#" }
-  has_attached_file :facebook_image, styles: { thumb: "100x100#" }
+  has_attached_file :logo_image, 
+                    styles: { thumb: "100x100#" }
+                    
+  has_attached_file :project_image, 
+                    styles: { main: "512x385!", thumb: "100x100#" }                   
+                    
+                    
+  has_attached_file :facebook_image, 
+                    styles: { thumb: "100x100#" }
 
   before_save :set_min_amount
   

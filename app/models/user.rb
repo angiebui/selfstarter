@@ -13,11 +13,11 @@ class User < ActiveRecord::Base
   
   has_many :orders
   
-  before_save :create_crowdtilt_user
+  before_save :sync_crowdtilt_user
   
   private
   
-    def create_crowdtilt_user
+    def sync_crowdtilt_user
       if !self.ct_user_id
         ct_user = Crowdtilt::User.new name: self.fullname, email: self.email
         
@@ -29,22 +29,19 @@ class User < ActiveRecord::Base
         else
           self.ct_user_id = ct_user.id
         end          
-#
-#TODO: Add this back in when the API is updated
-#
-#      else
-#         ct_user = Crowdtilt::User.find(self.ct_user_id)
-#         ct_user.name = self.fullname
-#         ct_user.email = self.email
-# 
-#         begin
-#           ct_user.save
-#         rescue => exception     
-#           errors.add(:base, exception.to_s)
-#           false
-#         else
-#           true
-#        end 
+     else
+        ct_user = Crowdtilt::User.find(self.ct_user_id)
+        ct_user.name = self.fullname
+        ct_user.email = self.email
+
+        begin
+          ct_user.save
+        rescue => exception     
+          errors.add(:base, exception.to_s)
+          false
+        else
+          true
+       end 
       end
     end
 end

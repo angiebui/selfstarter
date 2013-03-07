@@ -4,6 +4,11 @@
       <div class="container clearfix">
         <ul class="nav pull-left">
           <li><a href="http://www.crowdhoster.com" target="_blank">Powered by Crowdhoster</a></li>
+          
+          <% if Rails.configuration.crowdtilt_mode == 'sandbox' %>
+          <li style="background: red; color: white; margin-top: 5px; border-radius: 5px">&nbsp;Sandbox Mode&nbsp;</li>
+          <% end %>
+        
         </ul>
         <ul class="nav pull-right">
           <% if user_signed_in? %>
@@ -30,9 +35,6 @@
           </li>
         </ul>     
       </div>
-      <% if Rails.configuration.crowdtilt_mode == 'sandbox' %>
-        <div style="background: red; text-align: center; color: white">Sandbox Mode: transactions will NOT be processed</div>
-      <% end %>
     </div>
   </div>
 </div>

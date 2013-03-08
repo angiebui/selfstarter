@@ -14,6 +14,9 @@ class Settings < ActiveRecord::Base
   validates :min_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
   validates :fix_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
   validates :user_fee_amount, numericality: { greater_than_or_equal_to: 0 }
+  validate :expiration_date_cannot_be_in_the_past
+
+
   
   before_validation { video_placeholder.clear if video_placeholder_delete == '1' }
   before_validation { logo_image.clear if logo_image_delete == '1' }
@@ -41,6 +44,12 @@ class Settings < ActiveRecord::Base
   def set_min_amount  
     if self.payment_type == "any"
       self.min_payment_amount = 1.0
+    end
+  end
+
+  def expiration_date_cannot_be_in_the_past
+    if !expiration_date.blank? and expiration_date < Date.today
+      errors.add(:expiration_date, "can't be in the past")
     end
   end
     

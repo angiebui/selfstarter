@@ -8,31 +8,21 @@
 Settings.create(
     [
         {
-          product_name: "Selfstarter",
+          initialized_flag: false,
+          project_name: "Selfstarter",
+          tagline: "Roll your own crowdfunding",
           project_goal: 100000,
-          product_description: "a set of widgets",
-          product_image_path: "my-product-image.png",
-          value_proposition: "Roll your own crowdfunding",
-          video_embed_url: "http://www.youtube.com/v/es1OJfSDthI",
-          use_video_placeholder: true,
-          amazon_access_key: "YOUR_AMAZON_ACCESS_KEY",
-          amazon_secret_key: "YOUR_AMAZON_SECRET_KEY",
-          price: 19.95,
-          use_payment_options: false,
-          payment_description: "You really should change this text because people will see it on Amazon's order page!!!!!",
-          charge_limit: 25.00,
-          primary_stat: "backers",
-          primary_stat_verb: "backer",
-          middle_reserve_text: "Reserve Now",
           expiration_date: DateTime.strptime("12/31/2013 8:00", "%m/%d/%Y %H:%M"),
-          progress_text: "Implemented",
-          ships: "Ships...sometime",
-          call_to_action: "Reserve Now",
-          price_human: "It costs money!",
-          dont_give_them_a_reason_to_say_no: "You'll get this exact site. All you'll need to get started is a great product.",
-          facebook_app_id: "1234567890",
-          tweet_text: "to crowdfund",
-          google_id: "1234567890"
+          contributor_reference: "backer",
+          video_embed_url: "D1L3o88GKew",
+          primary_call_to_action_button: "Reserve Now",
+          secondary_call_to_action_button: "Reserve Now",
+          main_content: "<p>Awesome content goes here</p>", 
+          checkout_content: '<p style="margin: 0px 0px 10px; font-size: 18px; line-height: 27px; font-weight: bold; font-family: sans-serif;">Which payment methods do you accept?</p><p style="margin: 0px 0px 40px; font-size: 18px; line-height: 27px; color: rgb(109, 110, 112); font-family: sans-serif;">We accept Visa, Mastercard, and American Express.</p><p style="margin: 0px 0px 10px; font-size: 18px; line-height: 27px; font-weight: bold; font-family: sans-serif;">Is my payment secure?</p><p style="margin: 0px 0px 40px; font-size: 18px; line-height: 27px; color: rgb(109, 110, 112); font-family: sans-serif;">Your credit card details will be sent directly to our payment processor.<br />We never receive or store your credit card info.</p>',
+          use_payment_options: false,
+          tweet_text: "Come check out our awesome campaign",
+          copyright_text: '2013',
+          confirmation_page_content: '<h4>Woo hoo! Thanks for backing Selfstarter</h4>'
         }
     ]
 )

@@ -1,3 +1,7 @@
+#main {
+  min-height: 400px;
+}
+
 h1 {
   margin: 0 auto;
   font-family: Helvetica;
@@ -20,22 +24,23 @@ h2 {
   font-size: 45px;
   color: $h2_color;
   margin-bottom: 50px;
-  font-weight: normal;
+  font-weight: 200;
+  letter-spacing: 2px;
 }
 
 h3 {
   font-family: $primary_font, $secondary_font, $tertiary_font;
-  font-size: 40px;
+  font-size: 30px;
   color: $h3_color;
-  margin-bottom: 40px;
-  font-weight: normal;
+  margin-bottom: 20px;
+  font-weight: 200;
 }
 
 h4 {
-  font-size: 36px;
+  font-size: 20px;
   color: $h4_color;
-  margin-bottom: 30px;
-  font-weight: normal;
+  margin-bottom: 10px;
+  font-weight: 200;
 }
 
 h5 {
@@ -57,104 +62,40 @@ p {
   text-align: center;
 }
 
-// Used in the FAQ
-details, summary
-{
-  outline: none;
-}
-summary
-{
-  text-decoration: none;
-  color: $summary_color;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  font-size: 20px;
-  line-height: 1.3;
-
-}
-summary:hover
-{
-  text-decoration: underline;
-  cursor: pointer;
-}
-details summary::-webkit-details-marker { display:none; content: ""; }
-// Styling the polyfill for browsers that don't support details/summary tags
-.no-details details { display: block }
-.no-details details > summary::before { content:none }
-.no-details details.open > summary::before {   content:none }
-
-.button:hover {
-  text-decoration: none;
-  color: $button_hovered_color;
+.ml-20 {
+  margin-left: 20px;
 }
 
-.button:active {
-  background: $button_active_background;
-  border: 1px solid $button_active_border;
+.loader {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background: url('/assets/loading.gif');
 }
 
-body.lt-ie9 {
-  .blue_button {
-    background-color: #0D97E6 !important;
-    background-image: none !important;
+#errors p{
+  color: red;
+  font-size: 14px;
+}
+
+#share_buttons {
+
+  position: relative;
+  .like {
+    position: absolute;
+    top: 0px;
+    left: 0px;
   }
-  .blue_button:hover {
-    background-color: #add8e6 !important;
+  
+  .tweet {
+    position: absolute;
+    top: 0px;
+    left: 110px;
   }
-}
-
-.blue_button {
-  display: block;
-  color: $button_color; /* text color */
-  text-shadow: 0 -1px 1px $button-text_shadow_color; /* drop shadow */
-  -moz-box-shadow:
-    0 1px 1px  $button_box_shadow_color /* drop shadow */,
-    inset 0 -1px $button_box_shadow_inset_color /* inner shadow */;
-  -webkit-box-shadow:
-    0 1px 1px $button_box_shadow_color /* drop shadow */,
-    inset 0 -1px 1px $button_box_shadow_inset_color /* inner shadow */;
-  background-image: $button_top_gradient; /* gradient fill */
-  background-image: -moz-linear-gradient(90deg, $button_top_gradient 0%, $button_bottom_gradient 100%); /* gradient fill */
-  background-image: -o-linear-gradient(90deg, $button_top_gradient 0%, $button_bottom_gradient 100%); /* gradient fill */
-  background-image: -webkit-linear-gradient(90deg, $button_top_gradient 0%, $button_bottom_gradient 100%); /* gradient fill */
-  background-image: linear-gradient(90deg, $button_top_gradient 0%, $button_bottom_gradient 100%); /* gradient fill */
-  -webkit-border-radius: $button_border_radius;
-  -moz-border-radius: $button_border_radius;
-  border-radius: $button_border_radius;
-  font-family: $primary_font, $secondary_font, $tertiary_font;
-}
-.blue_button:hover {
-  -moz-box-shadow:
-    0 1px 1px $button_box_shadow_color /* drop shadow */,
-    inset 0 -1px 1px $button_box_shadow_inset_color /* inner shadow */;
-  -webkit-box-shadow:
-    0 1px 1px$button_box_shadow_color /* drop shadow */,
-    inset 0 -1px 1px $button_box_shadow_inset_color /* inner shadow */;
-  box-shadow:
-    0 1px 1px $button_box_shadow_color /* drop shadow */,
-    inset 0 -1px 1px $button_box_shadow_inset_color /* inner shadow */;
-  background-image: $button_ie9_gradient_hover; /* gradient fill */
-  background-image: -moz-linear-gradient(90deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
-  background-image: -o-linear-gradient(90deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
-  background-image: -webkit-linear-gradient(90deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
-  background-image: linear-gradient(90deg, $button_top_gradient_hover 0%, $button_bottom_gradient_hover 100%); /* gradient fill */
-  text-decoration: none;  
-}
-
-.blue_button:active {
-  -moz-box-shadow:
-    0 1px 1px $button_box_shadow_color /* drop shadow */,
-    inset 0 3px 5px $button_box_shadow_inset_color /* inner shadow */;
-  -webkit-box-shadow:
-    0 1px 1px $button_box_shadow_color /* drop shadow */,
-    inset 0 3px 5px $button_box_shadow_inset_color /* inner shadow */;
-  box-shadow:
-    0 1px 1px $button_box_shadow_color /* drop shadow */,
-    inset 0 3px 5px $button_box_shadow_inset_color /* inner shadow */;
-  background-image: $button_ie9_gradient_active /* gradient fill */;
-  background-image: -moz-linear-gradient(90deg, $button_top_gradient_active 0%, $button_bottom_gradient_active 100%); /* gradient fill */
-  background-image: -o-linear-gradient(90deg, $button_top_gradient_active 0%, $button_bottom_gradient_active 100%); /* gradient fill */
-  background-image: -webkit-linear-gradient(90deg, $button_top_gradient_active 0%, $button_bottom_gradient_active 100%); /* gradient fill */
-  background-image: linear-gradient(90deg, $button_top_gradient_active 0%, $button_bottom_gradient_active 100%); /* gradient fill */
+  
+  .pin {
+    position: absolute;
+    top: 0px;
+    left: 225px;
+  }
 }

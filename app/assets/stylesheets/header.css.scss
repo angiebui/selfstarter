@@ -1,39 +1,11 @@
 #header {
-  #navbar {
-    .navbar-inner {
-      min-height: 30px;
-    }
-    
-    .navbar .nav > li > a {
-      padding: 5px 15px;
-      display: inline-block;
-    }
-    
-    .navbar .nav > li > a:hover .caret {
-      border-top-color: white;
-      border-bottom-color: white;
-    }
-    
-    .navbar img {
-      display: inline-block;
-      vertical-align: bottom;
-    }
-  }
-  
-  #titlebar {
-    width: 100%;
-    padding: 26px 0;
-    text-shadow: 0 1px 0px white;
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.29);
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.29);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.29);
-    background: #fcfcfc;
-    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJod…IgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNoYXQwKSIgLz4KPC9zdmc+);
-    background-image: -moz-linear-gradient(90deg, rgba(0,0,0,0.05) 0%, rgba(241,241,241,0.05) 100%);
-    background-image: -o-linear-gradient(90deg, rgba(0,0,0,0.05) 0%, rgba(241,241,241,0.05) 100%);
-    background-image: -webkit-linear-gradient(90deg, rgba(0,0,0,0.05) 0%, rgba(241,241,241,0.05) 100%);
-    background-image: linear-gradient(90deg, rgba(0,0,0,0.05) 0%, rgba(241,241,241,0.05) 100%);
-    position: relative;  
-    margin-top: 40px;
-  }
+  width: 100%;
+  padding: 26px 0;
+  text-shadow: 0 1px 0px white;
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.29);
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.29);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.29);
+  background: #ffffff;
+  position: relative;  
+  margin-top: 30px;
 }

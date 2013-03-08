@@ -1,5 +1,7 @@
-Selfstarter =
+Selfstarter.project =
+  
   firstTime: true
+
   validateEmail: ->
     # The regex we use for validating email
     # It probably should be a parser, but there isn't enough time for that (Maybe in the future though!)
@@ -9,6 +11,8 @@ Selfstarter =
     else
       $("#email").addClass("highlight") unless Selfstarter.firstTime
       $("#amazon_button").addClass("disabled") unless $("#amazon_button").hasClass("disabled")
+
+  
   init: ->
     checkoutOffset = $('body').height() - $('.footer').outerHeight() #needs to be done upon init
 
@@ -24,7 +28,7 @@ Selfstarter =
     $("#video_image").on "click", ->
       $("#player").removeClass("hidden")
       $("#player").css('display', 'block')
-      $(this).hide()
+      $(this).hide()    
 
     # if they are using the optional payment options section on the checkout page, need to conditional fix the email
     # field and button to the bottom of the page so it's displayed after selecting a radio button
@@ -48,6 +52,4 @@ Selfstarter =
         $(this).children(".payment_radio").attr "checked", "checked"
         onScroll()
         $('.checkout_controls_wrapper').addClass "checkout_ready"
-$ ->
-  Selfstarter.init()
-  $("#email").focus() if $('.payment_options').length == 0
+  

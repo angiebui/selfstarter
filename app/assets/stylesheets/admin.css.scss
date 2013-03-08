@@ -1,0 +1,129 @@
+#admin_header {
+  
+  h3 {
+    margin-top: 60px;
+  }
+}
+
+#admin_project {
+  
+  fieldset {
+    margin-bottom: 30px;
+  }
+  
+  legend {
+    font-size: 26px;
+  }
+  
+  .field {
+    background: rgba(128, 128, 128, 0.17);
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    
+    .explanation {
+      float: right;
+      width: 400px;
+    }
+    
+    .explanation.inline {
+      float: none;
+      width: 100%;
+    }
+    
+    choices {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    label.inline {
+      display: inline-block;
+    }
+  }
+  
+  input[type="radio"] {
+    margin: 0px 6px 6px 0px
+  }
+  
+  #preset-amount, #min-amount {
+    margin-left: 20px;
+  }
+  
+  .amount_input {
+    position: relative;
+    
+    input {
+      padding-left: 24px;
+      width: 200px;
+    }
+    
+    span {
+      position: absolute;
+      top: 5px;
+      left: 10px;
+    }
+  }
+  
+  .faq.sortable {
+    margin-left: 0px;
+    
+    li {
+      background-color: rgba(128, 128, 128, 0.35);
+      padding: 12px;
+      margin-bottom: 8px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      vertical-align: middle;
+      
+      textarea {
+        width: 400px;
+        max-width: 400px;
+        margin-bottom: 0px;
+      }
+      
+      .faq-delete {
+        opacity: 0.5;
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+#admin_contributors {
+
+  .search {
+    margin: 20px 0px 40px;
+    form {
+      float: left;
+      margin-right: 10px;
+      input {
+        width: 350px;
+        margin: 0 2px 0px 0px;
+      }
+    }
+  }
+}
+
+.admin.bank_setup {
+  .main_content {
+    width: 560px;
+    float: left;
+  }
+  
+  fieldset {
+    margin-bottom: 30px;
+  }
+  
+  .form-row .field {
+    float: left;
+    margin-right: 20px;
+  }
+
+}

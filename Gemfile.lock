@@ -1,3 +1,14 @@
+GIT
+  remote: git://github.com/Crowdtilt/crowdtilt-ruby.git
+  revision: 8a284572db6e1a0bb2d3dbca5869f0c32ed4af52
+  branch: tweaks
+  specs:
+    crowdtilt (0.0.1)
+      activemodel
+      faraday
+      faraday_middleware
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -33,11 +44,19 @@ GEM
       multi_xml (~> 0.2.0)
       rest-client (~> 1.6.1)
     arel (3.0.2)
+    aws-sdk (1.8.3.1)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
     bootstrap-sass (2.1.0.0)
     bourne (1.1.2)
       mocha (= 0.10.5)
     builder (3.0.4)
+    ckeditor (4.0.2)
+      mime-types
+      orm_adapter
+    cocaine (0.4.2)
     coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -57,13 +76,20 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    faraday (0.8.6)
+      multipart-post (~> 1.1)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     hike (1.2.1)
-    i18n (0.6.1)
+    i18n (0.6.4)
     journey (1.0.4)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.7.6)
+    jquery-ui-rails (4.0.1)
+      jquery-rails
+      railties (>= 3.1.0)
+    json (1.7.7)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -73,9 +99,18 @@ GEM
     mime-types (1.19)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
-    multi_json (1.5.0)
+    multi_json (1.6.1)
     multi_xml (0.2.2)
+    multipart-post (1.2.0)
+    newrelic_rpm (3.5.8.72)
+    nokogiri (1.5.6)
     orm_adapter (0.4.0)
+    paperclip (3.4.0)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.4.0)
+      mime-types
     pg (0.14.1)
     polyglot (0.3.3)
     pry (0.9.10)
@@ -140,7 +175,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sqlite3 (1.3.6)
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -154,6 +188,7 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uuidtools (2.1.3)
     warden (1.2.1)
       rack (>= 1.0)
 
@@ -162,16 +197,21 @@ PLATFORMS
 
 DEPENDENCIES
   amazon_flex_pay
+  aws-sdk
   bootstrap-sass (= 2.1)
+  ckeditor
   coffee-rails (~> 3.2.1)
+  crowdtilt!
   devise
   jquery-rails
+  jquery-ui-rails
+  newrelic_rpm
+  paperclip (~> 3.0)
   pg
   pry-rails
   rails (= 3.2.11)
   rspec-rails (~> 2.0)
   sass-rails (~> 3.2.3)
   shoulda
-  sqlite3
   thin
   uglifier (>= 1.0.3)

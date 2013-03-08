@@ -1,0 +1,8 @@
+<div id="homepage">
+  <%= render 'project/homepage/funding_area' %>
+  <%= render 'project/homepage/custom_content' %>
+  <%= render 'project/homepage/second_call_to_action' %>
+  <% if @faqs.count > 0 %>
+  <%= render 'project/homepage/faq' %>
+  <% end %>
+</div>

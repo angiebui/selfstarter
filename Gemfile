@@ -1,17 +1,22 @@
 source 'https://rubygems.org'
+ruby "1.9.3"
 
 gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.1'
 gem 'devise'
+gem 'pg'
+
+gem 'paperclip', '~> 3.0'
+gem 'ckeditor'
+gem 'aws-sdk'
 
 group :development do
-  gem 'sqlite3'
   gem 'pry-rails'
 end
 
 group :production do
   gem 'thin'
-  gem 'pg'
+  gem 'newrelic_rpm'
 end
 
 # Gems used only for assets and not required
@@ -27,8 +32,11 @@ group :development, :test do
   gem 'shoulda'
 end
 
-# jQuery
+# jQuery & jQuery UI
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Kickstarter's awesome Amazon Flexible Payments gem
 gem 'amazon_flex_pay'
+
+gem 'crowdtilt', github: 'Crowdtilt/crowdtilt-ruby', branch: 'tweaks'

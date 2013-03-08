@@ -9,9 +9,16 @@
     form {
       margin-bottom: 0px;
       
+      input[type="checkbox"] {
+        vertical-align: top;
+        &+ label {
+          display: inline-block;
+        }
+      }
+      
       button {
-        display: block;
-        margin-top: 10px;
+        display: inline-block;
+        margin: 10px 0px;
       }
     }
   }
@@ -29,8 +36,8 @@
       margin-bottom: 0px;
       
       button {
-        display: block;
-        margin-top: 10px;
+        display: inline-block;
+        margin: 10px 0px;
       }
     }
   }

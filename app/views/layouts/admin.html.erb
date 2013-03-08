@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title><%= @settings.project_name %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= render 'layouts/google_analytics' %>
+  </head>
+  <!--[if lt IE 9 ]><body class="lt-ie9"><![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--> <body><!--<![endif]-->
+    <%= render 'layouts/navbar' %>
+    <%= render 'admin/header' %>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+    <div id="main">
+      <%= yield %>
+    </div>
+    <%= render 'layouts/footer' %>
+    
+    <% if Rails.env.development? %>
+      <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
+    <% end %>
+
+    <%= javascript_tag do %>
+      window.crowdtilt_mode = "<%= Rails.configuration.crowdtilt_mode %>";
+    <% end %>    
+    <%= javascript_include_tag "https://api.crowdtilt.com/v1/js/crowdtilt.js" %>     
+  </body>
+</html>

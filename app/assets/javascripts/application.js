@@ -10,12 +10,16 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+
 //= require html5shiv-printshiv
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery.details
 //= require jquery.textchange
-//= require project
-//= require_tree .
+//= require ckeditor/init
 //= require bootstrap
+//= require main
+//= require project
+//= require checkout
+//= require admin

@@ -1,0 +1,21 @@
+<div id="checkout">
+  <div class="container clearfix">
+    <div class="main_content">
+      <%= raw(@settings.confirmation_page_content) %>
+      <div class="share">
+        <%= render 'shared/share_buttons' %>
+      </div>      
+    </div>  
+    <div class="well confirmation_sidebar">
+      <h4>Payment Details</h4>
+      <p>
+      <strong>Date:</strong><br/> <%= DateTime.parse(@payment.creation_date).strftime("%m/%d/%Y") %> <br/><br/>
+      <strong>Amount:</strong><br/> $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/><br/>
+      <strong>Card:</strong><br/> <%= @payment.card.card_type %> ************<%= @payment.card.last_four %> 
+      (<%= @payment.card.expiration_month.to_s + '/' + @payment.card.expiration_year.to_s %>) <br/><br/>
+      <strong>Status:</strong><br/> <%= @payment.status %> <br/><br/>
+      <strong>ID:</strong><br/> <%= @payment.id %>
+      </p>
+    </div>
+  </div>
+</div>

@@ -26,3 +26,6 @@ config/environments/*.local.yml
 
 # yes, we use macs
 .DS_Store
+
+# Ignore local environment file
+.env

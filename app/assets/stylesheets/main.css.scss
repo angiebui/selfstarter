@@ -8,10 +8,16 @@
 @import "primitives";
 
 /* Top level layout sections */
+@import "navbar";
 @import "header";
 @import "footer";
 @import "flash";
 
-/* Page specific styles */
+/* Controller specific styles */
 @import "devise";
+@import "admin";
 @import "project";
+@import "user";
+
+/* Theme specific styles */
+@import "theme";

@@ -10,7 +10,7 @@ module Selfstarter
   
   class Application < Rails::Application
     
-    config.crowdtilt_mode = 'sandbox'  #sandbox or production
+    config.crowdtilt_mode = ENV['CROWDTILT_MODE'] || 'sandbox'  #sandbox or production
     #Crowdtilt API key/secret
     config.crowdtilt_production_key = ENV['CROWDTILT_PRODUCTION_KEY']
     config.crowdtilt_production_secret = ENV['CROWDTILT_PRODUCTION_SECRET']

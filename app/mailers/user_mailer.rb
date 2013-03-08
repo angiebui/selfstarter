@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "marc@msaint.com"
+  default from: "no-reply@crowdhoster.com"
   
   def payment_confirmation(payment)
     @settings = Settings.find_by_id(1)

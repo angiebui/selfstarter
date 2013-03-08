@@ -23,3 +23,4 @@
 //= require project
 //= require checkout
 //= require admin
+//= require theme

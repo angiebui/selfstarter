@@ -6,6 +6,7 @@ class ProjectController < ApplicationController
   def homepage
     @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
     @faqs = Faq.all
+    render 'theme/views/homepage'
   end
 
   def checkout_amount

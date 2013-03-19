@@ -1,19 +1,9 @@
-<div class="container clearfix">
-  <ul class="nav nav-pills">
-    <li class="active">
-      <%= link_to "Project", admin_project_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
-    </li>
-    <li>
-      <%= link_to "Contributors", admin_contributors_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
-    </li>
-    <li>
-      <%= link_to "Bank Setup", admin_bank_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
-    </li>
-  </ul>
-</div>
+<div id="admin">
+  <div class="container content_box clearfix">
+  
+  <%= render 'admin/header', project: 'active', contributors: '', bank: '' %>
 
-<div id="admin_project">
-  <div class="container clearfix">
+  <div id="admin_project">
 
     <%= form_for(@settings, url: admin_project_path, multipart: true) do |f| %>
      
@@ -271,5 +261,6 @@
       <%= f.submit "Update", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
       <span class="loader" data-loader="project_form" style="display:none"></span>
     <% end %>
+  </div>
   </div>
 </div>

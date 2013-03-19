@@ -1,21 +1,22 @@
 <div id="checkout">
-  <div class="container clearfix">
+  <div class="container content_box clearfix">
     <div class="main_content <%= "payment_options" if @settings.use_payment_options %>">
       <h3>Checkout</h3>
-
+        
+        <% if user_signed_in? %>
         <table class="table">
-        <thead>
-          <tr>
-            <th>Payment Amount</th>
-            <% if @settings.payment_type == 'fixed' %>
-              <th>Quantity</th>
-            <% end %>   
-            <% if @fee > 0 %>
-              <th>Processing Fee (<%= @settings.user_fee_amount %>%)</th>
-            <% end %>
-            <th>Total</th>
-          </tr>
-        </thead>
+          <thead>
+            <tr>
+              <th>Payment Amount</th>
+              <% if @settings.payment_type == 'fixed' %>
+                <th>Quantity</th>
+              <% end %>   
+              <% if @fee > 0 %>
+                <th>Processing Fee (<%= @settings.user_fee_amount %>%)</th>
+              <% end %>
+              <th>Total</th>
+            </tr>
+          </thead>
         <tbody>
           <tr>
             <td id="table_amount">
@@ -48,9 +49,8 @@
         </tbody>
       </table>      
       
-      <div class="well" style="background-color: #ffffff">
-      <% if user_signed_in? %>  
-       
+    <div class="well" style="background-color: #ffffff">
+           
         <form accept-charset="UTF-8" action="/checkout/confirmation" method="post" id="payment_form">
   
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
@@ -104,31 +104,35 @@
         <div id="errors"></div>
         <br/><br/>
         <p class="crowdhoster-powered"><i class="icon icon-lock"></i> Payments powered by Crowdhoster, a <img src="/assets/crowdtilt.png" width="60px"> product</p>
-
-      <% else %>
+    </div>  
+  <% else %>
+    <div class="well" style="background-color: #ffffff">
       
       <div class="new-account">
-      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
-    
-      <div><%= f.label :fullname, "Full Name" %>
-      <%= f.text_field :fullname, :autofocus => true %></div>
-    
-      <div><%= f.label :email %>
-      <%= f.email_field :email %></div>
-    
-      <div><%= f.label :password %>
-      <%= f.password_field :password %></div>
-      <br/>
-      <button class="btn btn-primary show_loader" data-loader="user_form" type="submit">Continue to next step</button>     
-      <span class="loader" data-loader="user_form" style="display:none"></span>  
-      <% end %>
-    
-      <%= link_to "Already have an account?", new_session_path(resource_name) %>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+      
+        <div><%= f.label :fullname, "Full Name" %>
+        <%= f.text_field :fullname, :autofocus => true %></div>
+      
+        <div><%= f.label :email %>
+        <%= f.email_field :email %></div>
+      
+        <div><%= f.label :password %>
+        <%= f.password_field :password %></div>
+        <br/>
+        <button class="btn btn-primary show_loader" data-loader="user_form" type="submit">Continue to next step</button>     
+        <span class="loader" data-loader="user_form" style="display:none"></span>  
+        <% end %>
+      
+        <%= link_to "Already have an account?", new_session_path(resource_name) %>
       </div>
-      <% end %>
-      </div> 
-    </div>
+    </div>  
+  <% end %>
+  
+  </div>
+  
     <%= render 'project/checkout_sidebar' %>
+  
   </div>
 </div>

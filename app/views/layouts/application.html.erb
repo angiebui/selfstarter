@@ -14,14 +14,14 @@
     <%= render 'layouts/facebook_js' %>
     <%= render 'layouts/twitter_js' %>
     <%= render 'layouts/navbar' %>
-    <%= render 'layouts/header' %>
+    <%= render 'theme/views/header' %>
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
     <div id="main">
       <%= yield %>
     </div>
-    <%= render 'layouts/footer' %>
+    <%= render 'theme/views/footer' %>
     
     <% if Rails.env.development? %>
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
@@ -30,6 +30,6 @@
     <%= javascript_tag do %>
       window.crowdtilt_mode = "<%= Rails.configuration.crowdtilt_mode %>";
     <% end %>
-    <%= javascript_include_tag "https://api.crowdtilt.com/v1/js/crowdtilt.js" %>    
+    <%= javascript_include_tag "https://api-sandbox.crowdtilt.com/v1/js/crowdtilt.js" %>    
   </body>
 </html>

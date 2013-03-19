@@ -1,8 +1,5 @@
-#admin_header {
-  
-  h3 {
-    margin-top: 60px;
-  }
+#admin {
+  margin-top: 80px;
 }
 
 #admin_project {
@@ -111,7 +108,7 @@
   }
 }
 
-.admin.bank_setup {
+#admin_bank_setup {
   .main_content {
     width: 560px;
     float: left;
@@ -125,5 +122,24 @@
     float: left;
     margin-right: 20px;
   }
+}
 
+.admin-alert {
+  margin-top: 30px!important;
+}
+
+.admin-alert.alert.alert-success {
+  background: rgba(115, 211, 107, 1)!important;
+  text-shadow: none;
+}
+
+.admin-alert.alert.alert-notice {
+  background: rgba(211, 211, 136, 1)!important;
+  text-shadow: none;
+}
+
+.admin-alert.alert.alert-error {
+  background: rgba(219, 94, 94, 1)!important;
+  color: white;
+  text-shadow: none;
 }

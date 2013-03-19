@@ -1,23 +1,15 @@
 /* Bootstrap framework for general styling */
 @import "bootstrap";
 
-/* Setting SASS variables for use in all other CSS files */
-@import "variables";
-
-/* Custom site-wide styles */
+/* Core styles */
 @import "primitives";
 
 /* Top level layout sections */
 @import "navbar";
-@import "header";
-@import "footer";
 @import "flash";
 
-/* Controller specific styles */
+/* Non-customizable section styles */
 @import "devise";
 @import "admin";
-@import "project";
+@import "checkout";
 @import "user";
-
-/* Theme specific styles */
-@import "theme";

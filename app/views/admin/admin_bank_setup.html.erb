@@ -1,19 +1,10 @@
-<div class="container clearfix">
-  <ul class="nav nav-pills">
-    <li>
-      <%= link_to "Project", admin_project_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
-    </li>
-    <li>
-      <%= link_to "Contributors", admin_contributors_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
-    </li>
-    <li class="active">
-      <%= link_to "Bank Setup", admin_bank_setup_path, :class => 'show_loader', :'data-loader' => "admin_header" %>
-    </li>
-  </ul>
-</div>
+<div id="admin">
+  <div class="container content_box clearfix">
 
-<div id="admin_bank_setup" class="admin bank_setup">
-  <div class="container clearfix">
+  <%= render 'admin/header', project: '', contributors: '', bank: 'active' %>
+
+  <div id="admin_bank_setup">
+
     <div class="main_content">
       
       <% if current_user.has_default_bank %>
@@ -107,5 +98,6 @@
       <% end %>
        
     </div>  
+  </div>
   </div>
 </div>

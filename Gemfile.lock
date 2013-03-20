@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/Crowdtilt/crowdtilt-ruby.git
-  revision: a6bb03d3cb884098528bbc90f9752782a51ff52e
+  revision: f89ddb10ebfdaba6045ef5a5cc563f711525b11d
   branch: tweaks
   specs:
     crowdtilt (0.0.1)
@@ -99,7 +99,7 @@ GEM
     mime-types (1.19)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
-    multi_json (1.6.1)
+    multi_json (1.7.1)
     multi_xml (0.2.2)
     multipart-post (1.2.0)
     newrelic_rpm (3.5.8.72)

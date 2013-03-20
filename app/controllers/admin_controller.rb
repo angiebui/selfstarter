@@ -41,7 +41,6 @@ class AdminController < ApplicationController
       if !@settings.ct_campaign_id
       
         campaign = Crowdtilt::Campaign.new title: @settings.project_name, 
-                                           description: @settings.tagline, 
                                            tilt_amount: @settings.project_goal*100, 
                                            expiration_date: @settings.expiration_date, 
                                            user_id: current_user.ct_user_id
@@ -58,10 +57,8 @@ class AdminController < ApplicationController
         end          
       
       else   
-        campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
-       
+        campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)       
         campaign.title = @settings.project_name
-        campaign.description = @settings.tagline
         campaign.tilt_amount = @settings.project_goal*100
         campaign.expiration_date = @settings.expiration_date
 
@@ -86,12 +83,13 @@ class AdminController < ApplicationController
     if !@settings.ct_campaign_id
       redirect_to admin_project_path, :flash => { :notice => "Please submit the project form below to confirm your settings." }
     else
-      
+      #Check if the user is searching for a certain payment_id
       if params.has_key?(:payment_id) && !params[:payment_id].blank?
         begin
           @contributors = [Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments.find(params[:payment_id])]
           @page = @total_pages = 1
         rescue => exception
+          #This means the payment_id wasn't found, so go ahead and grab all payments
           @contributors = Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments(page, 50)
           @page = @contributors.pagination['page'].to_i
           @total_pages = @contributors.pagination['total_pages'].to_i

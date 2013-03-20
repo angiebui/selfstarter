@@ -41,8 +41,8 @@ module Selfstarter
     
     #Paperclip default options
     paperclip_path = "/:attachment/:id_partition/:style.:extension" 
-    if defined?(ENV['CROWDTILT_PRODUCTION_KEY']) && !ENV['CROWDTILT_PRODUCTION_KEY'].nil?
-      paperclip_path = ENV['CROWDTILT_PRODUCTION_KEY'] + paperclip_path
+    if defined?(ENV['CROWDTILT_SANDBOX_KEY']) && !ENV['CROWDTILT_SANDBOX_KEY'].nil?
+      paperclip_path = ENV['CROWDTILT_SANDBOX_KEY'] + paperclip_path
     end
 
     config.paperclip_defaults = {

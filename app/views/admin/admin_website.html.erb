@@ -1,11 +1,11 @@
 <div id="admin">
   <div class="container content_box clearfix">
   
-  <%= render 'admin/header', website: '', campaigns: 'active', bank: '' %>
+  <%= render 'admin/header', website: 'active', campaigns: '', bank: '' %>
 
   <div id="admin_project">
 
-    <%= form_for(@settings, url: admin_project_path, multipart: true) do |f| %>
+    <%= form_for(@settings, url: admin_website_path, multipart: true) do |f| %>
      
       <fieldset>
       <legend>Basic Information</legend>

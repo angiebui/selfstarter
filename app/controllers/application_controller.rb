@@ -20,5 +20,10 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     session[:previous_url] || root_path
   end
-  
+
+  def verify_admin
+    if !current_user.admin?
+      redirect_to root_url, :flash => { :notice => "You must be an admin to access that page" }
+   end
+  end  
 end

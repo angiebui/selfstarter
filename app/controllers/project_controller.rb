@@ -4,8 +4,10 @@ class ProjectController < ApplicationController
   before_filter :check_project, only: [:homepage, :checkout_amount, :checkout_payment]
   
   def homepage
-    @campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
-    @faqs = Faq.all
+    #@campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)
+    #@faqs = Faq.all
+    
+    @campaigns = Campaign.all
     render 'theme/views/homepage'
   end
 

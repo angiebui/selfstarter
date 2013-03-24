@@ -3,7 +3,7 @@ class AdminController < ApplicationController
   before_filter :authenticate_user!
   before_filter :verify_admin
   
-  def admin_project
+  def admin_website
     
     #Load the faqs
     @faqs = Faq.all
@@ -53,7 +53,7 @@ class AdminController < ApplicationController
         else
           @settings.ct_campaign_id = campaign.id
           @settings.save
-          flash.now[:success] = "Project updated!"               
+          flash.now[:success] = "Website settings updated!"               
         end          
       
       else   
@@ -70,13 +70,13 @@ class AdminController < ApplicationController
           return
         else
           @settings.save
-          flash.now[:success] = "Project updated!"
+          flash.now[:success] = "Website settings updated!"
         end    
       end    
     end
-  end
+  end  
   
-  def admin_contributors
+  def contributors
     
     page = params[:page] || 1
   

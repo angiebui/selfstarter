@@ -1,6 +1,6 @@
-<meta property='og:title' content="<%= @settings.facebook_title.blank? ? @settings.project_name : @settings.facebook_title %>" />
+<meta property='og:title' content="<%= @settings.facebook_title.blank? ? @settings.site_name : @settings.facebook_title %>" />
 
-<meta property='og:site_name' content="<%= @settings.facebook_title.blank? ? @settings.project_name : @settings.facebook_title %>" />
+<meta property='og:site_name' content="<%= @settings.facebook_title.blank? ? @settings.site_name : @settings.facebook_title %>" />
 
 <meta property='og:url' content='<%= root_url %>' />
 
@@ -9,7 +9,7 @@
 <% end %>
 
 <% if @settings.facebook_image.file? %> 
-  <meta property='og:image' content='<%= "#{request.protocol}#{request.host_with_port}" + @settings.facebook_image.url %>' />
+  <meta property='og:image' content='<%= @settings.facebook_image.url %>' />
 <% end %>
 
 <% if !@settings.facebook_app_id.blank? %> 

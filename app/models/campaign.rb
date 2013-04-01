@@ -1,6 +1,7 @@
 class Campaign < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
+  has_many :faqs, dependent: :destroy
   
   attr_accessible :name, :goal,  :expiration_date, :ct_campaign_id, :media_type, 
                   :main_image, :main_image_delete, :video_embed_id, :video_placeholder, :video_placeholder_delete,
@@ -9,7 +10,8 @@ class Campaign < ActiveRecord::Base
                   :checkout_sidebar_content, :confirmation_page_content, :confirmation_email_content,
                   :tweet_text, :facebook_title, :facebook_description,  :facebook_image, :facebook_image_delete,
                   :payment_type, :fixed_payment_amount, :min_payment_amount, :apply_processing_fee,
-                  :collect_shipping_address               
+                  :collect_shipping_address, :stats_number_of_contributors, :stats_raised_amount, :stats_tilt_percent,
+                  :stats_unique_contributors, :archive_flag               
                   
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
   
@@ -23,7 +25,7 @@ class Campaign < ActiveRecord::Base
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
 
   has_attached_file :main_image, 
-                    styles: { main: "512x385!", thumb: "100x100#" }   
+                    styles: { main: "512x385!", small: "190x143!", thumb: "100x100#" }   
   
   has_attached_file :video_placeholder, 
                     styles: { main: "512x385!", thumb: "100x100#" }  #The hash indicates cropping, use ! for forced scaling                   
@@ -33,9 +35,15 @@ class Campaign < ActiveRecord::Base
 
   before_save :set_min_amount
   
-  #This ensures that a new slug is not created if the name changes
-  def should_generate_new_friendly_id?
-    new_record?
+  def update_api_data(campaign)
+    self.ct_campaign_id = campaign.id
+    self.stats_number_of_contributions = campaign.stats['number_of_contributions'].nil? ? 0 : campaign.stats['number_of_contributions']
+    self.stats_raised_amount = campaign.stats['raised_amount'].nil? ? 0 : campaign.stats['raised_amount']/100.0
+    self.stats_tilt_percent = campaign.stats['tilt_percent'].nil? ? 0 : campaign.stats['tilt_percent']
+    self.stats_unique_contributors = campaign.stats['unique_contributors'].nil? ? 0 : campaign.stats['unique_contributors']
+    self.is_tilted = campaign.is_tilted == 0 ? false : true
+    self.is_expired = campaign.is_expired == 0 ? false : true
+    self.is_paid = campaign.is_paid == 0 ? false : true
   end
   
   private
@@ -47,7 +55,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def expiration_date_cannot_be_in_the_past
-    if !expiration_date.blank? and expiration_date < Date.today
+    if self.expiration_date_changed? && self.expiration_date < Date.today
       errors.add(:expiration_date, "can't be in the past")
     end
   end

@@ -1,6 +1,12 @@
 <div id="funding_area">
   <div class="container clearfix">
 
+    <% if user_signed_in? && current_user.admin? %>
+      <div class="clearfix">
+        <%= link_to "Edit Campaign", edit_admin_campaign_path(@campaign), class: "pull-right" %>
+      </div>
+    <% end %>
+
     <div class="center">
       <h2><%= @campaign.name %></h2>
     </div>
@@ -13,10 +19,10 @@
           <div id="video_image">
             <%= image_tag @campaign.video_placeholder.url(:main), alt: "video_place_holder" %>
           </div>
-          <% if !@campaign.video_embed_url.blank? %>
+          <% if !@campaign.video_embed_id.blank? %>
             <div id="player" class="hidden" style="display: none;">
               <object width="512" height="385">
-                <param name="movie" value="https://www.youtube.com/v/<%= @campaign.video_embed_url %>?autohide=1&showinfo=0&rel=0&autoplay=1" />
+                <param name="movie" value="https://www.youtube.com/v/<%= @campaign.video_embed_id %>?autohide=1&showinfo=0&rel=0&autoplay=1" />
                 <param name="allowFullScreen" value="true" />
                 <param name="allowscriptaccess" value="always" />
                 <embed src="https://www.youtube.com/v/<%= @campaign.video_embed_id %>?autohide=1&showinfo=0&rel=0&autoplay=1" type="application/x-shockwave-flash" width="512" height="385" allowscriptaccess="always" allowfullscreen="true"></embed>
@@ -33,7 +39,7 @@
     <% else %>
 
       <div id="image">
-        <%= image_tag @campaign.project_image.url(:main), alt: "project_image" %>
+        <%= image_tag @campaign.main_image.url(:main), alt: "project_image" %>
       </div>
     
     <% end %>
@@ -41,15 +47,15 @@
     <div id="backing">
       <ul>
         <li class="stats" id="backers">
-          <%= number_with_delimiter @ct_campaign.stats["number_of_contributions"].to_i, :delimiter => "," %>
-          <span><%= @campaign.contributor_reference.pluralize(@ct_campaign.stats["number_of_contributions"].to_i) %></span>
+          <%= number_with_delimiter @campaign.stats_number_of_contributions.to_i, :delimiter => "," %>
+          <span><%= @campaign.contributor_reference.pluralize(@campaign.stats_number_of_contributions.to_i) %></span>
         </li>
         <li class="stats">
-          <%= number_to_currency @ct_campaign.stats["raised_amount"].to_f/100, :precision => 0 %>
-          <span>of <%= number_to_currency @campaign.goal.to_f, :precision => 0 %></span>
+          <%= number_to_currency @campaign.stats_raised_amount.ceil, :precision => 0 %>
+          <span>of <%= number_to_currency @campaign.goal.ceil, :precision => 0 %></span>
         </li>
   
-        <% if @ct_campaign.is_expired == 0 %>
+        <% if !@campaign.is_expired %>
           <li class="stats" id="days">
             <%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\D/, "") %>
             <span><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
@@ -57,26 +63,34 @@
         <% else %>
           <li class="stats" id="days">
               No
-              <span>days left!!</span>
+              <span>days left!</span>
             </li>
         <% end %>
       </ul>
-      <% if @ct_campaign.stats["raised_amount"].to_f/100 < @campaign.goal.to_f %>
+      <% if @campaign.stats_raised_amount < @campaign.goal %>
         <div id='progress_bg' class='small'>
-          <div id='progress' class='' style='width: <%= @ct_campaign.stats["tilt_percent"].to_i %>%;'>
+          <div id='progress' class='' style='width: <%= @campaign.stats_tilt_percent.to_i %>%;'>
           </div>
         </div>
       <% else %>
         <div id="progress_bg">
           <div id="progress">
           </div>
-          <div id='progress_text'><%= @ct_campaign.stats["tilt_percent"] %>% <%= @campaign.progress_text %></div>
+          <div id='progress_text'><%= @campaign.stats_tilt_percent.ceil %>% <%= @campaign.progress_text %></div>
         </div>
       <% end %>
       
       <div id="reserve_container">
         <div class="call_to_action_button">
-          <a href="<%= url_for checkout_amount_path %>" class="blue_button reserve"><%= @campaign.primary_call_to_action_button %></a>
+          <% if @campaign.is_expired %>
+            <span class="blue_button expired">
+              <%= @campaign.primary_call_to_action_button %>
+            </span>           
+          <% else %>
+            <a href="<%= url_for checkout_amount_path %>" class="blue_button">
+              <%= @campaign.primary_call_to_action_button %>
+            </a>
+          <% end %>
         </div>
         <div class="call_to_action_description">
           <%= raw(@campaign.primary_call_to_action_description) %>
@@ -88,6 +102,7 @@
   <div class="share">
     <%= render 'shared/share_buttons' %>
   </div>
+
   
   </div>
 </div>

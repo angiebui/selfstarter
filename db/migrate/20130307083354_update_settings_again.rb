@@ -36,5 +36,4 @@ class UpdateSettingsAgain < ActiveRecord::Migration
       t.text    :checkout_sidebar  
     end
   end
-
 end

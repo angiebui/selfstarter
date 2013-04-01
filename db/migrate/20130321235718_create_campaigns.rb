@@ -17,7 +17,7 @@ class CreateCampaigns < ActiveRecord::Migration
       t.text       :primary_call_to_action_description
       t.string     :secondary_call_to_action_button, :default => 'Contribute'
       t.text       :secondary_call_to_action_description
-      t.string     :main_content     
+      t.text       :main_content     
       
       t.text       :checkout_sidebar_content     
       t.text       :confirmation_page_content      

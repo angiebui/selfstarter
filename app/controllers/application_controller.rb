@@ -26,4 +26,21 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, :flash => { :notice => "You must be an admin to access that page" }
    end
   end  
+
+  def check_init
+    if !@settings.initialized_flag
+      if current_user
+        # Create the Admin User
+        current_user.update_attribute :admin, true  
+        
+        # Set intiatilized flag to true
+        @settings.update_attribute :initialized_flag, true
+        
+        # Put user back on admin area
+        redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }        
+      else
+        redirect_to new_user_registration_url, :flash => { :error => "App is not initialized" }
+      end 
+    end
+  end
 end

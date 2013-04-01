@@ -4,75 +4,15 @@ class AdminController < ApplicationController
   before_filter :verify_admin
   
   def admin_website
-    
-    #Load the faqs
-    @faqs = Faq.all
-    
+
     #Handle the form submission if request is PUT
     if request.put?
-      
-      #First assign the new settings values from the form entries
-      @settings.assign_attributes(params[:settings])   # THIS MUST BE ASSIGN - TODO TODO
-      
-      #Check if the new settings pass validations...if not, re-render form and display errors in flash msg
-      if !@settings.valid?   
-        message = ''
-        @settings.errors.each do |key, error|
-          message = message + key.to_s.humanize + ' ' + error.to_s + ', '
-        end
-        @settings = Settings.find_by_id(1)
-        flash.now[:error] = message[0...-2]
-        return
-      end
-      
-      #Completely refresh the FAQ data 
-      Faq.delete_all
-      if params.has_key?(:faq)        
-        params[:faq].each do |faq|
-          if !faq['question'].empty?
-            Faq.create question: faq['question'], answer: faq['answer']
-          end 
-        end
-      end
-      @faqs = Faq.all
-            
-      #Whenever the project details are saved, we'll update (or create) a corresponding 
-      #campaign through the Crowdtilt API     
-      if !@settings.ct_campaign_id
-      
-        campaign = Crowdtilt::Campaign.new title: @settings.project_name, 
-                                           tilt_amount: @settings.project_goal*100, 
-                                           expiration_date: @settings.expiration_date, 
-                                           user_id: current_user.ct_user_id
-        begin
-          campaign.save
-        rescue => exception  
-          @settings = Settings.find_by_id(1)
-          flash.now[:error] = exception.to_s
-          return
-        else
-          @settings.ct_campaign_id = campaign.id
-          @settings.save
-          flash.now[:success] = "Website settings updated!"               
-        end          
-      
-      else   
-        campaign = Crowdtilt::Campaign.find(@settings.ct_campaign_id)       
-        campaign.title = @settings.project_name
-        campaign.tilt_amount = @settings.project_goal*100
-        campaign.expiration_date = @settings.expiration_date
-
-        begin
-          campaign.save
-        rescue => exception   
-          @settings = Settings.find_by_id(1)
-          flash.now[:error] = exception.to_s
-          return
-        else
-          @settings.save
-          flash.now[:success] = "Website settings updated!"
-        end    
-      end    
+      if @settings.update_attributes(params[:settings])
+        flash.now[:success] = "Website settings successfully updated!"
+      else
+        flash.now[:error] = "Error"
+      end 
+         
     end
   end  
   
@@ -81,7 +21,7 @@ class AdminController < ApplicationController
     page = params[:page] || 1
   
     if !@settings.ct_campaign_id
-      redirect_to admin_project_path, :flash => { :notice => "Please submit the project form below to confirm your settings." }
+      redirect_to admin_project_url, :flash => { :notice => "Please submit the project form below to confirm your settings." }
     else
       #Check if the user is searching for a certain payment_id
       if params.has_key?(:payment_id) && !params[:payment_id].blank?
@@ -105,7 +45,7 @@ class AdminController < ApplicationController
   
   def admin_bank_setup
     user = Crowdtilt::User.find(current_user.ct_user_id)
-  
+    
     if current_user.has_default_bank
       @bank = user.get_default_bank 
     elsif request.post?
@@ -147,14 +87,5 @@ class AdminController < ApplicationController
       end
     end
   end
-  
-  
-  protected
-  
-    def verify_admin
-      if !current_user.admin?
-        redirect_to root_url, :flash => { :notice => "You must be an admin to access that page" }
-     end
-    end
 
 end

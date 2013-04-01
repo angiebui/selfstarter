@@ -9,16 +9,24 @@
         <tr>
           <th>Name</th>
           <th>Goal</th>
+          <th>Raised</th>
           <th>Expiration Date</th>
+          <th>Archived?</th>
+          <th></th>
+          <th></th>
           <th></th>
         </tr>
       
       <% @campaigns.each do |campaign| %>
         <tr>
           <td><%= campaign.name %></td>
-          <td><%= campaign.goal %></td>
-          <td><%= campaign.expiration_date %></td>
+          <td>$<%= number_with_precision(campaign.goal, precision: 2) %></td>
+          <td>$<%= number_with_precision(campaign.stats_raised_amount, precision: 2) %></td>
+          <td><%= Date.parse(campaign.expiration_date.to_s).strftime("%m/%d/%Y") %></td>
+          <td><%= campaign.archive_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
           <td><%= link_to 'Edit', edit_admin_campaign_path(campaign) %></td>
+          <td><%= link_to 'View', campaign_home_path(campaign) %></td>
+          <td><%= link_to 'Contributors', admin_campaign_contributors_path(campaign) %></td>
         </tr>
       <% end %>
       </table>

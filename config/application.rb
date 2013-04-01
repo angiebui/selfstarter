@@ -66,6 +66,8 @@ module Selfstarter
        :user_name => ENV['MAILGUN_USERNAME'],
        :password => ENV['MAILGUN_PASSWORD']
       }
+    
+    config.processing_fee = 2.9
      
   end
 end

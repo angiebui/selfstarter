@@ -20,7 +20,6 @@
 //= require ckeditor/init
 //= require bootstrap
 //= require main
-//= require project
-//= require checkout
 //= require admin
+//= require campaigns
 //= require theme

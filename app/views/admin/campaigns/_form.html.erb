@@ -47,6 +47,11 @@
       </div>
     </div>
 
+    <div class="field clearfix">
+      <p class="explanation">This passes the <%= Rails.configuration.processing_fee %>% processing fee onto your contributors, adding the fee amount to their contribution amount when they checkout. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank.</p>
+      <label>Pass Credit Card Processing Fee to Contributors?</label>
+      <%= f.check_box :apply_processing_fee %> 
+    </div>
 
   </fieldset>
   
@@ -54,7 +59,7 @@
   <legend>Page Content</legend>
 
     <div class="field clearfix">
-      <p class="explanation">A few other ideas: supporter, preorder, donor, contributor, participant.</p>
+      <p class="explanation">A few other ideas: supporter, preorder, donor, contributor, participant, purchase.</p>
       <label>How To Reference a Contributor (i.e. 'backer' )</label>
       <%= f.text_field :contributor_reference %>
     </div>
@@ -66,12 +71,12 @@
 
         <label class="inline ml-20"><input id="campaign_media_type_image" name="campaign[media_type]" value="image" type="radio" <%= @campaign.media_type == 'image' ? "checked" : "" %>>Use Image</label>
         
-      <div id="video-options" style="<%= @settings.media_type == 'video' ? "" : "display:none" %>">          
+      <div id="video-options" style="<%= @campaign.media_type == 'video' ? "" : "display:none" %>">          
         <label>Youtube Video ID</label>
         <%= f.text_field :video_embed_id %>
         <label>Video Placeholder</label>
-        <% if @settings.video_placeholder.file? %>
-          <%= image_tag @settings.video_placeholder.url(:thumb) %><br/>
+        <% if @campaign.video_placeholder.file? %>
+          <%= image_tag @campaign.video_placeholder.url(:thumb) %><br/>
           <%= f.file_field :video_placeholder %><br/>
           <%= f.check_box :video_placeholder_delete %><span>Delete current image</span>
         <% else %>           
@@ -81,8 +86,8 @@
 
       <div id="image-options" style="<%= @campaign.media_type == 'image' ? "" : "display:none"%>">      
         <label>Image</label>
-        <% if @settings.project_image.file? %>
-          <%= image_tag @settings.project_image.url(:thumb) %><br/>
+        <% if @campaign.main_image.file? %>
+          <%= image_tag @campaign.main_image.url(:thumb) %><br/>
           <%= f.file_field :main_image %><br/>
           <%= f.check_box :main_image_delete %><span>Delete current image</span>
         <% else %>           
@@ -126,7 +131,7 @@
       <p class="explanation inline">Add as many question/answer pairs as you'd like to display in the FAQ section of the homepage.</p>
       <ul class="faq sortable">
         <% iterator = 1 %>        
-        <% @faqs.each do |faq| %>
+        <% @campaign.faqs.each do |faq| %>
         <li>
           <span><%= iterator %></span>            
           <textarea name="faq[][question]" placeholder="Question"><%= faq.question %></textarea>
@@ -136,7 +141,7 @@
         <% iterator+=1 %>
         <% end %>
         <li>
-          <span><%= @faqs.count + 1 %></span>            
+          <span><%= @campaign.faqs.count + 1 %></span>            
           <textarea name="faq[][question]" placeholder="Question"></textarea>
           <textarea name="faq[][answer]" placeholder="Answer"></textarea>
           <a href="#" class="faq-delete icon-trash"></a>
@@ -189,8 +194,8 @@
     <div class="field clearfix">
       <p class="explanation">The image shown when your site is shared via facebook. This should have a square aspect ratio and be at least 200px by 200px</p>
       <label>Facebook Image</label>
-      <% if @settings.facebook_image.file? %>
-        <%= image_tag @settings.facebook_image.url(:thumb) %><br/>
+      <% if @campaign.facebook_image.file? %>
+        <%= image_tag @campaign.facebook_image.url(:thumb) %><br/>
         <%= f.file_field :facebook_image %><br/>
         <%= f.check_box :facebook_image_delete %><span>Delete current image</span>
       <% else %>           
@@ -198,8 +203,21 @@
       <% end  %>
     </div>              
   
-  </fieldset>
+  </fieldset> 
   
-  <%= f.submit "Update", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
+  <% if !@campaign.id.nil? %>
+  <fieldset>
+  <legend>Archive</legend>
+
+    <div class="field clearfix">
+      <p class="explanation">Archiving a campaign means it will no longer be accessible to your users, and no longer show up on your homepage.</p>
+      <label>Archive this campaign?</label>
+      <%= f.check_box :archive_flag %> 
+    </div>
+
+  </fieldset>
+  <% end %>
+  
+  <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>
   <span class="loader" data-loader="campaign_form" style="display:none"></span>
 <% end %>

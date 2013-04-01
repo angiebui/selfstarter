@@ -1,10 +1,10 @@
 <div id="checkout">
   <div class="container content_box clearfix">
-    <div class="main_content <%= "payment_options" if @settings.use_payment_options %>">
-      <h3>Checkout</h3>
+    <div class="main_content">
+      <h3><%= @campaign.name %></h3>
       
       <div class="well" style="background-color: #ffffff">
-        <form accept-charset="UTF-8" action="/" method="post" id="amount_form">
+        <form accept-charset="UTF-8" action="<%= checkout_payment_path(@campaign) %>" method="GET" id="amount_form">
           
           <div>
           <p>Please enter an amount: </p>
@@ -13,7 +13,7 @@
             <input id="amount" type="text" name="amount"/>&nbsp;&nbsp;
             <span style="position:absolute">$</span>
           </div>
-          <span>Minimum is $<%= number_with_precision(@settings.min_payment_amount, precision: 2) %></span>
+          <span>Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %></span>
           </div>
           
           <br/>
@@ -23,6 +23,6 @@
       </div>
       
     </div>
-    <%= render 'project/checkout_sidebar' %>
+    <%= render 'campaigns/checkout_sidebar' %>
   </div>
 </div>

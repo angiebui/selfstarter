@@ -17,6 +17,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>Description</th>
           <th>Date</th>
           <th>Amount</th>
           <th>Credit Card</th>
@@ -27,11 +28,12 @@
       <tbody>
         <% @payments.each do |payment| %>
         <tr>         
+          <td><%= payment.campaign.title %></td>
           <td><%= DateTime.parse(payment.creation_date).strftime("%m/%d/%Y") %></td>
           <td>$<%= number_with_precision(payment.amount.to_f/100.0 + payment.user_fee_amount.to_f/100.0, precision: 2) %></td>
           <td>
           <%= payment.card.card_type %> 
-          ************<%= payment.card.last_four %> 
+          *<%= payment.card.last_four %> 
           (<%= payment.card.expiration_month.to_s + '/' + payment.card.expiration_year.to_s %>)
           </td>
           <td><%= payment.status %></td>

@@ -1,0 +1,8 @@
+<div id="campaign">
+  <%= render 'theme/views/campaign/funding_area' %>
+  <%= render 'theme/views/campaign/custom_content' %>
+  <%= render 'theme/views/campaign/second_call_to_action' %>
+  <% if @campaign.faqs.count > 0 %>  
+    <%= render 'theme/views/campaign/faq' %>
+  <% end %>
+</div>

@@ -8,22 +8,22 @@ Selfstarter.admin =
     # Admin Project
     #
   
-    $('form#edit_settings_1').on "submit", ->
+    $('form.edit_campaign').on "submit", ->
       $('#form-loader').show()
   
-    $('input[name="settings[media_type]"]').on "change", ->
+    $('input[name="campaign[media_type]"]').on "change", ->
       $('#video-options').slideToggle()
       $('#image-options').slideToggle()
     
-    $('input#settings_payment_type_any').on "change", ->
+    $('input#campaign_payment_type_any').on "change", ->
       $('#preset-amount').slideUp()
       $('#min-amount').slideUp()
     
-    $('input#settings_payment_type_fixed').on "change", ->
+    $('input#campaign_payment_type_fixed').on "change", ->
       $('#min-amount').slideUp()
       $('#preset-amount').slideDown()  
     
-    $('input#settings_payment_type_min').on "change", ->
+    $('input#campaign_payment_type_min').on "change", ->
       $('#preset-amount').slideUp()
       $('#min-amount').slideDown()
       

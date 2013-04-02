@@ -1,13 +1,15 @@
-Selfstarter.checkout =
+Selfstarter.campaigns =
   
   init: ->
     
     _this = this
     
-    $('#amount_form').on "submit", (e) ->
-      e.preventDefault()
-      window.location = '/checkout/payment?' + 'amount=' + $(this).find('#amount').val()
+    $("#video_image").on "click", ->
+      $("#player").removeClass("hidden")
+      $("#player").css('display', 'block')
+      $(this).hide()      
     
+    # Checkout page functions:
     $('#table_quantity_value').on "change", (e) ->
       quantity = $(this).val()
       

@@ -11,7 +11,59 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307085308) do
+ActiveRecord::Schema.define(:version => 20130329140533) do
+
+  create_table "campaigns", :force => true do |t|
+    t.string   "name"
+    t.float    "goal"
+    t.datetime "expiration_date"
+    t.string   "ct_campaign_id"
+    t.string   "media_type",                           :default => "video",      :null => false
+    t.string   "main_image_file_name"
+    t.string   "main_image_content_type"
+    t.integer  "main_image_file_size"
+    t.datetime "main_image_updated_at"
+    t.string   "video_embed_id"
+    t.string   "video_placeholder_file_name"
+    t.string   "video_placeholder_content_type"
+    t.integer  "video_placeholder_file_size"
+    t.datetime "video_placeholder_updated_at"
+    t.string   "contributor_reference",                :default => "backer"
+    t.string   "progress_text",                        :default => "funded"
+    t.string   "primary_call_to_action_button",        :default => "Contribute"
+    t.text     "primary_call_to_action_description"
+    t.string   "secondary_call_to_action_button",      :default => "Contribute"
+    t.text     "secondary_call_to_action_description"
+    t.text     "main_content"
+    t.text     "checkout_sidebar_content"
+    t.text     "confirmation_page_content"
+    t.text     "confirmation_email_content"
+    t.string   "payment_type",                         :default => "any",        :null => false
+    t.float    "min_payment_amount",                   :default => 1.0,          :null => false
+    t.float    "fixed_payment_amount",                 :default => 1.0,          :null => false
+    t.boolean  "apply_processing_fee",                 :default => false,        :null => false
+    t.boolean  "collect_shipping_address",             :default => false,        :null => false
+    t.string   "tweet_text"
+    t.string   "facebook_title"
+    t.text     "facebook_description"
+    t.string   "facebook_image_file_name"
+    t.string   "facebook_image_content_type"
+    t.integer  "facebook_image_file_size"
+    t.datetime "facebook_image_updated_at"
+    t.string   "slug"
+    t.datetime "created_at",                                                     :null => false
+    t.datetime "updated_at",                                                     :null => false
+    t.integer  "stats_number_of_contributions"
+    t.integer  "stats_raised_amount"
+    t.float    "stats_tilt_percent"
+    t.integer  "stats_unique_contributors"
+    t.boolean  "is_expired"
+    t.boolean  "is_tilted"
+    t.boolean  "is_paid"
+    t.boolean  "archive_flag",                         :default => false,        :null => false
+  end
+
+  add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
 
   create_table "ckeditor_assets", :force => true do |t|
     t.string   "data_file_name",                  :null => false
@@ -33,8 +85,9 @@ ActiveRecord::Schema.define(:version => 20130307085308) do
     t.text     "question"
     t.text     "answer"
     t.integer  "sort_order"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "campaign_id"
   end
 
   create_table "orders", :id => false, :force => true do |t|
@@ -73,47 +126,18 @@ ActiveRecord::Schema.define(:version => 20130307085308) do
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "project_name"
-    t.float    "project_goal"
-    t.string   "tagline"
-    t.string   "video_embed_url"
-    t.boolean  "use_payment_options"
-    t.string   "contributor_reference"
-    t.datetime "expiration_date"
-    t.string   "progress_text"
-    t.string   "primary_call_to_action_button"
+    t.string   "site_name"
     t.string   "facebook_app_id"
     t.string   "tweet_text"
     t.string   "google_id"
-    t.datetime "created_at",                                                :null => false
-    t.datetime "updated_at",                                                :null => false
-    t.boolean  "initialized_flag",                     :default => false,   :null => false
-    t.string   "video_placeholder_file_name"
-    t.string   "video_placeholder_content_type"
-    t.integer  "video_placeholder_file_size"
-    t.datetime "video_placeholder_updated_at"
-    t.string   "secondary_call_to_action_button"
-    t.text     "primary_call_to_action_description"
-    t.text     "secondary_call_to_action_description"
-    t.text     "main_content"
-    t.string   "ct_campaign_id"
-    t.string   "media_type",                           :default => "video", :null => false
-    t.string   "payment_type",                         :default => "any",   :null => false
-    t.float    "min_payment_amount",                   :default => 1.0,     :null => false
-    t.float    "fix_payment_amount",                   :default => 1.0,     :null => false
-    t.float    "user_fee_amount",                      :default => 0.0,     :null => false
-    t.text     "checkout_content"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
+    t.boolean  "initialized_flag",            :default => false, :null => false
     t.string   "logo_image_file_name"
     t.string   "logo_image_content_type"
     t.integer  "logo_image_file_size"
     t.datetime "logo_image_updated_at"
-    t.string   "project_image_file_name"
-    t.string   "project_image_content_type"
-    t.integer  "project_image_file_size"
-    t.datetime "project_image_updated_at"
     t.string   "copyright_text"
-    t.text     "confirmation_page_content"
-    t.text     "confirmation_email_content"
     t.string   "facebook_title"
     t.text     "facebook_description"
     t.string   "facebook_image_file_name"

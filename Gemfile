@@ -5,6 +5,7 @@ gem 'rails', '3.2.11'
 gem 'bootstrap-sass', '2.1'
 gem 'devise'
 gem 'pg'
+gem "friendly_id", "~> 4.0.9"
 
 gem 'paperclip', '~> 3.0'
 gem 'ckeditor'

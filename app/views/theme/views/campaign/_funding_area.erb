@@ -55,10 +55,10 @@
           <span>of <%= number_to_currency @campaign.goal.ceil, :precision => 0 %></span>
         </li>
   
-        <% if !@campaign.is_expired %>
+        <% if !@campaign.expired? %>
           <li class="stats" id="days">
             <%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\D/, "") %>
-            <span><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
+            <span style="width:100px"><%= distance_of_time_in_words_to_now(@campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
           </li>
         <% else %>
           <li class="stats" id="days">
@@ -82,7 +82,7 @@
       
       <div id="reserve_container">
         <div class="call_to_action_button">
-          <% if @campaign.is_expired %>
+          <% if @campaign.expired? %>
             <span class="blue_button expired">
               <%= @campaign.primary_call_to_action_button %>
             </span>           

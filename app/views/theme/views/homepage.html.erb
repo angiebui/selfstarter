@@ -43,11 +43,13 @@
             <% end %>
             
             <p class="numbers pull-left">
-            <% if campaign.is_expired %>
+            <% if campaign.expired? %>
               <strong>No</strong><br/>days left!
             <% else %>
-              <strong><%= distance_of_time_in_words_to_now(campaign.expiration_date).gsub(/\D/, "") %></strong><br/>
-              <%= distance_of_time_in_words_to_now(campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left</span>
+              <strong><%= distance_of_time_in_words_to_now(campaign.expiration_date).gsub(/\D/, "") %></strong>
+              <span style="display: block; width: 100px;">
+                <%= distance_of_time_in_words_to_now(campaign.expiration_date).gsub(/\d/, "").gsub("about", "") %> left
+              </span>
             <% end %>
             </p>
             <p class="numbers pull-right" style="text-align:right">

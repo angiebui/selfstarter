@@ -46,6 +46,10 @@ class Campaign < ActiveRecord::Base
     self.is_paid = campaign.is_paid == 0 ? false : true
   end
   
+  def expired?
+    self.expiration_date < Time.current
+  end
+  
   private
   
   def set_min_amount  

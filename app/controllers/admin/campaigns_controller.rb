@@ -94,7 +94,7 @@ class Admin::CampaignsController < ApplicationController
     # Update the corresponding campaign on the Crowdtilt API
     # If it fails, echo the error message sent by the API back to the user
     # If successful, save the campaign         
-    ct_campaign = Crowdtilt::Campaign.find(@campaign.ct_campaign_id)       
+    ct_campaign = Crowdtilt::Campaign.find(@campaign.ct_campaign_id) 
     ct_campaign.title = @campaign.name
     ct_campaign.tilt_amount = @campaign.goal*100
     ct_campaign.expiration_date = @campaign.expiration_date
@@ -106,7 +106,7 @@ class Admin::CampaignsController < ApplicationController
       render action: "edit"
       return
     else
-      @campaign.update_api_data(ct_campaign)
+      @campaign.update_api_data(Crowdtilt::Campaign.find(@campaign.ct_campaign_id))
       @campaign.save
       if @campaign.archive_flag              
         redirect_to admin_campaigns_url, :flash => { :notice => "Campaign updated!" }

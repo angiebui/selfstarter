@@ -22,7 +22,7 @@ module Selfstarter
     config.crowdtilt_sandbox_secret = ENV['CROWDTILT_SANDBOX_SECRET']
     
     # --- Standard Rails Config ---
-    config.time_zone = 'Pacific Time (US & Canada)'
+    config.time_zone = 'GMT'
     config.encoding = "utf-8"
     config.filter_parameters += [:password]
     config.active_record.whitelist_attributes = true

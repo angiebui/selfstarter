@@ -16,33 +16,6 @@ class AdminController < ApplicationController
     end
   end  
   
-  def contributors
-    
-    page = params[:page] || 1
-  
-    if !@settings.ct_campaign_id
-      redirect_to admin_project_url, :flash => { :notice => "Please submit the project form below to confirm your settings." }
-    else
-      #Check if the user is searching for a certain payment_id
-      if params.has_key?(:payment_id) && !params[:payment_id].blank?
-        begin
-          @contributors = [Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments.find(params[:payment_id])]
-          @page = @total_pages = 1
-        rescue => exception
-          #This means the payment_id wasn't found, so go ahead and grab all payments
-          @contributors = Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments(page, 50)
-          @page = @contributors.pagination['page'].to_i
-          @total_pages = @contributors.pagination['total_pages'].to_i
-          flash.now[:error] = "Contributor not found for " + params[:payment_id]
-        end
-      else
-        @contributors = Crowdtilt::Campaign.find(@settings.ct_campaign_id).payments(page, 50)
-        @page = @contributors.pagination['page'].to_i
-        @total_pages = @contributors.pagination['total_pages'].to_i
-      end
-    end
-  end
-  
   def admin_bank_setup
     user = Crowdtilt::User.find(current_user.ct_user_id)
     

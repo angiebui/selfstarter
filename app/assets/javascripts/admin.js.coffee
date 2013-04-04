@@ -7,6 +7,30 @@ Selfstarter.admin =
     #
     # Admin Project
     #
+    
+    $('#campaign_expiration_date').datetimepicker({
+    	timeFormat: "h:mm tt",
+    	minDate: new Date()
+    });
+    
+    d = $('#campaign_expiration_date').val()
+    if(d && d.length > 0)
+      d = new Date(d)
+      d = d.getTime() + d.getTimezoneOffset()
+      d = new Date(d)
+      h = d.getHours()
+      if(h > 12)
+        t = (h-12) + ':' + ("0" + d.getMinutes()).slice(-2) + ' pm'
+      else
+        if(h == 0)
+          h = 12
+        t = h + ':' + ("0" + d.getMinutes()).slice(-2) + ' am'
+      $('#campaign_expiration_date').val($.datepicker.formatDate('mm/dd/yy',d) + ' ' + t)
+        
+    $('form.campaign_form').on "submit", ->
+      $date = $('#campaign_expiration_date')
+      $date.val(new Date($date.val()).toUTCString())
+      this.submit()
   
     $('form.edit_campaign').on "submit", ->
       $('#form-loader').show()

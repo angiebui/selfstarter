@@ -25,10 +25,10 @@ class Campaign < ActiveRecord::Base
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
 
   has_attached_file :main_image, 
-                    styles: { main: "512x385!", small: "190x143!", thumb: "100x100#" }   
+                    styles: { main: "512x385!", medium: "640x360!", small: "190x143!", thumb: "100x100#" }   
   
   has_attached_file :video_placeholder, 
-                    styles: { main: "512x385!", thumb: "100x100#" }  #The hash indicates cropping, use ! for forced scaling                   
+                    styles: { main: "512x385!", medium: "640x360!", thumb: "100x100#" }  #The hash indicates cropping, use ! for forced scaling                   
                     
   has_attached_file :facebook_image, 
                     styles: { thumb: "100x100#" }
@@ -59,8 +59,9 @@ class Campaign < ActiveRecord::Base
   end
 
   def expiration_date_cannot_be_in_the_past
-    if self.expiration_date_changed? && self.expiration_date < Date.today
+    if self.expiration_date_changed? && !self.expiration_date.nil? && self.expiration_date < Date.today
       errors.add(:expiration_date, "can't be in the past")
     end
   end
+  
 end

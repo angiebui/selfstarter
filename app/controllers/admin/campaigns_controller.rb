@@ -10,6 +10,31 @@ class Admin::CampaignsController < ApplicationController
   def new
     @campaign = Campaign.new
   end
+  
+  def copy
+    old_campaign = Campaign.find(params[:id])
+    @campaign = old_campaign.dup
+    @campaign.archive_flag = false  
+    ct_campaign = Crowdtilt::Campaign.new title: @campaign.name, 
+                                      tilt_amount: @campaign.goal*100, 
+                                      expiration_date: @campaign.expiration_date, 
+                                      user_id: current_user.ct_user_id
+    begin
+      ct_campaign.save
+    rescue => exception
+      redirect_to admin_campaigns, :flash => { :error => "An error occurred" }
+    else
+      @campaign.update_api_data(ct_campaign)
+      @campaign.save
+    end
+    
+    # Completely refresh the FAQ data
+    old_campaign.faqs.each do |faq|
+      @campaign.faqs.create question: faq['question'], answer: faq['answer']
+    end 
+    
+    render action: "edit"
+  end
 
   def create
     @campaign = Campaign.new(params[:campaign])

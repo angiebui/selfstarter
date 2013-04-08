@@ -27,7 +27,7 @@
             <% end %>
             
             <p class="info">
-              <%= campaign.name %>
+              <%= truncate(campaign.name, length: 50) %>
             </p>
             
             <% if campaign.stats_raised_amount.to_f/100 < campaign.goal.to_f %>

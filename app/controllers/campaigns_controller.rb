@@ -86,7 +86,7 @@ class CampaignsController < ApplicationController
   end
   
   def check_exp
-    if @campaign.expiration_date < Date.today
+    if @campaign.expired?
       redirect_to campaign_home_url, :flash => { :error => "Campaign is expired!" }
     end
   end

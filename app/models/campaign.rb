@@ -59,7 +59,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def expiration_date_cannot_be_in_the_past
-    if self.expiration_date_changed? && !self.expiration_date.nil? && self.expiration_date < Date.today
+    if self.expiration_date_changed? && !self.expiration_date.nil? && self.expiration_date < Time.current
       errors.add(:expiration_date, "can't be in the past")
     end
   end

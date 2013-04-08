@@ -1,9 +1,5 @@
 #footer {
-  background: #e6e6e6;
-  
-  moz-box-shadow: inset 0px 1px 3px 0px #acacac;
-  -webkit-box-shadow: inset 0px 1px 3px 0px #acacac;
-  box-shadow: inset 0px 1px 3px 0px #acacac;
+  background: #262626;
   
   padding: 40px 0 30px;
   ul {
@@ -14,8 +10,8 @@
   }
   a {
     font-size: 18px;
-    color: #525252;
-    font-family: $primary_font, $secondary_font, $tertiary_font;
+    color: gray;
+    font-family: "Helvetica", "sans-serif";
   }
   p {
     font-size: 18px;

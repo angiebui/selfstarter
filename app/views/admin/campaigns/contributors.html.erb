@@ -9,14 +9,14 @@
     <% if @contributors.count > 0 %>
     
       <div class="search">
-        <form accept-charset="UTF-8" action="<%= admin_campaign_contributors_path(@campaign) %>" method="get">
+        <form accept-charset="UTF-8" action="<%= admin_campaigns_contributors_path(@campaign) %>" method="get">
           
           <input id="payment_id" type="text" name="payment_id" placeholder="Search by ID" value="<%= params[:payment_id] if params.has_key?(:payment_id) %>"/>  
           <button type="submit" class="btn btn-primary show_loader" data-loader="admin_header">Search</button>
         
         </form>
         <% if params.has_key?(:payment_id) %>
-          <%= link_to "clear", admin_campaign_contributors_path(@campaign), :class => 'show_loader', :'data-loader' => "admin_header" %>
+          <%= link_to "clear", admin_campaigns_contributors_path(@campaign), :class => 'show_loader', :'data-loader' => "admin_header" %>
         <% end %>
       </div>
   
@@ -48,7 +48,7 @@
       </table>
   
       <% if @total_pages > 1 %>
-        <%= render 'shared/paginate', path: admin_campaign_contributors_path(@campaign), page: @page, total_pages: @total_pages %>
+        <%= render 'shared/paginate', path: admin_campaigns_contributors_path(@campaign), page: @page, total_pages: @total_pages %>
       <% end %>
     <% else %>
       <p>No contributors yet!</p>

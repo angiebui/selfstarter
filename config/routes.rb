@@ -16,7 +16,8 @@ Selfstarter::Application.routes.draw do
   namespace :admin do
     resources :campaigns
   end
-  match '/admin/campaigns/:id/contributors',   to: 'admin/campaigns#contributors',          as: :admin_campaign_contributors
+  match '/admin/campaigns/:id/copy',           to: 'admin/campaigns#copy',                  as: :admin_campaigns_copy
+  match '/admin/campaigns/:id/contributors',   to: 'admin/campaigns#contributors',          as: :admin_campaigns_contributors
   match '/admin/bank-setup',                   to: 'admin#admin_bank_setup',                as: :admin_bank_setup
   match '/ajax/verify',                        to: 'admin#ajax_verify',                     as: :ajax_verify
 

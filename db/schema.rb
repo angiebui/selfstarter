@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130329140533) do
+ActiveRecord::Schema.define(:version => 20130408225754) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20130329140533) do
     t.string   "facebook_image_content_type"
     t.integer  "facebook_image_file_size"
     t.datetime "facebook_image_updated_at"
+    t.text     "homepage_content"
   end
 
   create_table "users", :force => true do |t|

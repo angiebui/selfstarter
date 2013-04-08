@@ -27,6 +27,12 @@
             <%= f.file_field :logo_image %>
           <% end  %>
         </div>   
+
+      <div class="field clearfix">       
+        <label>Homepage Content</label>
+        <p class="explanation inline">This content is shown on the homepage in addition to the campaign tiles.</p>
+        <%= f.cktext_area :homepage_content %>        
+      </div>   
       
       </fieldset>
   

@@ -1,6 +1,10 @@
 <div id="homepage">
   <div class="container clearfix">
     
+    <div class="homepage_content clearfix">
+      <%= raw(@settings.homepage_content) %>
+    </div>
+    
     <div class="campaigns">
       
       <% if @campaigns.count > 0 %>  

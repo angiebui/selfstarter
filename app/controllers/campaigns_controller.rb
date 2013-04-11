@@ -39,13 +39,14 @@ class CampaignsController < ApplicationController
     ct_user_id = params[:ct_user_id]
     ct_card_id = params[:ct_card_id]
     amount = params[:amount].to_f * 100
+    fee = ((amount * Rails.configuration.processing_fee.to_f/100)*100).ceil/100.0
     
     if @campaign.apply_processing_fee
-      user_fee_amount = params[:fee].to_f * 100
+      user_fee_amount = fee
       admin_fee_amount = 0
     else
       user_fee_amount = 0
-      admin_fee_amount = params[:fee].to_f * 100
+      admin_fee_amount = fee
     end
        
     if !ct_user_id == current_user.ct_user_id

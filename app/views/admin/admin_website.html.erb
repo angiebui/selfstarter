@@ -99,6 +99,21 @@
       
       </fieldset>
       
+      
+      <fieldset>
+      <legend><a class="advanced_toggle" href="#">Advanced Settings (click to expand)</a></legend>
+        <div id="advanced" style="display:none">
+          
+          <div class="field clearfix">
+            <p class="explanation">Add your own CSS styles to fully customize the look and feel of the site.</p>
+            <label>Custom CSS</label>
+            <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px" %>
+          </div>
+        
+         </div>
+      </fieldset>
+
+      
       <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "project_form" %>
       <span class="loader" data-loader="project_form" style="display:none"></span>
     <% end %>

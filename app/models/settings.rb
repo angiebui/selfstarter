@@ -1,7 +1,8 @@
 class Settings < ActiveRecord::Base
   attr_accessible :site_name, :facebook_app_id, :google_id, :tweet_text, :initialized_flag, 
                   :logo_image, :logo_image_delete, :copyright_text, :facebook_title, 
-                  :facebook_description, :facebook_image, :facebook_image_delete, :homepage_content
+                  :facebook_description, :facebook_image, :facebook_image_delete, :homepage_content,
+                  :custom_css
                   
   attr_accessor :logo_image_delete, :facebook_image_delete
   

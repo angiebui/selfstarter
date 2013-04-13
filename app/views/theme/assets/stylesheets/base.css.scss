@@ -167,24 +167,26 @@ body.lt-ie9 {
 }
 
 .blue_button.expired {  
-  opacity: 0.5;
   background-image: none;
-  background-color: gray;
+  background-color: #bbbbbb;
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+  text-shadow: none;
   &:hover {
     background-image: none;
-    background-color: gray;
+    background-color: #bbbbbb;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+    text-shadow: none;
   }
   &:active {
     background-image: none;
-    background-color: gray;
+    background-color: #bbbbbb;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
+    text-shadow: none;
   }
 }

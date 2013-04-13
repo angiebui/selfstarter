@@ -106,12 +106,12 @@
         </form>
         <div id="errors"></div>
         <br/><br/>
-        <p class="crowdhoster-powered"><i class="icon icon-lock"></i> Payments powered by Crowdhoster, a <img src="/assets/crowdtilt.png" width="60px"> product</p>
+        <p class="crowdhoster-powered" style="display:block!important"><i class="icon icon-lock"></i> Payments powered by Crowdhoster, a <img src="/assets/crowdtilt.png" width="60px"> product</p>
     </div>  
   <% else %>
     <div class="well" style="background-color: #ffffff">
-      
-      <div class="new-account">
+      <h4 class="new_account_header">Please create an account to continue</h4>
+      <div class="new_account">
         <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
         <%= devise_error_messages! %>
       
@@ -124,7 +124,7 @@
         <div><%= f.label :password %>
         <%= f.password_field :password %></div>
         <br/>
-        <button class="btn btn-primary show_loader" data-loader="user_form" type="submit">Continue to next step</button>     
+        <button class="btn btn-primary show_loader" data-loader="user_form" type="submit">Create Account</button>     
         <span class="loader" data-loader="user_form" style="display:none"></span>  
         <% end %>
       

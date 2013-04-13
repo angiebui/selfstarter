@@ -5,6 +5,14 @@ Selfstarter.admin =
     _this = this
 
     #
+    # Admin Website
+    #
+
+    $('a.advanced_toggle').on "click", (e) ->
+      e.preventDefault()
+      $('#advanced').slideToggle()
+
+    #
     # Admin Project
     #
     

@@ -48,7 +48,7 @@
       </table>
   
       <% if @total_pages > 1 %>
-        <%= render 'shared/paginate', path: admin_campaigns_contributors_path(@campaign), page: @page, total_pages: @total_pages %>
+        <%= render 'shared/paginate', path: :admin_campaigns_contributors_path, object: @campaign, page: @page, total_pages: @total_pages %>
       <% end %>
     <% else %>
       <p>No contributors yet!</p>

@@ -1,12 +1,11 @@
 GIT
-  remote: git://github.com/Crowdtilt/crowdtilt-ruby.git
-  revision: f89ddb10ebfdaba6045ef5a5cc563f711525b11d
-  branch: tweaks
+  remote: git://github.com/msaint/crowdtilt.git
+  revision: c411776a09a58beb33798f5626910f2e72600304
   specs:
     crowdtilt (0.0.1)
-      activemodel
-      faraday
-      faraday_middleware
+      activesupport
+      faraday (~> 0.8, < 0.10)
+      faraday_middleware (~> 0.9.0)
       json
 
 GEM
@@ -76,7 +75,7 @@ GEM
     eventmachine (1.0.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    faraday (0.8.6)
+    faraday (0.8.7)
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
@@ -100,7 +99,7 @@ GEM
     mime-types (1.19)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
-    multi_json (1.7.1)
+    multi_json (1.7.2)
     multi_xml (0.2.2)
     multipart-post (1.2.0)
     newrelic_rpm (3.5.8.72)

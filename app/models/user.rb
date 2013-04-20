@@ -19,23 +19,25 @@ class User < ActiveRecord::Base
   
     def sync_crowdtilt_user
       if !self.ct_user_id
-        ct_user = Crowdtilt::User.new name: self.fullname, email: self.email
-        
         begin
-          ct_user.save
+          user = {
+            firstname: self.fullname,
+            email: self.email
+          }
+          response = Crowdtilt.post('/users', {user: user})
         rescue => exception     
           errors.add(:base, exception.to_s)
           false
         else
-          self.ct_user_id = ct_user.id
+          self.ct_user_id = response['user']['id']
         end          
-     else
-        ct_user = Crowdtilt::User.find(self.ct_user_id)
-        ct_user.name = self.fullname
-        ct_user.email = self.email
-
+      else
         begin
-          ct_user.save
+          user = {
+            firstname: self.fullname,
+            email: self.email
+          }
+          response = Crowdtilt.put('/users/' + self.ct_user_id, {user: user})
         rescue => exception     
           errors.add(:base, exception.to_s)
           false

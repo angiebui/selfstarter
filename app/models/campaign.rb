@@ -36,14 +36,14 @@ class Campaign < ActiveRecord::Base
   before_save :set_min_amount
   
   def update_api_data(campaign)
-    self.ct_campaign_id = campaign.id
-    self.stats_number_of_contributions = campaign.stats['number_of_contributions'].nil? ? 0 : campaign.stats['number_of_contributions']
-    self.stats_raised_amount = campaign.stats['raised_amount'].nil? ? 0 : campaign.stats['raised_amount']/100.0
-    self.stats_tilt_percent = campaign.stats['tilt_percent'].nil? ? 0 : campaign.stats['tilt_percent']
-    self.stats_unique_contributors = campaign.stats['unique_contributors'].nil? ? 0 : campaign.stats['unique_contributors']
-    self.is_tilted = campaign.is_tilted == 0 ? false : true
-    self.is_expired = campaign.is_expired == 0 ? false : true
-    self.is_paid = campaign.is_paid == 0 ? false : true
+    self.ct_campaign_id = campaign['id']
+    self.stats_number_of_contributions = campaign['stats']['number_of_contributions'].to_i
+    self.stats_raised_amount = campaign['stats']['raised_amount'].to_f/100.0
+    self.stats_tilt_percent = campaign['stats']['tilt_percent'].to_f
+    self.stats_unique_contributors = campaign['stats']['unique_contributors'].to_i
+    self.is_tilted = campaign['is_tilted'].to_i == 0 ? false : true
+    self.is_expired = campaign['is_expired'].to_i == 0 ? false : true
+    self.is_paid = campaign['is_paid'].to_i == 0 ? false : true
   end
   
   def expired?

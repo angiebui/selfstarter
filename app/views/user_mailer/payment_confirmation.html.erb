@@ -1,9 +1,9 @@
 Nice!  You just made a payment.<br/>
 
-Name: <%= @payment.user.lastname + ', ' + @payment.user.firstname %> <br/>
-Date: <%= DateTime.parse(@payment.creation_date).strftime("%m/%d/%Y") %> <br/>
-Amount: $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/>
-Card: <%= @payment.card.card_type %> ************<%= @payment.card.last_four %> 
-      (<%= @payment.card.expiration_month.to_s + '/' + @payment.card.expiration_year.to_s %>) <br/>
-Status: <%= @payment.status %> <br/>
-ID: <%= @payment.id %>
+Name: <%= @payment['user']['firstname'] %> <br/>
+Date: <%= DateTime.parse(@payment['creation_date']).strftime("%m/%d/%Y") %> <br/>
+Amount: $<%= number_with_precision(@payment['amount']to_f/100.0 + @payment['user_fee_amount'].to_f/100.0, precision: 2) %> <br/>
+Card: <%= @payment['card']['card_type'] %> ************<%= @payment['card']['last_four'] %> 
+      (<%= @payment['card']['expiration_month'].to_s + '/' + @payment['card']['expiration_year']to_s %>) <br/>
+Status: <%= @payment['status'] %> <br/>
+ID: <%= @payment['id'] %>

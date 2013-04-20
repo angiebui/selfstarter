@@ -35,13 +35,13 @@
         <tbody>
           <% @contributors.each do |contributor| %>
           <tr>      
-            <td><%= contributor.user.lastname + ', ' + contributor.user.firstname %></td>
-            <td><%= contributor.user.email %></td>
-            <td>$<%= number_with_precision(contributor.amount.to_f/100.0, precision: 2) %></td>
-            <td>$<%= number_with_precision(contributor.user_fee_amount.to_f/100.0, precision: 2) %></td>
-            <td><%= DateTime.parse(contributor.creation_date).strftime("%m/%d/%Y") %></td>
-            <td><%= contributor.status %></td>
-            <td><%= contributor.id %></td>
+            <td><%= contributor['user']['firstname'] %></td>
+            <td><%= contributor['user']['email'] %></td>
+            <td>$<%= number_with_precision(contributor['amount'].to_f/100.0, precision: 2) %></td>
+            <td>$<%= number_with_precision(contributor['user_fee_amount'].to_f/100.0, precision: 2) %></td>
+            <td><%= DateTime.parse(contributor['creation_date']).strftime("%m/%d/%Y") %></td>
+            <td><%= contributor['status'] %></td>
+            <td><%= contributor['id'] %></td>
           </tr>
           <% end %>  
         </tbody>

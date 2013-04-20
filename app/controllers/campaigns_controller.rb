@@ -54,23 +54,29 @@ class CampaignsController < ApplicationController
     end
     
     #TODO: Check to make sure the amount is valid here
-    
-    @payment = Crowdtilt::Payment.new amount: amount, user_fee_amount: user_fee_amount, 
-                                      admin_fee_amount: admin_fee_amount, user_id: ct_user_id, 
-                                      card_id: ct_card_id, campaign_id: @campaign.ct_campaign_id
+                         
     begin
-     @payment.save
+      payment = {
+        amount: amount,
+        user_fee_amount: user_fee_amount,
+        admin_fee_amount: admin_fee_amount,
+        user_id: ct_user_id,
+        card_id: ct_card_id      
+      }
+      response = Crowdtilt.post('/campaigns/' + @campaign.ct_campaign_id + '/payments', {payment: payment})
     rescue => exception
       flash.now[:error] = exception.to_s
       return
-    end    
+    end
+    
+    @payment = response['payment']    
      
     begin
-      UserMailer.payment_confirmation(@payment).deliver
+      UserMailer.payment_confirmation(current_user, @payment).deliver
     rescue => exception
     end
     
-    @campaign.update_api_data(@payment.campaign)
+    @campaign.update_api_data(@payment['campaign'])
     @campaign.save
   end
   

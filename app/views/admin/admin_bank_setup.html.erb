@@ -10,8 +10,8 @@
       <% if current_user.has_default_bank %>
       
       <h4>Your bank is all set up!</h4>
-      <p>Routing Number: ****<%= @bank.bank_code_last_four %></p>
-      <p>Account Number: ****<%= @bank.account_number_last_four %></p>
+      <p>Routing Number: ****<%= @bank['bank_code_last_four'] %></p>
+      <p>Account Number: ****<%= @bank['account_number_last_four'] %></p>
       
       <% else %>
         

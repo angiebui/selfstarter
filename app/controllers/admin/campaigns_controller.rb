@@ -15,16 +15,19 @@ class Admin::CampaignsController < ApplicationController
     old_campaign = Campaign.find(params[:id])
     @campaign = old_campaign.dup
     @campaign.archive_flag = false  
-    ct_campaign = Crowdtilt::Campaign.new title: @campaign.name, 
-                                      tilt_amount: @campaign.goal*100, 
-                                      expiration_date: @campaign.expiration_date, 
-                                      user_id: current_user.ct_user_id
+    
     begin
-      ct_campaign.save
+      campaign = {
+        title: @campaign.name, 
+        tilt_amount: @campaign.goal*100, 
+        expiration_date: @campaign.expiration_date, 
+        user_id: current_user.ct_user_id
+      }
+      response = Crowdtilt.post('/campaigns', {campaign: campaign})
     rescue => exception
       redirect_to admin_campaigns, :flash => { :error => "An error occurred" }
     else
-      @campaign.update_api_data(ct_campaign)
+      @campaign.update_api_data(response['campaign'])
       @campaign.save
     end
     
@@ -50,21 +53,23 @@ class Admin::CampaignsController < ApplicationController
       return
     end
             
-    # Update the corresponding campaign on the Crowdtilt API
+    # Create a corresponding campaign on the Crowdtilt API
     # If it fails, echo the error message sent by the API back to the user
     # If successful, save the campaign         
-    ct_campaign = Crowdtilt::Campaign.new title: @campaign.name, 
-                                          tilt_amount: @campaign.goal*100, 
-                                          expiration_date: @campaign.expiration_date, 
-                                          user_id: current_user.ct_user_id
     begin
-      ct_campaign.save
+      campaign = {
+        title: @campaign.name, 
+        tilt_amount: @campaign.goal*100, 
+        expiration_date: @campaign.expiration_date, 
+        user_id: current_user.ct_user_id      
+      }
+      response = Crowdtilt.post('/campaigns', {campaign: campaign})
     rescue => exception  
       flash.now[:error] = exception.to_s
       render action: "new"
       return
     else
-      @campaign.update_api_data(ct_campaign)
+      @campaign.update_api_data(response['campaign'])
       @campaign.save 
       
       # Now that we've created the campaign, create new FAQs if any were provided
@@ -119,19 +124,19 @@ class Admin::CampaignsController < ApplicationController
     # Update the corresponding campaign on the Crowdtilt API
     # If it fails, echo the error message sent by the API back to the user
     # If successful, save the campaign         
-    ct_campaign = Crowdtilt::Campaign.find(@campaign.ct_campaign_id) 
-    ct_campaign.title = @campaign.name
-    ct_campaign.tilt_amount = @campaign.goal*100
-    ct_campaign.expiration_date = @campaign.expiration_date
-    
     begin
-      ct_campaign.save
+      campaign = {
+        title: @campaign.name, 
+        tilt_amount: @campaign.goal*100, 
+        expiration_date: @campaign.expiration_date,     
+      }
+      response = Crowdtilt.put('/campaigns/' + @campaign.ct_campaign_id, {campaign: campaign})
     rescue => exception   
       flash.now[:error] = exception.to_s
       render action: "edit"
       return
     else
-      @campaign.update_api_data(Crowdtilt::Campaign.find(@campaign.ct_campaign_id))
+      @campaign.update_api_data(response['campaign'])
       @campaign.save
       if @campaign.archive_flag              
         redirect_to admin_campaigns_url, :flash => { :notice => "Campaign updated!" }
@@ -149,19 +154,23 @@ class Admin::CampaignsController < ApplicationController
     #Check if the user is searching for a certain payment_id
     if params.has_key?(:payment_id) && !params[:payment_id].blank?
       begin
-        @contributors = [Crowdtilt::Campaign.find(@campaign.ct_campaign_id).payments.find(params[:payment_id])]
-        @page = @total_pages = 1
+        response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + '/payments/' + params[:payment_id])
       rescue => exception
         #This means the payment_id wasn't found, so go ahead and grab all payments
-        @contributors = Crowdtilt::Campaign.find(@campaign.ct_campaign_id).payments(page, 50)
-        @page = @contributors.pagination['page'].to_i
-        @total_pages = @contributors.pagination['total_pages'].to_i
+        response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + '/payments?page=1&per_page=50')
+        @contributors = response['payments']
+        @page = response['pagination']['page'].to_i
+        @total_pages = response['pagination']['total_pages'].to_i
         flash.now[:error] = "Contributor not found for " + params[:payment_id]
+      else
+        @contributors = [response['payment']]
+        @page = @total_pages = 1
       end
     else
-      @contributors = Crowdtilt::Campaign.find(@campaign.ct_campaign_id).payments(page, 50)
-      @page = @contributors.pagination['page'].to_i
-      @total_pages = @contributors.pagination['total_pages'].to_i
+      response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + "/payments?page=#{page}&per_page=50")
+      @contributors = @contributors = response['payments']
+      @page = response['pagination']['page'].to_i
+      @total_pages = response['pagination']['total_pages'].to_i
     end
   end
 

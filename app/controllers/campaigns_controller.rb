@@ -72,7 +72,7 @@ class CampaignsController < ApplicationController
     @payment = response['payment']    
      
     begin
-      UserMailer.payment_confirmation(current_user, @payment).deliver
+      UserMailer.payment_confirmation(@payment).deliver
     rescue => exception
     end
     

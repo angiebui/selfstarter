@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :load_settings
+  before_filter :load_settings, :set_default_mailer_host
   after_filter :store_location
   
   def load_settings
@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     if !@settings
       redirect_to :status => 404
     end   
+  end
+  
+  def set_default_mailer_host
+  	ActionMailer::Base.default_url_options = {:host => request.host_with_port}
   end
   
   def store_location

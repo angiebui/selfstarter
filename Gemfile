@@ -11,6 +11,8 @@ gem 'paperclip', '~> 3.0'
 gem 'ckeditor'
 gem 'aws-sdk'
 
+gem 'foreman'
+
 group :development do
   gem 'pry-rails'
 end

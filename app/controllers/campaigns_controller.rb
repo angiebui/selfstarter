@@ -30,7 +30,7 @@ class CampaignsController < ApplicationController
     
   end
   
-  def checkout_confirmation  
+  def checkout_confirmation
     if params[:ct_user_id].blank? || params[:ct_card_id].blank? || params[:amount].blank? || params[:fee].blank?
       redirect_to checkout_amount_url, flash: { error: "An error occurred" }
       return

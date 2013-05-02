@@ -2,6 +2,7 @@ class Campaign < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: :slugged
   has_many :faqs, dependent: :destroy
+  has_many :payments
   
   attr_accessible :name, :goal,  :expiration_date, :ct_campaign_id, :media_type, 
                   :main_image, :main_image_delete, :video_embed_id, :video_placeholder, :video_placeholder_delete,
@@ -11,7 +12,7 @@ class Campaign < ActiveRecord::Base
                   :tweet_text, :facebook_title, :facebook_description,  :facebook_image, :facebook_image_delete,
                   :payment_type, :fixed_payment_amount, :min_payment_amount, :apply_processing_fee,
                   :collect_shipping_address, :stats_number_of_contributors, :stats_raised_amount, :stats_tilt_percent,
-                  :stats_unique_contributors, :archive_flag               
+                  :stats_unique_contributors, :archive_flag, :collect_shipping               
                   
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
   
@@ -59,7 +60,7 @@ class Campaign < ActiveRecord::Base
   end
 
   def expiration_date_cannot_be_in_the_past
-    if self.expiration_date_changed? && !self.expiration_date.nil? && self.expiration_date < Time.current
+    if self.expiration_date_changed? && !self.expiration_date.blank? && self.expiration_date < Time.current
       errors.add(:expiration_date, "can't be in the past")
     end
   end

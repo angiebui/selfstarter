@@ -3,26 +3,62 @@
     <div class="main_content">
       <h3><%= @campaign.name %></h3>
       
-      <div class="well" style="background-color: #ffffff">
+      <div class="well checkout_block">
         <form accept-charset="UTF-8" action="<%= checkout_payment_path(@campaign) %>" method="GET" id="amount_form">
+
+          <% if @campaign.payment_type == 'fixed' %>
+            
+            <div class="quantity_input">
+            <h4 class="amount_header">Please choose a quantity: </h4>
+	          <br/>
+            	
+            	<span>$<%= @campaign.fixed_payment_amount %>&nbsp; x &nbsp;</span>
+              <select id="quantity" name="quantity" style="width:50px">
+                <option value="01" selected>01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+              </select>
+              <span>&nbsp; = &nbsp;$<span id="total"><%= @campaign.fixed_payment_amount %></span></span>
+                
+            </div>
+            
+            <input id="amount" type="hidden" name="amount" value="<%= number_with_precision(@campaign.fixed_payment_amount, precision: 2) %>" data-original="<%= number_with_precision(@campaign.fixed_payment_amount, precision: 2) %>"/>
+            
+          <% else %>
           
-          <div>
-          <p>Please enter an amount: </p>
-          <br/>
-          <div class="amount_input" style="position:relative">
-            <input id="amount" type="text" name="amount"/>&nbsp;&nbsp;
-            <span style="position:absolute">$</span>
-          </div>
-          <span>Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %></span>
-          </div>
-          
-          <br/>
-          <button type="submit" class="btn btn-primary">Continue to next step</button>
+	          <div>
+	          <h4 class="amount_header">Please enter an amount: </h4>
+	          <br/>
+	          <div class="amount_input" style="position:relative">
+	            <input id="amount" type="text" name="amount"/>&nbsp;&nbsp;
+	            <span style="position:absolute">$</span>
+	          </div>
+	          <span>Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %></span>
+	          </div>
+	          
+	          <input id="quantity" type="hidden" name="quantity" value="1"/>
+	          
+					<% end %>
+					
+          <button type="submit" class="btn btn-primary">Continue to checkout</button>
         
         </form>
       </div>
       
     </div>
-    <%= render 'campaigns/checkout_sidebar' %>
+    
+		<div class="sidebar">
+			<div class="custom_content">
+				<%= raw(@campaign.checkout_sidebar_content) %>
+			</div>
+		</div>
+		
   </div>
 </div>

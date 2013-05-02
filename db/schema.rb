@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411035200) do
+ActiveRecord::Schema.define(:version => 20130502140108) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130411035200) do
     t.boolean  "is_tilted"
     t.boolean  "is_paid"
     t.boolean  "archive_flag",                         :default => false,        :null => false
+    t.boolean  "collect_shipping",                     :default => false,        :null => false
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
@@ -125,6 +126,29 @@ ActiveRecord::Schema.define(:version => 20130411035200) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "payments", :force => true do |t|
+    t.string   "ct_payment_id"
+    t.string   "status"
+    t.integer  "amount"
+    t.integer  "user_fee_amount"
+    t.integer  "admin_fee_amount"
+    t.string   "fullname"
+    t.string   "email"
+    t.string   "card_type"
+    t.string   "card_last_four"
+    t.string   "card_expiration_month"
+    t.string   "card_expiration_year"
+    t.integer  "campaign_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "address_one"
+    t.string   "address_two"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.string   "country"
+  end
+
   create_table "settings", :force => true do |t|
     t.string   "site_name"
     t.string   "facebook_app_id"
@@ -146,6 +170,7 @@ ActiveRecord::Schema.define(:version => 20130411035200) do
     t.datetime "facebook_image_updated_at"
     t.text     "homepage_content"
     t.text     "custom_css"
+    t.string   "ct_guest_user_id"
   end
 
   create_table "users", :force => true do |t|

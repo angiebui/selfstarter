@@ -9,21 +9,15 @@ Selfstarter.campaigns =
       $("#player").css('display', 'block')
       $(this).hide()      
     
-    # Checkout page functions:
-    $('#table_quantity_value').on "change", (e) ->
+    # Checkout section functions:
+     $('#quantity').on "change", (e) ->
       quantity = $(this).val()
       
       $amount = $('#amount')
-      $fee = $('#fee')
-      
       new_amount = parseFloat($amount.attr('data-original')) * quantity
-      new_fee = parseFloat($fee.attr('data-original')) * quantity
-      
-      $fee.val(new_fee)
       $amount.val(new_amount)
       
-      $('#table_fee').html('$' + new_fee.toFixed(2))
-      $('#table_total').html('$' + (new_fee + new_amount).toFixed(2))
+      $('#total').html(new_amount.toFixed(2))
     
     $('#payment_form').on "submit", (e) ->
       e.preventDefault()

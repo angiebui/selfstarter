@@ -40,6 +40,19 @@ class ApplicationController < ActionController::Base
         # Set intiatilized flag to true
         @settings.update_attribute :initialized_flag, true
         
+        # Create the Crowdtilt API User for guest checkout
+        begin
+          user = {
+            email: 'guest@crowdhoster.com'
+          }
+          response = Crowdtilt.post('/users', {user: user})
+        rescue => exception     
+          errors.add(:base, exception.to_s)
+          false
+        else
+          @settings.update_attribute :ct_guest_user_id, response['user']['id']
+        end        
+        
         # Put user back on admin area
         redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }        
       else

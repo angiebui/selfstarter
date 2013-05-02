@@ -3,61 +3,56 @@
     <div class="main_content">
       <h3><%= @campaign.name %></h3>
         
-        <% if user_signed_in? %>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Payment Amount</th>
-              <% if @campaign.payment_type == 'fixed' %>
-                <th>Quantity</th>
-              <% end %>   
-              <% if @fee > 0 %>
-                <th>Processing Fee</th>
-              <% end %>
-              <th>Total</th>
-            </tr>
-          </thead>
-        <tbody>
-          <tr>
-            <td id="table_amount">
-              $<%= number_with_precision(@amount, precision: 2) %>
-              <%= link_to "edit", checkout_amount_path(@campaign) if @campaign.payment_type != 'fixed' %>
-            </td>
-
-            <% if @campaign.payment_type == 'fixed' %>
-              <td id="table_quantity">
-                <select id="table_quantity_value" style="width:50px">
-                  <option value="01" selected>01</option>
-                  <option value="02">02</option>
-                  <option value="03">03</option>
-                  <option value="04">04</option>
-                  <option value="05">05</option>
-                  <option value="06">06</option>
-                  <option value="07">07</option>
-                  <option value="08">08</option>
-                  <option value="09">09</option>
-                  <option value="10">10</option>
-                </select>  
-              </td>
-            <% end %>            
-            
-            <% if @fee > 0 %>
-              <td id="table_fee">$<%= number_with_precision(@fee, precision: 2) %></td>
-            <% end %>
-            <td id="table_total">$<%= number_with_precision(@total, precision: 2) %></td>
-          </tr>
-        </tbody>
-      </table>      
-      
-    <div class="well" style="background-color: #ffffff">
+    <div class="well checkout_block">
            
         <form accept-charset="UTF-8" action="<%= checkout_confirmation_path(@campaign) %>" method="post" id="payment_form">
   
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
           
           <fieldset>
+          <label for="fullname">Full Name</label>
+          <input id="fullname" name="fullname" type="text">
+          </fieldset>
+
+          <fieldset>
+          <label for="email">Email Address</label>
+          <input id="email" name="email" type="text">
+          </fieldset>
+          
+          <% if @campaign.collect_shipping %>
+          <h4>Shipping Address</h4>
+          
+          <fieldset>
+          <label for="address_one">Address1</label>
+          <input id="address_one" name="address_one" type="text">
+          </fieldset>
+
+          <fieldset>
+          <label for="address_two">Address2</label>
+          <input id="address_two" name="address_two" type="text">
+          </fieldset>
+
+          <fieldset>
+          <label for="city">City</label>
+          <input id="city" name="city" type="text" style="width:230px">
+          </fieldset>
+          
+          <fieldset>
+          <label for="state">State</label>
+          <input id="state" name="state" type="text" style="width:50px">
+          </fieldset>
+
+          <fieldset>
+          <label for="postal_code">Postal Code</label>
+          <input id="postal_code" name="postal_code" type="text" style="width:135px">
+          </fieldset>
+					<% end %>
+					
+					<h4>Card Information</h4>
+					
+          <fieldset>
           <label for="card_number">Card Number</label>
-          <input id="card_number" size="30" type="text">
+          <input id="card_number" type="text">
           </fieldset>
         
           <fieldset>
@@ -96,10 +91,10 @@
           <input id="security_code" size="30" type="text" class="input-small">
           </fieldset>
                     
-          <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= current_user.ct_user_id %>" >
+          <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @settings.ct_guest_user_id %>" >
           
-          <input id="amount" type="hidden" name="amount" data-original="<%= @amount %>" value="<%= @amount %>">
-          <input id="fee" type="hidden" name="fee" data-original="<%= @fee %>" value="<%= @fee %>">
+          <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
+          <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
     
           <button class="btn btn-primary" type="submit">Confirm Payment</button>
           <span id="loader" class="loader" style="display:none"></span>     
@@ -108,34 +103,48 @@
         <br/><br/>
         <p class="crowdhoster-powered" style="display:block!important"><i class="icon icon-lock"></i> Payments powered by Crowdhoster, a <img src="/assets/crowdtilt.png" width="60px"> product</p>
     </div>  
-  <% else %>
-    <div class="well" style="background-color: #ffffff">
-      <h4 class="new_account_header">Please create an account to continue</h4>
-      <div class="new_account">
-        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
-      
-        <div><%= f.label :fullname, "Full Name" %>
-        <%= f.text_field :fullname, :autofocus => true %></div>
-      
-        <div><%= f.label :email %>
-        <%= f.email_field :email %></div>
-      
-        <div><%= f.label :password %>
-        <%= f.password_field :password %></div>
-        <br/>
-        <button class="btn btn-primary show_loader" data-loader="user_form" type="submit">Create Account</button>     
-        <span class="loader" data-loader="user_form" style="display:none"></span>  
-        <% end %>
-      
-        <%= link_to "Already have an account?", new_session_path(resource_name) %>
-      </div>
-    </div>  
-  <% end %>
   
   </div>
   
-    <%= render 'campaigns/checkout_sidebar' %>
+		<div class="sidebar">
+			<div class="well">
+				<div class="clearfix">
+					<h4 class="pull-left">Payment Summary</h4>
+					<p class="pull-right"><%= link_to "edit", checkout_amount_path(@campaign) %></p>
+				</div>
+				
+				<table style="width: 100%">
+				
+					<tr>
+					<td width="225">
+					<% if @campaign.payment_type == "fixed" %>
+						<p>Subtotal (<%= "#{@quantity} x $#{number_with_precision(@campaign.fixed_payment_amount, precision: 2)}" %>)</p>
+					<% else %>
+						<p>Subtotal</p>
+					<% end %>
+					</td>
+					<td style="text-align: right"><p>$<%= number_with_precision(@amount, precision: 2) %></p></td>
+					</tr>
+					
+					<% if @fee > 0 %>
+					<tr>
+					<td width="225"><p>Processing Fee</p></td>
+					<td style="text-align: right"><p>$<%= number_with_precision(@fee, precision: 2) %></p></td>
+					</tr>
+					<% end %>
+					
+					<tr>
+					<td width="225"><p><strong>Total</strong></p></td>
+					<td style="text-align: right"><p><strong>$<%= number_with_precision(@total, precision: 2) %></strong></p></td>
+					</tr>				
+				
+				</table>
+				
+			</div>
+			<div class="custom_content">
+				<%= raw(@campaign.checkout_sidebar_content) %>
+			</div>
+		</div>
   
   </div>
 </div>

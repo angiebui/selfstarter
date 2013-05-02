@@ -13,7 +13,7 @@ Selfstarter.admin =
       $('#advanced').slideToggle()
 
     #
-    # Admin Project
+    # Admin Campaigns
     #
     
     $('#campaign_expiration_date').datetimepicker({

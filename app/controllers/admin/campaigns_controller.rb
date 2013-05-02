@@ -147,31 +147,44 @@ class Admin::CampaignsController < ApplicationController
     end     
   end
 
-  def contributors
-    @campaign = Campaign.find(params[:id])
-    page = params[:page] || 1
-
-    #Check if the user is searching for a certain payment_id
-    if params.has_key?(:payment_id) && !params[:payment_id].blank?
-      begin
-        response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + '/payments/' + params[:payment_id])
-      rescue => exception
-        #This means the payment_id wasn't found, so go ahead and grab all payments
-        response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + '/payments?page=1&per_page=50')
-        @contributors = response['payments']
-        @page = response['pagination']['page'].to_i
-        @total_pages = response['pagination']['total_pages'].to_i
-        flash.now[:error] = "Contributor not found for " + params[:payment_id]
-      else
-        @contributors = [response['payment']]
-        @page = @total_pages = 1
-      end
-    else
-      response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + "/payments?page=#{page}&per_page=50")
-      @contributors = @contributors = response['payments']
-      @page = response['pagination']['page'].to_i
-      @total_pages = response['pagination']['total_pages'].to_i
-    end
+  def payments
+#     @campaign = Campaign.find(params[:id])
+#     page = params[:page] || 1
+# 
+#     #Check if the user is searching for a certain payment_id
+#     if params.has_key?(:payment_id) && !params[:payment_id].blank?
+#       begin
+#         response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + '/payments/' + params[:payment_id])
+#       rescue => exception
+#         #This means the payment_id wasn't found, so go ahead and grab all payments
+#         response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + '/payments?page=1&per_page=50')
+#         @contributors = response['payments']
+#         @page = response['pagination']['page'].to_i
+#         @total_pages = response['pagination']['total_pages'].to_i
+#         flash.now[:error] = "Contributor not found for " + params[:payment_id]
+#       else
+#         @contributors = [response['payment']]
+#         @page = @total_pages = 1
+#       end
+#     else
+#       response = Crowdtilt.get('/campaigns/' + @campaign.ct_campaign_id + "/payments?page=#{page}&per_page=50")
+#       @contributors = @contributors = response['payments']
+#       @page = response['pagination']['page'].to_i
+#       @total_pages = response['pagination']['total_pages'].to_i
+#     end
+		
+		@campaign = Campaign.find(params[:id])
+		if params.has_key?(:payment_id) && !params[:payment_id].blank?
+			payment = Payment.find_by_ct_payment_id(params[:payment_id])
+			if payment
+				@payments = [payment]
+			else
+				@payments = @campaign.payments
+				flash.now[:error] = "Contributor not found for " + params[:payment_id]
+			end
+		else
+			@payments = @campaign.payments
+		end
   end
 
 end

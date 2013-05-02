@@ -1,10 +1,11 @@
 #admin {
-  margin-top: 80px;
-}
-
-#admin_project {
+  margin-top: 50px;
   
-  fieldset {
+  h3 {
+  	margin-top: 0px;
+  }
+
+	fieldset {
     margin-bottom: 30px;
   }
   
@@ -45,6 +46,13 @@
   input[type="radio"] {
     margin: 0px 6px 6px 0px
   }
+  
+}
+
+#admin_website {
+}
+
+#admin_campaigns {
   
   #preset-amount, #min-amount {
     margin-left: 20px;
@@ -93,7 +101,7 @@
   }
 }
 
-#admin_contributors {
+#admin_payments {
 
   .search {
     margin: 20px 0px 40px;

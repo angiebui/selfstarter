@@ -3,7 +3,7 @@
   
   <%= render 'admin/header', website: '', campaigns: 'active', bank: '' %>
 
-    <div id="admin_project">
+    <div id="admin_campaigns">
   
       <table class="table table-striped">
         <tr>
@@ -27,7 +27,7 @@
           <td><%= campaign.archive_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
           <td><%= link_to 'Edit', edit_admin_campaign_path(campaign) %></td>
           <td><%= link_to 'View', campaign_home_path(campaign) %></td>
-          <td><%= link_to 'Contributors', admin_campaigns_contributors_path(campaign) %></td>
+          <td><%= link_to 'Payments', admin_campaigns_payments_path(campaign) %></td>
           <td><%= link_to 'Copy', admin_campaigns_copy_path(campaign) %></td>
         </tr>
       <% end %>

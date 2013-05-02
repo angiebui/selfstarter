@@ -13,7 +13,6 @@ module Selfstarter
     config.assets.paths << Rails.root.join("app", "views", "theme", "assets", "javascripts")
     config.assets.paths << Rails.root.join("app", "views", "theme", "assets", "stylesheets")
     
-    
     config.crowdtilt_mode = ENV['CROWDTILT_MODE'] || 'sandbox'  #sandbox or production
     #Crowdtilt API key/secret
     config.crowdtilt_production_key = ENV['CROWDTILT_PRODUCTION_KEY']

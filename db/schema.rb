@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502140108) do
+ActiveRecord::Schema.define(:version => 20130502205813) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -171,6 +171,8 @@ ActiveRecord::Schema.define(:version => 20130502140108) do
     t.text     "homepage_content"
     t.text     "custom_css"
     t.string   "ct_guest_user_id"
+    t.string   "header_link_text"
+    t.string   "header_link_url"
   end
 
   create_table "users", :force => true do |t|

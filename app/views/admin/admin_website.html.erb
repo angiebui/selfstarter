@@ -11,7 +11,7 @@
       <legend>Basic Information</legend>
         
         <div class="field clearfix">
-          <p class="explanation">This'll be both the page title (&lt;title&gt;&lt;/title&gt;) and the name in the header</p>
+          <p class="explanation">This'll be both the page title (for SEO) and the name in the header</p>
           <label>Site Name</label>
           <%= f.text_field :site_name %> 
         </div>
@@ -26,7 +26,16 @@
           <% else %>           
             <%= f.file_field :logo_image %>
           <% end  %>
-        </div>   
+        </div>
+        
+        <div class="field clearfix">
+          <p class="explanation">This will place a link in the header to your blog or other such website where you can provide updates. For example, "Updates" could link to "http://myblog.com"</p>
+          <label>Header Link</label>
+          <label>Link Text</label>
+          <%= f.text_field :header_link_text %>
+          <label>URL</label>
+          <%= f.text_field :header_link_url %>  
+        </div> 
 
       <div class="field clearfix">       
         <label>Homepage Content</label>

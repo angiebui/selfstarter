@@ -41,7 +41,7 @@
             <td><%= payment.fullname %></td>
             <td><%= payment.email %></td>
             <% if @campaign.goal_type == 'orders' %>
-            <td><%= @campaign.orders %></td>
+            <td><%= payment.quantity %></td>
             <% end %>
             <td>$<%= number_with_precision(payment.amount.to_f/100.0, precision: 2) %></td>
             <td>$<%= number_with_precision(payment.user_fee_amount.to_f/100.0, precision: 2) %></td>

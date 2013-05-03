@@ -25,6 +25,7 @@ class CampaignsController < ApplicationController
       end
     elsif params.has_key?(:amount) && params[:amount].to_f >= @campaign.min_payment_amount
       @amount = ((params[:amount].to_f)*100).ceil/100.0 
+      @quantity = 1
     else
       redirect_to checkout_amount_url(@campaign), flash: { error: "Invalid amount!" }
       return
@@ -45,6 +46,7 @@ class CampaignsController < ApplicationController
     #calculate amount and fee in cents
 		amount = (params[:amount].to_f*100).ceil
     fee = (amount * (Rails.configuration.processing_fee.to_f/100)).ceil
+    quantity = params[:quantity].to_i
     
     # Apply the processing fee to the user or the admin
     if @campaign.apply_processing_fee
@@ -63,7 +65,7 @@ class CampaignsController < ApplicationController
     # TODO: Check to make sure the amount is valid here
 		
 		# Create the payment record in our db, if there are errors, redirect the user
-    @payment = @campaign.payments.new fullname: fullname, email: email
+    @payment = @campaign.payments.new fullname: fullname, email: email, quantity: quantity
                               
     if !@payment.valid?   
       message = ''
@@ -84,7 +86,8 @@ class CampaignsController < ApplicationController
         card_id: ct_card_id,
         metadata: {
         	fullname: fullname,
-        	email: email
+        	email: email,
+        	quantity: quantity
         }     
       }
       response = Crowdtilt.post('/campaigns/' + @campaign.ct_campaign_id + '/payments', {payment: payment})
@@ -93,15 +96,16 @@ class CampaignsController < ApplicationController
       return
     end  
     
+    # Sync payment data
+		@payment.update_api_data(response['payment'])
+		@payment.save   
+		
     # Send a confirmation email 
     begin
       UserMailer.payment_confirmation(@payment).deliver
     rescue => exception
-    end 
-    
-    # Sync payment data
-		@payment.update_api_data(response['payment'])
-		@payment.save                    
+    	puts exception.to_s
+    end                  
     
     # Sync campaign data
     @campaign.update_api_data(response['payment']['campaign'])

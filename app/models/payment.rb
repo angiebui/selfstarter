@@ -1,9 +1,9 @@
 class Payment < ActiveRecord::Base
   attr_accessible :ct_payment_id, :status, :amount, :user_fee_amount, :admin_fee_amount, :fullname, :email,
   								:card_type, :card_last_four, :card_expiration_month, :card_expiration_year,
-  								:address_one, :address_two, :city, :state, :postal_code, :country
+  								:address_one, :address_two, :city, :state, :postal_code, :country, :quantity
  	
- 	validates :fullname, :email, presence: true
+ 	validates :fullname, :email, :quantity, presence: true
  	validate :check_email
  								
   belongs_to :campaign
@@ -23,8 +23,10 @@ class Payment < ActiveRecord::Base
   private
   
   def check_email
-	  unless self.email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-	    errors.add(:email, self.email + "is not a valid email address")
-	  end
+  	if !self.email.nil?
+		  unless self.email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+		    errors.add(:email, self.email + "is not a valid email address")
+		  end
+		end
   end
 end

@@ -4,6 +4,6 @@ class UserMailer < ActionMailer::Base
   def payment_confirmation(payment)
     @settings = Settings.find_by_id(1)
     @payment = payment
-    mail to: @payment['user']['email'], subject: 'You just made a payment!'
+    mail to: @payment.email, subject: 'You just made a payment!'
   end
 end

@@ -4,7 +4,7 @@ class Campaign < ActiveRecord::Base
   has_many :faqs, dependent: :destroy
   has_many :payments
   
-  attr_accessible :name, :goal,  :expiration_date, :ct_campaign_id, :media_type, 
+  attr_accessible :name, :goal_type, :goal_dollars, :goal_orders,  :expiration_date, :ct_campaign_id, :media_type, 
                   :main_image, :main_image_delete, :video_embed_id, :video_placeholder, :video_placeholder_delete,
                   :contributor_reference, :progress_text, :primary_call_to_action_button, :primary_call_to_action_description,
                   :secondary_call_to_action_button, :secondary_call_to_action_description, :main_content, 
@@ -16,7 +16,7 @@ class Campaign < ActiveRecord::Base
                   
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
   
-  validates :name, :goal, :expiration_date, presence: true
+  validates :name, :expiration_date, presence: true
   validates :min_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
   validates :fixed_payment_amount, numericality: { greater_than_or_equal_to: 1.0 }
   validate :expiration_date_cannot_be_in_the_past
@@ -38,17 +38,27 @@ class Campaign < ActiveRecord::Base
   
   def update_api_data(campaign)
     self.ct_campaign_id = campaign['id']
-    self.stats_number_of_contributions = campaign['stats']['number_of_contributions'].to_i
-    self.stats_raised_amount = campaign['stats']['raised_amount'].to_f/100.0
-    self.stats_tilt_percent = campaign['stats']['tilt_percent'].to_f
-    self.stats_unique_contributors = campaign['stats']['unique_contributors'].to_i
+    self.stats_number_of_contributions = campaign['stats']['number_of_contributions']
+    self.stats_raised_amount = campaign['stats']['raised_amount']/100.0
+    self.stats_tilt_percent = campaign['stats']['tilt_percent']
+    self.stats_unique_contributors = campaign['stats']['unique_contributors']
     self.is_tilted = campaign['is_tilted'].to_i == 0 ? false : true
     self.is_expired = campaign['is_expired'].to_i == 0 ? false : true
     self.is_paid = campaign['is_paid'].to_i == 0 ? false : true
   end
   
+  def set_goal
+  	if self.goal_type == 'orders'
+  		self.goal_dollars = self.fixed_payment_amount * self.goal_orders
+  	end
+  end
+  
   def expired?
     self.expiration_date < Time.current
+  end
+  
+  def orders
+  	(self.stats_raised_amount / self.fixed_payment_amount).to_i
   end
   
   private

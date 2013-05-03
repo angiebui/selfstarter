@@ -19,7 +19,7 @@ class Admin::CampaignsController < ApplicationController
     begin
       campaign = {
         title: @campaign.name, 
-        tilt_amount: @campaign.goal*100, 
+        tilt_amount: @campaign.goal_dollars*100, 
         expiration_date: @campaign.expiration_date, 
         user_id: current_user.ct_user_id
       }
@@ -52,6 +52,9 @@ class Admin::CampaignsController < ApplicationController
       render action: "new"
       return
     end
+    
+    # calculate the goal amount (in case of a tilt by orders campaign)
+    @campaign.set_goal
             
     # Create a corresponding campaign on the Crowdtilt API
     # If it fails, echo the error message sent by the API back to the user
@@ -59,7 +62,7 @@ class Admin::CampaignsController < ApplicationController
     begin
       campaign = {
         title: @campaign.name, 
-        tilt_amount: @campaign.goal*100, 
+        tilt_amount: @campaign.goal_dollars*100, 
         expiration_date: @campaign.expiration_date, 
         user_id: current_user.ct_user_id      
       }
@@ -120,6 +123,9 @@ class Admin::CampaignsController < ApplicationController
       render action: "edit"
       return
     end
+    
+		# calculate the goal amount (in case of a tilt by orders campaign)
+    @campaign.set_goal
           
     # Update the corresponding campaign on the Crowdtilt API
     # If it fails, echo the error message sent by the API back to the user
@@ -127,7 +133,7 @@ class Admin::CampaignsController < ApplicationController
     begin
       campaign = {
         title: @campaign.name, 
-        tilt_amount: @campaign.goal*100, 
+        tilt_amount: @campaign.goal_dollars*100, 
         expiration_date: @campaign.expiration_date,     
       }
       response = Crowdtilt.put('/campaigns/' + @campaign.ct_campaign_id, {campaign: campaign})

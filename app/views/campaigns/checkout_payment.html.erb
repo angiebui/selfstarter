@@ -93,11 +93,15 @@
                     
           <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @settings.ct_guest_user_id %>" >
           
+          <input id="quantity" type="hidden" name="quantity" value="<%= @quantity %>">
           <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
           <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
-    
-          <button class="btn btn-primary" type="submit">Confirm Payment</button>
-          <span id="loader" class="loader" style="display:none"></span>     
+    			
+    			<div class="payment-submit">
+          	<button class="btn btn-primary" type="submit">Confirm Payment</button>
+          	<span id="loader" class="loader" style="display:none"></span>    
+          </div> 
+        
         </form>
         <div id="errors"></div>
         <br/><br/>
@@ -123,7 +127,7 @@
 						<p>Subtotal</p>
 					<% end %>
 					</td>
-					<td style="text-align: right"><p>$<%= number_with_precision(@amount, precision: 2) %></p></td>
+					<td style="text-align: right"><p>$<%= number_with_precision(@amount, precision: 2) %> </p></td>
 					</tr>
 					
 					<% if @fee > 0 %>

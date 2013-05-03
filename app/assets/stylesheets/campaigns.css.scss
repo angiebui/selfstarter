@@ -48,6 +48,10 @@
       }
     }
     
+    .btn {
+    	margin-top: 20px;
+    }
+    
     h4 {
     	margin-top: 20px;
     }
@@ -61,8 +65,11 @@
     	width: 470px;
     }
     
-    .btn-primary {
+    .payment-submit {
     	margin-top: 20px;
+    	.btn {
+    		margin-top: 0px;
+    	}
     }
     
     .crowdhoster-powered {

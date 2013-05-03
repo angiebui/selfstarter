@@ -11,11 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130502205813) do
+ActiveRecord::Schema.define(:version => 20130503003941) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
-    t.float    "goal"
     t.datetime "expiration_date"
     t.string   "ct_campaign_id"
     t.string   "media_type",                           :default => "video",      :null => false
@@ -54,7 +53,7 @@ ActiveRecord::Schema.define(:version => 20130502205813) do
     t.datetime "created_at",                                                     :null => false
     t.datetime "updated_at",                                                     :null => false
     t.integer  "stats_number_of_contributions"
-    t.integer  "stats_raised_amount"
+    t.float    "stats_raised_amount"
     t.float    "stats_tilt_percent"
     t.integer  "stats_unique_contributors"
     t.boolean  "is_expired"
@@ -62,6 +61,9 @@ ActiveRecord::Schema.define(:version => 20130502205813) do
     t.boolean  "is_paid"
     t.boolean  "archive_flag",                         :default => false,        :null => false
     t.boolean  "collect_shipping",                     :default => false,        :null => false
+    t.string   "goal_type",                            :default => "dollars",    :null => false
+    t.float    "goal_dollars",                         :default => 1.0,          :null => false
+    t.integer  "goal_orders",                          :default => 1,            :null => false
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
@@ -147,6 +149,7 @@ ActiveRecord::Schema.define(:version => 20130502205813) do
     t.string   "state"
     t.string   "postal_code"
     t.string   "country"
+    t.integer  "quantity"
   end
 
   create_table "settings", :force => true do |t|

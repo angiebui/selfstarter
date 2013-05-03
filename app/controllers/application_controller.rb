@@ -43,12 +43,14 @@ class ApplicationController < ActionController::Base
         # Create the Crowdtilt API User for guest checkout
         begin
           user = {
-            email: 'guest@crowdhoster.com'
+            email: 'guests@crowdhoster.com'
           }
           response = Crowdtilt.post('/users', {user: user})
         rescue => exception     
-          errors.add(:base, exception.to_s)
-          false
+          @settings.update_attribute :initialized_flag, false
+          sign_out current_user
+          redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com" }
+          return
         else
           @settings.update_attribute :ct_guest_user_id, response['user']['id']
         end        

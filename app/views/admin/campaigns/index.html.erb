@@ -21,8 +21,22 @@
       <% @campaigns.each do |campaign| %>
         <tr>
           <td><%= campaign.name %></td>
-          <td>$<%= number_with_precision(campaign.goal, precision: 2) %></td>
-          <td>$<%= number_with_precision(campaign.stats_raised_amount, precision: 2) %></td>
+          
+          <td>
+          	<% if campaign.goal_type == "dollars" %>
+          		$<%= number_with_precision(campaign.goal_dollars.to_f, precision: 2) %>
+          	<% else %>
+          		<%= campaign.goal_orders %>
+          	<% end %>
+          </td>
+          <td>      	
+          	<% if campaign.goal_type == "dollars" %>
+          		$<%= number_with_precision(campaign.stats_raised_amount.to_f, precision: 2) %>
+          	<% else %>
+          		<%= campaign.orders %>
+          	<% end %>
+          </td>
+          
           <td><%= Date.parse(campaign.expiration_date.to_s).strftime("%m/%d/%Y") %></td>
           <td><%= campaign.archive_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
           <td><%= link_to 'Edit', edit_admin_campaign_path(campaign) %></td>

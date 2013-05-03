@@ -58,7 +58,22 @@ Selfstarter.admin =
     $('input#campaign_payment_type_min').on "change", ->
       $('#preset-amount').slideUp()
       $('#min-amount').slideDown()
-      
+
+   	$('input#goal_type_dollars').on "change", ->
+    	$('input#campaign_payment_type_min').attr('disabled', false)
+    	$('input#campaign_payment_type_any').attr('disabled', false)
+    	$('#flexible_payment_options').show()
+    	$('.amount_input').slideDown()
+    	$('.orders_input').slideUp()
+
+    $('input#goal_type_orders').on "change", ->
+    	$('input#campaign_payment_type_fixed').trigger('click')
+    	$('input#campaign_payment_type_min').attr('disabled', true)
+    	$('input#campaign_payment_type_any').attr('disabled', true)	
+    	$('#flexible_payment_options').hide()
+    	$('.amount_input').slideUp()
+    	$('.orders_input').slideDown()
+    
     $('.faq.sortable').sortable
       stop: (e, ui) ->
         iterator = 1

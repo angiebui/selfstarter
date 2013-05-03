@@ -3,13 +3,7 @@
     <h3>
       Account: <%= current_user.fullname %>
       <span class="loader" data-loader="user_header" style="display:none"></span>
-    </h3>
-    
-    <ul class="nav nav-pills">
-      <li class="active">
-        <%= link_to "Settings", user_settings_path, :class => 'show_loader', :'data-loader' => "user_header" %>
-      </li>
-    </ul>    
+    </h3>  
     
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= devise_error_messages! %>

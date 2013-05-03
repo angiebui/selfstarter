@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/msaint/crowdtilt.git
-  revision: c411776a09a58beb33798f5626910f2e72600304
+  revision: faa74632ac6c5b35f44b289e8e04252a7297f68d
   specs:
     crowdtilt (0.0.1)
       activesupport

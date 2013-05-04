@@ -181,7 +181,7 @@ class Admin::CampaignsController < ApplicationController
 		
 		@campaign = Campaign.find(params[:id])
 		if params.has_key?(:payment_id) && !params[:payment_id].blank?
-			payment = Payment.find_by_ct_payment_id(params[:payment_id])
+			payment = Payment.find_by_ct_payment_id(params[:payment_id].strip)
 			if payment
 				@payments = [payment]
 			else

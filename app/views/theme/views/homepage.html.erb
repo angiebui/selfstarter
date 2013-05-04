@@ -9,7 +9,7 @@
       
       <% if @campaigns.count > 0 %>  
         <% @campaigns.each do |campaign| %>
-          <% if !campaign.archive_flag %>
+          <% if campaign.published_flag %>
           <a href="<%= url_for campaign_home_path(campaign) %>" class="campaign clearfix">
           
             <% if campaign.media_type == 'video' && !campaign.video_embed_id.blank?%>

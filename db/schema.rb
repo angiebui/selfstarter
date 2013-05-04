@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503003941) do
+ActiveRecord::Schema.define(:version => 20130504202125) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(:version => 20130503003941) do
     t.boolean  "is_expired"
     t.boolean  "is_tilted"
     t.boolean  "is_paid"
-    t.boolean  "archive_flag",                         :default => false,        :null => false
+    t.boolean  "published_flag",                       :default => false,        :null => false
     t.boolean  "collect_shipping",                     :default => false,        :null => false
     t.string   "goal_type",                            :default => "dollars",    :null => false
     t.float    "goal_dollars",                         :default => 1.0,          :null => false

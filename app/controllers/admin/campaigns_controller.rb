@@ -14,7 +14,7 @@ class Admin::CampaignsController < ApplicationController
   def copy
     old_campaign = Campaign.find(params[:id])
     @campaign = old_campaign.dup
-    @campaign.archive_flag = false  
+    @campaign.published_flag = false  
     
     begin
       campaign = {
@@ -62,7 +62,7 @@ class Admin::CampaignsController < ApplicationController
     begin
       campaign = {
         title: @campaign.name, 
-        tilt_amount: @campaign.goal_dollars*100, 
+        tilt_amount: (@campaign.goal_dollars*100).to_i, 
         expiration_date: @campaign.expiration_date, 
         user_id: current_user.ct_user_id      
       }
@@ -84,11 +84,7 @@ class Admin::CampaignsController < ApplicationController
         end
       end      
       
-      if @campaign.archive_flag              
-        redirect_to admin_campaigns_url, :flash => { :notice => "Campaign created!" }
-      else  
-        redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign created!" }
-      end
+      redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
       return
     end 
   end
@@ -126,6 +122,7 @@ class Admin::CampaignsController < ApplicationController
     
 		# calculate the goal amount (in case of a tilt by orders campaign)
     @campaign.set_goal
+    puts (@campaign.goal_dollars*100).to_i
           
     # Update the corresponding campaign on the Crowdtilt API
     # If it fails, echo the error message sent by the API back to the user
@@ -133,7 +130,7 @@ class Admin::CampaignsController < ApplicationController
     begin
       campaign = {
         title: @campaign.name, 
-        tilt_amount: @campaign.goal_dollars*100, 
+        tilt_amount: (@campaign.goal_dollars*100).to_i, 
         expiration_date: @campaign.expiration_date,     
       }
       response = Crowdtilt.put('/campaigns/' + @campaign.ct_campaign_id, {campaign: campaign})
@@ -144,11 +141,8 @@ class Admin::CampaignsController < ApplicationController
     else
       @campaign.update_api_data(response['campaign'])
       @campaign.save
-      if @campaign.archive_flag              
-        redirect_to admin_campaigns_url, :flash => { :notice => "Campaign updated!" }
-      else  
-        redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
-      end
+			
+			redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
       return
     end     
   end

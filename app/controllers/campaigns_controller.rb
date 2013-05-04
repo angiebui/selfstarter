@@ -1,7 +1,7 @@
 class CampaignsController < ApplicationController
   before_filter :check_init
   before_filter :load_campaign
-  before_filter :check_archive
+  before_filter :check_published
   before_filter :check_exp, :except => [:home, :checkout_confirmation]
 
 	# The load_campaign before filter grabs the campaign object from the db 
@@ -118,9 +118,11 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.find(params[:id])
   end
 
-  def check_archive
-    if @campaign.archive_flag
-      redirect_to root_url, :flash => { :error => "Campaign is no longer available" }
+  def check_published
+    if !@campaign.published_flag
+    	unless user_signed_in? && current_user.admin?
+      	redirect_to root_url, :flash => { :error => "Campaign is no longer available" }
+      end
     end
   end
   

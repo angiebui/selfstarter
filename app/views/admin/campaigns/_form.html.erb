@@ -225,12 +225,12 @@
   
   <% if !@campaign.id.nil? %>
   <fieldset>
-  <legend>Archive</legend>
+  <legend>Publish</legend>
 
     <div class="field clearfix">
-      <p class="explanation">Archiving a campaign means it will no longer be accessible to your users, and no longer show up on your homepage.</p>
-      <label>Archive this campaign?</label>
-      <%= f.check_box :archive_flag %> 
+      <p class="explanation">Campaigns that are not published are accessible only by admins, which is helpful for both previewing new campaigns and archiving old campaigns you no longer want users to access. Once published, the campaign will show up on your homepage and be accessible to all visitors to your site.</p>
+      <label>Publish this campaign?</label>
+      <%= f.check_box :published_flag %> 
     </div>
 
   </fieldset>

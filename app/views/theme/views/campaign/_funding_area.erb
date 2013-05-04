@@ -3,7 +3,16 @@
 
     <% if user_signed_in? && current_user.admin? %>
       <div class="clearfix">
-        <a href="<%= url_for edit_admin_campaign_path(@campaign) %>" class="pull-right"><i class="icon-pencil show_tooltip" data-placement="top" data-title="Edit Campaign"></i></a>
+      	<span class="pull-right">
+      	
+      	<% if !@campaign.published_flag %>
+      		NOT PUBLISHED
+      	<% end %>
+      	
+        <a href="<%= url_for edit_admin_campaign_path(@campaign) %>">
+        	<i class="icon-pencil show_tooltip" data-placement="top" data-title="Edit Campaign"></i>
+        </a>
+        </span>
       </div>
     <% end %>
 

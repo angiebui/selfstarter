@@ -24,8 +24,6 @@ Selfstarter.admin =
     d = $('#campaign_expiration_date').val()
     if(d && d.length > 0)
       d = new Date(d)
-      d = d.getTime() + d.getTimezoneOffset()
-      d = new Date(d)
       h = d.getHours()
       if(h > 12)
         t = (h-12) + ':' + ("0" + d.getMinutes()).slice(-2) + ' pm'

@@ -39,7 +39,7 @@ module Selfstarter
     config.assets.initialize_on_precompile = false
     
     #Paperclip default options
-    paperclip_path = "/:attachment/:id_partition/:style.:extension" 
+    paperclip_path = ":class/:attachment/:id_partition/:style.:extension" 
     if defined?(ENV['CROWDTILT_SANDBOX_KEY']) && !ENV['CROWDTILT_SANDBOX_KEY'].nil?
       paperclip_path = ENV['CROWDTILT_SANDBOX_KEY'] + paperclip_path
     end

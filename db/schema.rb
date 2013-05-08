@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130504202125) do
+ActiveRecord::Schema.define(:version => 20130508061114) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -93,41 +93,6 @@ ActiveRecord::Schema.define(:version => 20130504202125) do
     t.integer  "campaign_id"
   end
 
-  create_table "orders", :id => false, :force => true do |t|
-    t.string   "token"
-    t.string   "transaction_id"
-    t.string   "address_one"
-    t.string   "address_two"
-    t.string   "city"
-    t.string   "state"
-    t.string   "zip"
-    t.string   "country"
-    t.string   "status"
-    t.string   "number"
-    t.string   "uuid"
-    t.string   "user_id"
-    t.decimal  "price"
-    t.decimal  "shipping"
-    t.string   "tracking_number"
-    t.string   "phone"
-    t.string   "name"
-    t.date     "expiration"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.integer  "payment_option_id"
-  end
-
-  create_table "payment_options", :force => true do |t|
-    t.decimal  "amount"
-    t.string   "amount_display"
-    t.text     "description"
-    t.string   "shipping_desc"
-    t.string   "delivery_desc"
-    t.integer  "limit"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
   create_table "payments", :force => true do |t|
     t.string   "ct_payment_id"
     t.string   "status"
@@ -153,13 +118,13 @@ ActiveRecord::Schema.define(:version => 20130504202125) do
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "site_name"
+    t.string   "site_name",                   :default => "Selfstarter", :null => false
     t.string   "facebook_app_id"
     t.string   "tweet_text"
     t.string   "google_id"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.boolean  "initialized_flag",            :default => false, :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
+    t.boolean  "initialized_flag",            :default => false,         :null => false
     t.string   "logo_image_file_name"
     t.string   "logo_image_content_type"
     t.integer  "logo_image_file_size"

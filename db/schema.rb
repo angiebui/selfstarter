@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508061114) do
+ActiveRecord::Schema.define(:version => 20130510053641) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20130508061114) do
     t.string   "goal_type",                            :default => "dollars",    :null => false
     t.float    "goal_dollars",                         :default => 1.0,          :null => false
     t.integer  "goal_orders",                          :default => 1,            :null => false
+    t.boolean  "production_flag",                      :default => false,        :null => false
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
@@ -138,9 +139,12 @@ ActiveRecord::Schema.define(:version => 20130508061114) do
     t.datetime "facebook_image_updated_at"
     t.text     "homepage_content"
     t.text     "custom_css"
-    t.string   "ct_guest_user_id"
+    t.string   "ct_sandbox_guest_id"
     t.string   "header_link_text"
     t.string   "header_link_url"
+    t.string   "ct_sandbox_admin_id"
+    t.string   "ct_production_admin_id"
+    t.string   "ct_production_guest_id"
   end
 
   create_table "users", :force => true do |t|
@@ -157,9 +161,7 @@ ActiveRecord::Schema.define(:version => 20130508061114) do
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
     t.string   "fullname"
-    t.string   "ct_user_id"
     t.boolean  "admin",                  :default => false
-    t.boolean  "has_default_bank",       :default => false, :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

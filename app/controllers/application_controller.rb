@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     @settings = Settings.find_by_id(1)   
     
     if !@settings
-      redirect_to :status => 404
+      @settings = Settings.create
     end   
   end
   
@@ -42,18 +42,47 @@ class ApplicationController < ActionController::Base
         
         # Create the Crowdtilt API User for guest checkout
         begin
-          user = {
-            email: 'guests@crowdhoster.com'
+         	Crowdtilt.sandbox
+          sandbox_guest = {
+          	firstname: Rails.configuration.crowdhoster_app_name,
+          	lastname: 'guest',
+            email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
           }
-          response = Crowdtilt.post('/users', {user: user})
+          sandbox_guest = Crowdtilt.post('/users', {user: sandbox_guest})
+          
+          sandbox_admin = {
+          	firstname: Rails.configuration.crowdhoster_app_name,
+          	lastname: 'admin',
+            email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
+          }
+          sandbox_admin = Crowdtilt.post('/users', {user: sandbox_admin})
+          
+          Crowdtilt.production
+          production_guest = {
+          	firstname: Rails.configuration.crowdhoster_app_name,
+          	lastname: 'guest',
+            email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
+          }
+          production_guest = Crowdtilt.post('/users', {user: production_guest})
+          
+          production_admin = {
+          	firstname: Rails.configuration.crowdhoster_app_name,
+          	lastname: 'admin',
+            email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
+          }
+          production_admin = Crowdtilt.post('/users', {user: production_admin})
         rescue => exception     
           @settings.update_attribute :initialized_flag, false
           sign_out current_user
           redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com" }
           return
         else
-          @settings.update_attribute :ct_guest_user_id, response['user']['id']
-        end        
+          @settings.update_attribute :ct_sandbox_guest_id, sandbox_guest['user']['id']
+          @settings.update_attribute :ct_sandbox_admin_id, sandbox_admin['user']['id']
+          @settings.update_attribute :ct_production_guest_id, production_guest['user']['id']
+          @settings.update_attribute :ct_production_admin_id, production_admin['user']['id']
+        end
+            
         
         # Put user back on admin area
         redirect_to admin_website_url, :flash => { :success => "Nice! Your app is now initialized." }        

@@ -50,10 +50,8 @@ Selfstarter.campaigns =
         input = $('<input name="ct_card_id" value="' + token + '" type="hidden" />');
         form = document.getElementById('payment_form')        
         form.appendChild(input[0])
-        form.submit()          
-      else 
-         $('#errors').append('<p>An error occurred. Please try again.</p>')
-         $('.loader').hide()
-         $('button[type="submit"]').attr('disabled', false) 
-
-    
+        form.submit()     
+      else
+      	$('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p>')
+      	$('.loader').hide()
+      	$('button[type="submit"]').attr('disabled', false)

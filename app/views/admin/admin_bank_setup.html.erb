@@ -7,17 +7,15 @@
 
     <div class="main_content">
       
-      <% if current_user.has_default_bank %>
+      <% if @bank['is_default'] %>
       
-      <h4>Your bank is all set up!</h4>
-      <p>Routing Number: ****<%= @bank['bank_code_last_four'] %></p>
-      <p>Account Number: ****<%= @bank['account_number_last_four'] %></p>
-      
+      	<h4>Your bank is all set up!</h4>
+      	<p>Routing Number: ****<%= @bank['bank_code_last_four'] %></p>
+      	<p>Account Number: ****<%= @bank['account_number_last_four'] %></p>
+
       <% else %>
         
-      <form accept-charset="UTF-8" action="/admin/bank-setup" method="post" id="bank_form">
-        
-        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+      	<%= form_tag(admin_bank_setup_path, method: "post", id: "bank_form") %>
         
         <h4>Account Owner Information</h4>
         <fieldset>
@@ -88,7 +86,7 @@
           </div>
         </fieldset>
         
-        <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= current_user.ct_user_id %>" >
+        <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @settings.ct_production_admin_id %>" >
   
         <button class="btn btn-primary show_loader" data-loader="bank_form" type="submit">Save</button>
         <span class="loader" data-loader="bank_form" style="display:none"></span>    
@@ -106,3 +104,7 @@
   </div>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  window.crowdtilt_mode = "production";
+<% end %>

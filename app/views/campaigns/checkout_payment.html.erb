@@ -91,7 +91,7 @@
           <input id="security_code" size="30" type="text" class="input-small">
           </fieldset>
                     
-          <input id="ct_user_id" type="hidden"  name="ct_user_id" value="<%= @settings.ct_guest_user_id %>" >
+          <input id="ct_user_id" type="hidden" name="ct_user_id" value="<%= @campaign.production_flag ? @settings.ct_production_guest_id : @settings.ct_sandbox_guest_id %>" >
           
           <input id="quantity" type="hidden" name="quantity" value="<%= @quantity %>">
           <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
@@ -105,7 +105,7 @@
         </form>
         <div id="errors"></div>
         <br/><br/>
-        <p class="crowdhoster-powered" style="display:block!important"><i class="icon icon-lock"></i> Payments powered by Crowdhoster, a <img src="/assets/crowdtilt.png" width="60px"> product</p>
+        <p class="crowdhoster-powered" style="display:block!important"><i class="icon icon-lock"></i> Payments powered by Crowdhoster, a <img src="/assets/crowdtilt.png" width="60px" height="11px"> product</p>
     </div>  
   
   </div>
@@ -152,3 +152,7 @@
   
   </div>
 </div>
+
+<%= javascript_tag do %>
+  window.crowdtilt_mode = "<%= @campaign.production_flag ? 'production' : 'sandbox' %>";
+<% end %>

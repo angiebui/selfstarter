@@ -4,9 +4,20 @@
   **************************************/
   #funding_area {
     width: 100%;
-    padding: 50px 0 40px;
+    padding: 40px 0;
     background: #f6f6f6;
     border-bottom: 1px solid #c4c4c4;
+    
+    .campaign_title {
+    	a {
+    		text-decoration: none;
+    		color: #4b4b4b;
+    		&:hover {
+    			text-decoration: none;
+    			color: #4b4b4b;
+    		}
+    	}
+    }
     
     #video {
       float: left;
@@ -46,20 +57,17 @@
         text-align: center;
       }
   
-      .call_to_action_description {
-        
+      .call_to_action_description {   
         p, span {
           line-height: 1;
         }
-      
       }
-  
     }
     
     #backing {
       float: left;
-      width: 383px;
-      margin: 20px 0 0 40px;
+      width: 387px;
+      margin: 20px 0 0 38px;
       
       ul {
         margin: 0;

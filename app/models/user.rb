@@ -13,37 +13,4 @@ class User < ActiveRecord::Base
   
   has_many :orders
   
-  before_save :sync_crowdtilt_user
-  
-  private
-  
-    def sync_crowdtilt_user
-      if !self.ct_user_id
-        begin
-          user = {
-            firstname: self.fullname,
-            email: self.email
-          }
-          response = Crowdtilt.post('/users', {user: user})
-        rescue => exception     
-          errors.add(:base, exception.to_s)
-          false
-        else
-          self.ct_user_id = response['user']['id']
-        end          
-      else
-        begin
-          user = {
-            firstname: self.fullname,
-            email: self.email
-          }
-          response = Crowdtilt.put('/users/' + self.ct_user_id, {user: user})
-        rescue => exception     
-          errors.add(:base, exception.to_s)
-          false
-        else
-          true
-       end 
-      end
-    end
 end

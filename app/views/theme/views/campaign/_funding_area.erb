@@ -1,23 +1,8 @@
 <div id="funding_area">
   <div class="container clearfix">
 
-    <% if user_signed_in? && current_user.admin? %>
-      <div class="clearfix">
-      	<span class="pull-right">
-      	
-      	<% if !@campaign.published_flag %>
-      		NOT PUBLISHED
-      	<% end %>
-      	
-        <a href="<%= url_for edit_admin_campaign_path(@campaign) %>">
-        	<i class="icon-pencil show_tooltip" data-placement="top" data-title="Edit Campaign"></i>
-        </a>
-        </span>
-      </div>
-    <% end %>
-
     <div class="center">
-      <h2><%= @campaign.name %></h2>
+      <h2 class="campaign_title"><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h2>
     </div>
     
     <div class="clearfix">

@@ -10,8 +10,9 @@
           <th>Name</th>
           <th>Goal</th>
           <th>Raised</th>
-          <th>Expiration Date</th>
+          <th>Expiration<br/>Date</th>
           <th>Published?</th>
+          <th>Payments<br/>Activated?</th>
           <th></th>
           <th></th>
           <th></th>
@@ -39,6 +40,7 @@
           
           <td><%= Date.parse(campaign.expiration_date.to_s).strftime("%m/%d/%Y") %></td>
           <td><%= campaign.published_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
+          <td><%= campaign.production_flag ? raw('<i class="icon-ok"></i>') : '' %></td>
           <td><%= link_to 'Edit', edit_admin_campaign_path(campaign) %></td>
           <td><%= link_to 'View', campaign_home_path(campaign) %></td>
           <td><%= link_to 'Payments', admin_campaigns_payments_path(campaign) %></td>

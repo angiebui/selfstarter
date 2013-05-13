@@ -12,7 +12,7 @@ class Campaign < ActiveRecord::Base
                   :tweet_text, :facebook_title, :facebook_description,  :facebook_image, :facebook_image_delete,
                   :payment_type, :fixed_payment_amount, :min_payment_amount, :apply_processing_fee,
                   :collect_shipping_address, :stats_number_of_contributors, :stats_raised_amount, :stats_tilt_percent,
-                  :stats_unique_contributors, :published_flag, :collect_shipping               
+                  :stats_unique_contributors, :published_flag, :collect_shipping, :production_flag             
                   
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
   

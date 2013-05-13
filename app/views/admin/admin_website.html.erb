@@ -17,7 +17,7 @@
         </div>
        
         <div class="field clearfix">
-          <p class="explanation">If you would like to display a logo instead of your site name in the header, upload it here.</p>
+          <p class="explanation">If you would like to display a logo instead of your site name in the header, upload it here. Resize the image before uploading for best results in your template.</p>
           <label>Logo</label>
           <% if @settings.logo_image.file? %>
             <%= image_tag @settings.logo_image.url(:thumb) %><br/>

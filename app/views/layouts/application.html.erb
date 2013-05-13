@@ -29,9 +29,6 @@
       <div id="debug" style="background: white; padding:50px"><%= debug(params) %></div>
     <% end %>
     
-    <%= javascript_tag do %>
-      window.crowdtilt_mode = "<%= Rails.configuration.crowdtilt_mode %>";
-    <% end %>
-    <%= javascript_include_tag "https://api-sandbox.crowdtilt.com/v1/js/crowdtilt.js" %>    
+    <%= javascript_include_tag "https://api.crowdtilt.com/v1/js/crowdtilt.js" %>    
   </body>
 </html>

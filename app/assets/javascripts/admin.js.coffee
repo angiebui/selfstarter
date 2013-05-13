@@ -135,7 +135,7 @@ Selfstarter.admin =
   createBankAccount: ($form) ->
     bankData =
       account_number: $form.find('#account_number').val()
-      name: $form.find('#bank_routing_number').val()
+      name: $form.find('#full_legal_name').val()
       bank_code: $form.find('#bank_routing_number').val()
     
     errors={}

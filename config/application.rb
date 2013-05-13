@@ -13,7 +13,8 @@ module Selfstarter
     config.assets.paths << Rails.root.join("app", "views", "theme", "assets", "javascripts")
     config.assets.paths << Rails.root.join("app", "views", "theme", "assets", "stylesheets")
     
-    config.crowdtilt_mode = ENV['CROWDTILT_MODE'] || 'sandbox'  #sandbox or production
+    config.crowdhoster_app_name = ENV['APP_NAME'] || 'crowdhoster_anonymous'
+    
     #Crowdtilt API key/secret
     config.crowdtilt_production_key = ENV['CROWDTILT_PRODUCTION_KEY']
     config.crowdtilt_production_secret = ENV['CROWDTILT_PRODUCTION_SECRET']
@@ -40,8 +41,8 @@ module Selfstarter
     
     #Paperclip default options
     paperclip_path = ":class/:attachment/:id_partition/:style.:extension" 
-    if defined?(ENV['CROWDTILT_SANDBOX_KEY']) && !ENV['CROWDTILT_SANDBOX_KEY'].nil?
-      paperclip_path = ENV['CROWDTILT_SANDBOX_KEY'] + paperclip_path
+    if defined?(ENV['APP_NAME']) && !ENV['APP_NAME'].nil?
+      paperclip_path = ENV['APP_NAME'] + paperclip_path
     end
 
     config.paperclip_defaults = {

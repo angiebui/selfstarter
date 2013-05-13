@@ -56,11 +56,6 @@ class CampaignsController < ApplicationController
       user_fee_amount = 0
       admin_fee_amount = fee
     end
-
-		# Quick double check that the crowdtilt user id passed up matches our app-wide guest id
-    if !ct_user_id == @settings.ct_guest_user_id
-      redirect_to checkout_amount_url, flash: { error: "Invalid user!" }
-    end
     
     # TODO: Check to make sure the amount is valid here
 		
@@ -90,6 +85,7 @@ class CampaignsController < ApplicationController
         	quantity: quantity
         }     
       }
+      @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns/' + @campaign.ct_campaign_id + '/payments', {payment: payment})
     rescue => exception
       redirect_to checkout_amount_url, flash: { error: exception.to_s }

@@ -14,15 +14,21 @@ class Admin::CampaignsController < ApplicationController
   def copy
     old_campaign = Campaign.find(params[:id])
     @campaign = old_campaign.dup
-    @campaign.published_flag = false  
+    @campaign.published_flag = false
+    @campaign.production_flag = false 
     
     begin
       campaign = {
         title: @campaign.name, 
         tilt_amount: @campaign.goal_dollars*100, 
         expiration_date: @campaign.expiration_date, 
-        user_id: current_user.ct_user_id
+        user_id: @settings.ct_sandbox_admin_id,
+        metadata: {
+        	fullname: current_user.fullname,
+        	email: current_user.email
+        }
       }
+      Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns', {campaign: campaign})
     rescue => exception
       redirect_to admin_campaigns, :flash => { :error => "An error occurred" }
@@ -53,6 +59,9 @@ class Admin::CampaignsController < ApplicationController
       return
     end
     
+   	# Set the campaign user id
+   	ct_user_id = @campaign.production_flag ? @settings.ct_production_admin_id : @settings.ct_sandbox_admin_id
+    	
     # calculate the goal amount (in case of a tilt by orders campaign)
     @campaign.set_goal
             
@@ -64,8 +73,9 @@ class Admin::CampaignsController < ApplicationController
         title: @campaign.name, 
         tilt_amount: (@campaign.goal_dollars*100).to_i, 
         expiration_date: @campaign.expiration_date, 
-        user_id: current_user.ct_user_id      
+        user_id: ct_user_id     
       }
+      @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
       response = Crowdtilt.post('/campaigns', {campaign: campaign})
     rescue => exception  
       flash.now[:error] = exception.to_s
@@ -120,9 +130,16 @@ class Admin::CampaignsController < ApplicationController
       return
     end
     
+		# Set the campaign user id
+   	ct_user_id = @campaign.production_flag ? @settings.ct_production_admin_id : @settings.ct_sandbox_admin_id
+
+    #if campaign has been promoted to production, delete all sandbox payments
+    if @campaign.production_flag && @campaign.production_flag_changed?
+    	@campaign.payments.delete_all
+    end
+    
 		# calculate the goal amount (in case of a tilt by orders campaign)
     @campaign.set_goal
-    puts (@campaign.goal_dollars*100).to_i
           
     # Update the corresponding campaign on the Crowdtilt API
     # If it fails, echo the error message sent by the API back to the user
@@ -131,9 +148,17 @@ class Admin::CampaignsController < ApplicationController
       campaign = {
         title: @campaign.name, 
         tilt_amount: (@campaign.goal_dollars*100).to_i, 
-        expiration_date: @campaign.expiration_date,     
+        expiration_date: @campaign.expiration_date 
       }
-      response = Crowdtilt.put('/campaigns/' + @campaign.ct_campaign_id, {campaign: campaign})
+      # If the campaign has been promoted to production, create a new campaign on the Crowtilt API
+      if @campaign.production_flag && @campaign.production_flag_changed?
+      	campaign[:user_id] = ct_user_id
+      	Crowdtilt.production
+      	response = Crowdtilt.post('/campaigns', {campaign: campaign})
+      else
+      	@campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox
+      	response = Crowdtilt.put('/campaigns/' + @campaign.ct_campaign_id, {campaign: campaign})
+      end
     rescue => exception   
       flash.now[:error] = exception.to_s
       render action: "edit"

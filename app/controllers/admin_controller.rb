@@ -4,55 +4,65 @@ class AdminController < ApplicationController
   before_filter :verify_admin
   
   def admin_website
-
     #Handle the form submission if request is PUT
     if request.put?
       if @settings.update_attributes(params[:settings])
         flash.now[:success] = "Website settings successfully updated!"
       else
-        flash.now[:error] = "Error"
-      end 
-         
+        message = ''
+      	@settings.errors.each do |key, error|
+        	message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+      	end
+     		flash.now[:error] = message[0...-2]
+      end    
     end
   end  
   
   def admin_bank_setup
     @bank = {}
-    
-    if current_user.has_default_bank
-      begin
-        response = Crowdtilt.get('/users/' + current_user.ct_user_id + '/banks/default')
-      rescue => exception
-        flash.now[:error] = exception.to_s
-      else
-        @bank = response['bank']
-      end    
-    elsif request.post?
-      if params[:ct_bank_id].blank?
-        flash.now[:error] = "An error occurred, please try again"
-      else
-        begin
-          bank = {
-            id: params[:ct_bank_id]
-          }
-          response = Crowdtilt.post('/users/' + current_user.ct_user_id + '/banks/default', {bank: bank})
-        rescue => exception
-          flash.now[:error] = exception.to_s
-        else
-          @bank = response['bank']
-          current_user.has_default_bank = true
-          current_user.save
-        end
+    begin
+    	Crowdtilt.production
+    	response = Crowdtilt.get('/users/' + @settings.ct_production_admin_id + '/banks/default')
+    rescue => exception # response threw an error, default bank may not be set up
+			if request.post?
+				if params[:ct_bank_id].blank?
+	        flash.now[:error] = "An error occurred, please try again"
+	        return
+	      else
+	        begin
+	          bank = {
+	            id: params[:ct_bank_id]
+	          }
+	          Crowdtilt.production
+	          response = Crowdtilt.post('/users/' + @settings.ct_production_admin_id + '/banks/default', {bank: bank})
+	        rescue => exception
+	          flash.now[:error] = exception.to_s
+	          return
+	        else
+	          @bank = response['bank']
+	        end
+	    	end
       end
+    else # response is good, check for default bank
+    	if response['bank'] # default bank is already set up
+    		@bank = response['bank']
+    	else
+    		flash.now[:error] = "An error occurred, please try again"
+    	end
     end
-    
   end
   
   def ajax_verify
     if params[:name].blank? || params[:phone].blank? || params[:street_address].blank? || params[:postal_code].blank? || params[:dob].blank?
       render text: "error" #not all fields filled out
     else
-      response = Crowdtilt.get('/users/' + current_user.ct_user_id)
+      begin
+      	Crowdtilt.production
+      	response = Crowdtilt.get('/users/' + @settings.ct_production_admin_id)
+      rescue => exception
+          render text: "error" #failed to verify through Crowdtilt API
+          return
+      end   
       if response['user']['is_verified'] != 1     
         begin
           verification = {
@@ -62,15 +72,16 @@ class AdminController < ApplicationController
             postal_code: params[:postal_code],
             dob: params[:dob]
           }                      
-          response = Crowdtilt.post('/users/' + current_user.ct_user_id + '/verification', {verification: verification})                     
+          Crowdtilt.production
+          response = Crowdtilt.post('/users/' + @settings.ct_production_admin_id + '/verification', {verification: verification})                     
         rescue => exception
-          render text: exception.to_s #failed to verify through Crowdtilt API
+          render text: "error" #failed to verify through Crowdtilt API
         else
           render text: "success" #successfully verified through Crowdtilt API
         end
       else
         render text: "success"  #already verified
-      end
+      end    
     end
   end
 

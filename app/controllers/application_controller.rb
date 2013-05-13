@@ -44,30 +44,30 @@ class ApplicationController < ActionController::Base
         begin
          	Crowdtilt.sandbox
           sandbox_guest = {
-          	firstname: Rails.configuration.crowdhoster_app_name,
-          	lastname: 'guest',
+          	firstname: 'Crowdhoster',
+          	lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
             email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
           }
           sandbox_guest = Crowdtilt.post('/users', {user: sandbox_guest})
           
           sandbox_admin = {
-          	firstname: Rails.configuration.crowdhoster_app_name,
-          	lastname: 'admin',
+          	firstname: 'Crowdhoster',
+          	lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
             email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
           }
           sandbox_admin = Crowdtilt.post('/users', {user: sandbox_admin})
           
           Crowdtilt.production
           production_guest = {
-          	firstname: Rails.configuration.crowdhoster_app_name,
-          	lastname: 'guest',
+          	firstname: 'Crowdhoster',
+          	lastname: (Rails.configuration.crowdhoster_app_name + '-guest'),
             email: (Rails.configuration.crowdhoster_app_name + '-guest@crowdhoster.com')
           }
           production_guest = Crowdtilt.post('/users', {user: production_guest})
           
           production_admin = {
-          	firstname: Rails.configuration.crowdhoster_app_name,
-          	lastname: 'admin',
+          	firstname: 'Crowdhoster',
+          	lastname: (Rails.configuration.crowdhoster_app_name + '-admin'),
             email: (Rails.configuration.crowdhoster_app_name + '-admin@crowdhoster.com')
           }
           production_admin = Crowdtilt.post('/users', {user: production_admin})

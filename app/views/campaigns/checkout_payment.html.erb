@@ -140,7 +140,13 @@
 					<tr>
 					<td width="225"><p><strong>Total</strong></p></td>
 					<td style="text-align: right"><p><strong>$<%= number_with_precision(@total, precision: 2) %></strong></p></td>
-					</tr>				
+					</tr>
+					
+					<% if !@campaign.production_flag %>
+					<tr>
+					<td colspan='2' ><p>*This campaign is in sandbox mode, your card will not actually be charged.</p></td>
+					</tr>
+					<% end %>	
 				
 				</table>
 				

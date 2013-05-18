@@ -10,19 +10,28 @@ Selfstarter.campaigns =
       $(this).hide()      
     
     # Checkout section functions:
-     $('#quantity').on "change", (e) ->
-      quantity = $(this).val()
-      
+    $('#quantity').on "change", (e) ->
+      quantity = $(this).val()  
       $amount = $('#amount')
       new_amount = parseFloat($amount.attr('data-original')) * quantity
       $amount.val(new_amount)
-      
       $('#total').html(new_amount.toFixed(2))
+    
+    $('#amount').focus()
+    
+    $('.reward_option.active').on "click", (e) ->
+    	$this = $(this)
+    	$amount = $('#amount')
+    	$this.find('input').prop('checked', true)
+    	$('.reward_option').css('background-color', '')
+    	$this.css('background-color', '#e6e6e6')
+    	if($amount.val() == '' || parseFloat($amount.val(),10) < $this.attr('data-price'))
+    		$amount.val($this.attr('data-price'))
     
     $('#payment_form').on "submit", (e) ->
       e.preventDefault()
       $('.loader').show()
-      $('button[type="submit"]').attr('disabled', true)
+      $('button[type="submit"]').attr('disabled', true).html('Processing, please wait...')
       $('#errors').html('')        
       $this = $(this)
       
@@ -37,7 +46,7 @@ Selfstarter.campaigns =
         $.each errors, (index, value) -> 
           $('#errors').append('<p>' + value + '</p>')
         $('.loader').hide()
-        $('button[type="submit"]').attr('disabled', false)
+        $('button[type="submit"]').attr('disabled', false).html('Confirm Payment')
       else
         user_id = $this.find('#ct_user_id').val()
         crowdtilt.card.create(user_id, cardData, _this.cardResponseHandler)   
@@ -54,4 +63,4 @@ Selfstarter.campaigns =
       else
       	$('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p>')
       	$('.loader').hide()
-      	$('button[type="submit"]').attr('disabled', false)
+      	$('button[type="submit"]').attr('disabled', false).html('Confirm Payment')

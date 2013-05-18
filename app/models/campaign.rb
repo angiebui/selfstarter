@@ -3,6 +3,7 @@ class Campaign < ActiveRecord::Base
   friendly_id :name, use: :slugged
   has_many :faqs, dependent: :destroy
   has_many :payments
+  has_many :rewards
   
   attr_accessible :name, :goal_type, :goal_dollars, :goal_orders,  :expiration_date, :ct_campaign_id, :media_type, 
                   :main_image, :main_image_delete, :video_embed_id, :video_placeholder, :video_placeholder_delete,
@@ -12,7 +13,8 @@ class Campaign < ActiveRecord::Base
                   :tweet_text, :facebook_title, :facebook_description,  :facebook_image, :facebook_image_delete,
                   :payment_type, :fixed_payment_amount, :min_payment_amount, :apply_processing_fee,
                   :collect_shipping_address, :stats_number_of_contributors, :stats_raised_amount, :stats_tilt_percent,
-                  :stats_unique_contributors, :published_flag, :collect_shipping, :production_flag             
+                  :stats_unique_contributors, :published_flag, :collect_shipping, :production_flag,
+                  :include_rewards, :reward_reference          
                   
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
   
@@ -59,6 +61,10 @@ class Campaign < ActiveRecord::Base
   
   def orders
   	(self.stats_raised_amount / self.fixed_payment_amount).to_i
+  end
+  
+  def rewards?
+  	(self.payment_type != 'fixed' && self.rewards.length > 0)
   end
   
   private

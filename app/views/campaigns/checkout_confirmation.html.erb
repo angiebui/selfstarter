@@ -2,9 +2,10 @@
   <div class="container content_box clearfix">
     <div class="main_content">
       <%= raw(@campaign.confirmation_page_content) %>
-      <div class="share">
-        <%= render 'shared/share_buttons' %>
-      </div>      
+      <div class="share clearfix">
+        <%= render 'shared/share_buttons', campaign: @campaign, settings: @settings %>
+      </div>
+      <p style="margin-top: 50px;">Return to <a href="<%= url_for campaign_home_path(@campaign) %>"><%= @campaign.name %> homepage</a></p>
     </div>  
     <div class="well confirmation_sidebar">
       <h4>Payment Summary</h4>
@@ -13,8 +14,14 @@
       <strong>Amount:</strong><br/> $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/><br/>
       <strong>Card:</strong><br/> <%= @payment.card_type %> ************<%= @payment.card_last_four %> 
       (<%= @payment.card_expiration_month.to_s + '/' + @payment.card_expiration_year.to_s %>) <br/><br/>
-      <strong>Status:</strong><br/> <%= @payment.status %> <br/><br/>
-      <strong>ID:</strong><br/> <%= @payment.ct_payment_id %>
+      <% if @campaign.rewards? %>
+      	<strong>Reward Selected:</strong><br/> <%= @reward ? @reward.title : 'None' %> <br/><br/>
+      <% end %>
+      <% if @campaign.goal_type == 'orders' %>
+      	<strong>Quantity:</strong><br/> <%= @payment.quantity %> <br/><br/>
+      <% end %>
+      <strong>ID:</strong><br/> <%= @payment.ct_payment_id %><br/><br/>
+      <p class="center">An email confirmation was sent to <%= @payment.email %></p>
       </p>
     </div>
   </div>

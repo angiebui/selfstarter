@@ -7,6 +7,7 @@ class Payment < ActiveRecord::Base
  	validate :check_email
  								
   belongs_to :campaign
+  belongs_to :reward
   
   def update_api_data(payment)
     self.ct_payment_id = payment['id']

@@ -9,7 +9,9 @@ window.Selfstarter =
     $('.show_tooltip').tooltip()
 
 $ ->
+  crowdtilt_mode = crowdtilt_mode || 'sandbox'  
   Selfstarter.init()
   Selfstarter.admin.init()
   Selfstarter.campaigns.init()
-  crowdtilt.init(crowdtilt_mode);
+  Selfstarter.theme.init()
+  crowdtilt.init(crowdtilt_mode)

@@ -48,14 +48,20 @@ Selfstarter.admin =
     $('input#campaign_payment_type_any').on "change", ->
       $('#preset-amount').slideUp()
       $('#min-amount').slideUp()
+      $('#no-rewards').slideUp()
+      $('#rewards').slideDown()
     
     $('input#campaign_payment_type_fixed').on "change", ->
       $('#min-amount').slideUp()
-      $('#preset-amount').slideDown()  
+      $('#preset-amount').slideDown()
+      $('#rewards').slideUp()
+      $('#no-rewards').slideDown()
     
     $('input#campaign_payment_type_min').on "change", ->
       $('#preset-amount').slideUp()
       $('#min-amount').slideDown()
+      $('#no-rewards').slideUp()
+      $('#rewards').slideDown()
 
    	$('input#goal_type_dollars').on "change", ->
     	$('input#campaign_payment_type_min').attr('disabled', false)
@@ -71,7 +77,11 @@ Selfstarter.admin =
     	$('#flexible_payment_options').hide()
     	$('.amount_input').slideUp()
     	$('.orders_input').slideDown()
-    
+
+    $('#reward-add').on 'click', (e) ->
+    	e.preventDefault()
+    	$('#rewards ul').append('<li><table class="table"><tr><th>Reward</th><th>Number Claimed</th><th>Delete?</th></tr><tr><td><label>Minimum Contribution To Claim</label><div class="currency"><input name="reward[][price]" type="text" /><span style="position:absolute">$</span></div><label>Title</label><input name="reward[][title]" type="text" /><br/><label>Description</label><textarea name="reward[][description]"></textarea><br/><label>Estimated Delivery Date (i.e. May 2013)</label><input name="reward[][delivery_date]" type="text" /><br/><label>Number Available</label><input name="reward[][number]" type="text" /></td><td>0</td><td><input type="checkbox" name="reward[][delete]" value="delete"/></td></tr></table></li>')
+
     $('.faq.sortable').sortable
       stop: (e, ui) ->
         iterator = 1
@@ -80,13 +90,14 @@ Selfstarter.admin =
           $this.find('span').html(iterator)
           iterator++      
   
-    $('#faq-add').on 'click', ->
+    $('#faq-add').on 'click', (e) ->
+      e.preventDefault()
       $element = $('.faq.sortable li:last-child').clone()
       position = parseInt($element.find('span').html(), 10) + 1
       $element.find('span').html(position)
       $element.find('textarea[name="faq[][question]"]').html('')
       $element.find('textarea[name="faq[][answer]"]').html('')
-      $element.appendTo('.faq.sortable')  
+      $element.appendTo('.faq.sortable')
     
     $('.faq.sortable').on 'click', (e) ->    
         $this = $(e.target)

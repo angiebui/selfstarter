@@ -4,7 +4,7 @@ class Admin::CampaignsController < ApplicationController
   before_filter :verify_admin
   
   def index
-    @campaigns = Campaign.all
+    @campaigns = Campaign.order("created_at ASC")
   end
   
   def new
@@ -37,9 +37,18 @@ class Admin::CampaignsController < ApplicationController
       @campaign.save
     end
     
-    # Completely refresh the FAQ data
+    # Completely refresh the FAQs
     old_campaign.faqs.each do |faq|
-      @campaign.faqs.create question: faq['question'], answer: faq['answer']
+      @campaign.faqs.create question: faq.question, answer: faq.answer
+    end
+    
+    # Completely refresh the rewards
+    old_campaign.rewards.each do |reward|
+      @campaign.rewards.create title: reward.title, 
+      												 description: reward.description, 
+      												 delivery_date: reward.delivery_date, 
+      												 number: reward.number,
+      												 price: reward.price
     end 
     
     render action: "edit"
@@ -83,7 +92,7 @@ class Admin::CampaignsController < ApplicationController
       return
     else
       @campaign.update_api_data(response['campaign'])
-      @campaign.save 
+      @campaign.save
       
       # Now that we've created the campaign, create new FAQs if any were provided
       if params.has_key?(:faq)        
@@ -92,7 +101,31 @@ class Admin::CampaignsController < ApplicationController
             @campaign.faqs.create question: faq['question'], answer: faq['answer']
           end 
         end
-      end      
+      end
+      
+	    # Now that we've created the campaign, create new Reward Levels if any were provided
+			if params.has_key?(:reward)        
+	      params[:reward].each do |reward|
+		    	unless reward['delete'] && reward['delete'] == 'delete'
+			        @campaign.rewards.create title: reward['title'], 
+			        												 description: reward['description'], 
+			        												 delivery_date: reward['delivery_date'], 
+			        												 number: reward['number'].to_i,
+			        												 price: reward['price'].to_f
+					end		
+	      end
+			end
+			
+	    # Check again for campaign validity now that we've added faqs and rewards
+	    if !@campaign.valid?   
+	      message = ''
+	      @campaign.errors.each do |key, error|
+	        message = message + key.to_s.humanize + ' ' + error.to_s + ', '
+	      end
+	      flash.now[:error] = message[0...-2]
+	      render action: "new"
+	      return
+	    end 
       
       redirect_to campaign_home_url(@campaign), :flash => { :notice => "Campaign updated!" }
       return
@@ -105,6 +138,9 @@ class Admin::CampaignsController < ApplicationController
   
   def update
     @campaign = Campaign.find(params[:id])
+
+    # We don't immediately update the campaign, becuase the Crowdtilt API may still fail a validation
+    @campaign.assign_attributes(params[:campaign])
      
     # Completely refresh the FAQ data
     @campaign.faqs.delete_all 
@@ -114,10 +150,39 @@ class Admin::CampaignsController < ApplicationController
           @campaign.faqs.create question: faq['question'], answer: faq['answer']
         end 
       end
-    end   
+    end
     
-    # We don't immediately update the campaign, becuase the Crowdtilt API may still fail a validation
-    @campaign.assign_attributes(params[:campaign])
+    # Update the Reward Levels
+    if params.has_key?(:reward)        
+      params[:reward].each do |reward|
+	    	if reward['delete'] && reward['delete'] == 'delete'
+	    		if reward['id']
+	    			r = Reward.find(reward['id'])
+	    			r.destroy if(r.payments.length == 0)
+	    		end
+	    	else
+	      	if reward['id']
+		      		r = Reward.find(reward['id'])
+		      		r.title = reward['title']
+		      		r.description = reward['description']
+		      		r.delivery_date = reward['delivery_date']
+		      		r.number = reward['number']
+		      		r.price = reward['price']
+		      		unless r.save
+					      flash.now[:error] = "Invalid rewards"
+					      render action: "edit"
+					      return
+				    	end
+	      	else
+						@campaign.rewards.create title: reward['title'], 
+		        												 description: reward['description'], 
+		        												 delivery_date: reward['delivery_date'], 
+		        												 number: reward['number'].to_i,
+		        												 price: reward['price'].to_f
+	      	end
+				end		
+      end
+    end
     
     # Check if the new settings pass validations...if not, re-render form and display errors in flash msg
     if !@campaign.valid?   
@@ -204,11 +269,11 @@ class Admin::CampaignsController < ApplicationController
 			if payment
 				@payments = [payment]
 			else
-				@payments = @campaign.payments
+				@payments = @campaign.payments.order("created_at ASC")
 				flash.now[:error] = "Contributor not found for " + params[:payment_id]
 			end
 		else
-			@payments = @campaign.payments
+			@payments = @campaign.payments.order("created_at ASC")
 		end
   end
 

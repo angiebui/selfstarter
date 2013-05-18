@@ -1,7 +1,7 @@
 <div id="checkout">
   <div class="container content_box clearfix">
     <div class="main_content">
-      <h3><%= @campaign.name %></h3>
+      <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
       
       <div class="well checkout_block">
         <form accept-charset="UTF-8" action="<%= checkout_payment_path(@campaign) %>" method="GET" id="amount_form">
@@ -13,7 +13,7 @@
 	          <br/>
             	
             	<span>$<%= @campaign.fixed_payment_amount %>&nbsp; x &nbsp;</span>
-              <select id="quantity" name="quantity" style="width:50px">
+              <select id="quantity" name="quantity" style="width:65px">
                 <option value="01" selected>01</option>
                 <option value="02">02</option>
                 <option value="03">03</option>
@@ -46,6 +46,38 @@
 	          <input id="quantity" type="hidden" name="quantity" value="1"/>
 	          
 					<% end %>
+					
+					<% if @campaign.rewards? %>
+						<div id="reward_select">
+						<h4>Select a <%= @campaign.reward_reference %>: </h4>
+		  			<ul>
+			  			<li class="reward_option active clearfix" data-id="0" data-price="1">
+				  				<input class="reward_input" type="radio" name="reward" value="0">
+				  				<label class="price"></label>
+				  				<div class="reward_description">
+					  				<p class="title">No <%= @campaign.reward_reference %></p>
+				  				</div>
+							</li>
+			  			<% @campaign.rewards.order("price ASC").each do |reward| %>
+								<li class="reward_option <%= raw('active') unless reward.sold_out? %> clearfix" data-id="<%= reward.id %>" data-price="<%= short_price(reward.price) %>">
+				  				<input class="reward_input" type="radio" name="reward" value="<%= reward.id %>" <%= raw('disabled') if reward.sold_out? %>>
+				  				<label class="price">$<%= short_price(reward.price) %> +</label>
+				  				<div class="reward_description">
+					  				<p class="title"><%= reward.title %></p>
+					  				<p class="claimed">
+					  					<%= reward.payments.length %> of <%= reward.number %> claimed
+					  					<% if reward.sold_out? %> (All gone!) <% end %>
+					  				</p>
+					  				<p class="description"><%= reward.description %></p>
+					  				<p class="delivery">Estimated Delivery: <%= reward.delivery_date %></p>
+					  				
+				  				</div>
+								</li>
+			  			<% end %>
+		  			</ul>
+		  			</div>
+					<% end %>
+					
 					
           <button type="submit" class="btn btn-primary">Continue to checkout</button>
         

@@ -14,7 +14,7 @@
       <label>Goal</label>
       <label><input id="goal_type_dollars" name="campaign[goal_type]" value="dollars" type="radio" <%= @campaign.goal_type == 'dollars' ? "checked" : "" %>>Dollar Amount</label> 
        
-       <div class="amount_input" style="position:relative; <%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
+       <div class="amount_input currency" style="<%= @campaign.goal_type == 'dollars' ? "" : "display:none" %>">
         <%= f.text_field :goal_dollars, value: (number_with_precision(f.object.goal_dollars, :precision => 2) || 0) %>
         <span style="position:absolute">$</span>
       </div>
@@ -56,7 +56,6 @@
         <%= f.text_field :fixed_payment_amount, value: (number_with_precision(f.object.fixed_payment_amount, :precision => 2) || 0) %>      
       </div>
       
-
     </div>
 
     <div class="field clearfix">
@@ -71,6 +70,65 @@
       <%= f.check_box :apply_processing_fee %> 
     </div>
 
+  </fieldset>
+  
+  <fieldset>
+  <legend>Rewards (Optional)</legend>
+  
+  	<div class="field clearfix">
+  		<div id="no-rewards" style="<%= 'display:none' unless @campaign.payment_type == 'fixed' %>">
+  			<p class="explanation inline">Rewards cannot be used for campaigns that require a specific amount from contributors</p>
+  		</div>
+  	
+      <div id="rewards" style="<%= 'display:none' if @campaign.payment_type == 'fixed' %>">
+	      <p class="explanation inline">Assign rewards for different levels of contribution. When contributors check out, they can choose to associate a reward with their contribution.  You can set a cap on how many of each reward are available, and what is the minimum contribution amount needed to claim the reward.</p>
+	      <div class="reference">
+	      	<label>How To Reference a Reward (i.e. reward, perk, option)</label>
+	      	<%= f.text_field :reward_reference %>	
+	      </div>      	      
+	      <ul>
+	      	<% @campaign.rewards.order("price ASC").each do |reward| %>
+	        <li>
+	        	<table class="table">
+	        		<tr>
+	        			<th>Reward</th>
+	        			<th>Number Claimed</th>
+	        			<th>Delete?</th>
+	        		</tr>
+	        		<tr>
+	        			<td>    
+				          <label>Minimum Contribution To Claim</label>
+				          <div class="currency">
+				          	<input name="reward[][price]" type="text" value="<%= number_with_precision(reward.price, :precision => 2) %>"/>
+				          	<span style="position:absolute">$</span>
+				          </div>
+				          <label>Title</label>
+				          <input name="reward[][title]" type="text" value="<%= reward.title %>"/><br/>
+				          <label>Description</label>
+				          <textarea name="reward[][description]"><%= reward.description %></textarea><br/>
+				          <label>Estimated Delivery Date (i.e. May 2013)</label>
+				          <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>"/><br/>
+				          <label>Number Available</label>
+				          <input name="reward[][number]" type="text" value="<%= reward.number %>"/>
+				          <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
+			    			</td>
+			    			<td><%= reward.payments.length %></td>
+			    			<td>
+			    				<% if reward.payments.length > 0 %>
+			    					N/A<input type="hidden" name="reward[][delete]" value=""/>
+			    				<% else %>
+			    					<input type="checkbox" name="reward[][delete]" value="delete"/>
+			    				<% end %>
+			    			</td>
+			    		</tr>
+			    	</table>
+	        </li>
+	      	<% end %>                   
+	      </ul>
+	      <a id="reward-add" href="#">Add Reward</a>
+	  	</div>
+    </div>
+  
   </fieldset>
   
   <fieldset>
@@ -165,8 +223,7 @@
           <a href="#" class="faq-delete icon-trash"></a>
          </li>                     
       </ul>
-      
-      <button id="faq-add" type="button" class="btn btn-info">+</button>  
+      <a id="faq-add" href="#">Add FAQ</a>
     </div>
 
   </fieldset>

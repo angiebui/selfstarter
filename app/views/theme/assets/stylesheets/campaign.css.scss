@@ -66,8 +66,8 @@
     
     #backing {
       float: left;
-      width: 387px;
-      margin: 20px 0 0 38px;
+      width: 392px;
+      margin: 20px 0 0 34px;
       
       ul {
         margin: 0;
@@ -179,12 +179,69 @@
   }
   
   /*************************************
-  ********** CUSTOM CONTENT ************
+  ********** CAMPAIGN BODY *************
   **************************************/
-  #custom_content {
+  #campaign_body {
     width: 100%;
     padding: 50px 0 40px;
     border-bottom: 1px solid #c4c4c4;
+    .main_content {
+    }
+    .main_content.narrow {
+    	width: 620px;
+    	float: left;
+    }
+    .rewards_sidebar {
+    	float: right;
+    	width: 280px;
+    	background: #f6f6f6;
+    	-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+			border-radius: 5px;
+			h3 {
+				margin: 20px 0px 0px 20px;
+			}
+			ul {
+				margin: 0px;
+				li {
+					padding: 20px 20px;
+					border-bottom: 1px solid gray;
+					p {
+						font-size: 14px;
+						margin: 0px;
+						color: #4b4b4b;
+					}
+				
+					p.price {
+						font-size: 24px;
+						font-weight: bold;
+					}
+					p.title {
+						font-size: 16px;
+						font-weight: bold;
+						margin-bottom: 12px;
+					}
+					p.description {
+						margin-bottom: 12px;
+					}
+					p.delivery {
+						font-size: 12px;
+						font-weight: bold;
+						font-style: italic;
+						margin-bottom: 12px;
+					}
+					p.claimed {
+						font-weight: bold;
+					}
+				
+					&:last-child {
+						border-bottom: none;
+					}
+					
+				}
+			}
+			
+    }
   }
   
   /*************************************

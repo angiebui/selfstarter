@@ -1,14 +1,13 @@
 <div id="checkout">
   <div class="container content_box clearfix">
     <div class="main_content">
-      <h3><%= @campaign.name %></h3>
+      <h3><a href="<%= campaign_home_path(@campaign) %>"><%= @campaign.name %></a></h3>
         
     <div class="well checkout_block">
            
         <form accept-charset="UTF-8" action="<%= checkout_confirmation_path(@campaign) %>" method="post" id="payment_form">
   
           <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-          
           <fieldset>
           <label for="fullname">Full Name</label>
           <input id="fullname" name="fullname" type="text">
@@ -52,12 +51,12 @@
 					
           <fieldset>
           <label for="card_number">Card Number</label>
-          <input id="card_number" type="text">
+          <input id="card_number" type="text" style="width:190px">
           </fieldset>
         
           <fieldset>
           <label>Expiration</label>
-            <select id="expiration_month" style="width:50px">
+            <select id="expiration_month" style="width:65px">
                 <option value="01" selected>01</option>
                 <option value="02">02</option>
                 <option value="03">03</option>
@@ -71,7 +70,7 @@
                 <option value="11">11</option>
                 <option value="12">12</option>
             </select>          
-            <select id="expiration_year" style="width:75px">
+            <select id="expiration_year" style="width:80px">
                 <option value="2013">2013</option>
                 <option value="2014" selected>2014</option>
                 <option value="2015">2015</option>
@@ -88,7 +87,7 @@
         
           <fieldset>
           <label for="security_code">Security Code</label>
-          <input id="security_code" size="30" type="text" class="input-small">
+          <input id="security_code" type="text"  style="width:88px">
           </fieldset>
                     
           <input id="ct_user_id" type="hidden" name="ct_user_id" value="<%= @campaign.production_flag ? @settings.ct_production_guest_id : @settings.ct_sandbox_guest_id %>" >
@@ -96,6 +95,7 @@
           <input id="quantity" type="hidden" name="quantity" value="<%= @quantity %>">
           <input id="amount" type="hidden" name="amount" value="<%= @amount %>">
           <input id="fee" type="hidden" name="fee" value="<%= @fee %>">
+    			<input id="reward" type="hidden" name="reward" value="<%= @reward ? @reward.id : '0' %>">
     			
     			<div class="payment-submit">
           	<button class="btn btn-primary" type="submit">Confirm Payment</button>
@@ -151,6 +151,20 @@
 				</table>
 				
 			</div>
+			
+			<% if @campaign.rewards? %>
+			<div class="well rewards">
+				<h4><%= @campaign.reward_reference.titleize %> Selected</h4>
+				<% if @reward %>
+					<p><strong><%= "#{@reward.title} ($#{short_price(@reward.price)})" %></strong></p>
+					<p><%= @reward.description %></p>
+					<p>Estimated Delivery: <%= @reward.delivery_date %></p>
+				<% else %>
+					<p>None</p>
+				<% end %>
+			</div>
+			<% end %>	
+			
 			<div class="custom_content">
 				<%= raw(@campaign.checkout_sidebar_content) %>
 			</div>

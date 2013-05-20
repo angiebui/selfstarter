@@ -15,6 +15,8 @@ module Selfstarter
     
     config.crowdhoster_app_name = ENV['APP_NAME'] || 'crowdhoster_anonymous'
     
+    config.reply_to_email = ENV['REPLY_TO_EMAIL'] || 'no-reply@crowdhoster.com'
+    
     #Crowdtilt API key/secret
     config.crowdtilt_production_key = ENV['CROWDTILT_PRODUCTION_KEY']
     config.crowdtilt_production_secret = ENV['CROWDTILT_PRODUCTION_SECRET']

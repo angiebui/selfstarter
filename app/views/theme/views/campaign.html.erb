@@ -125,7 +125,9 @@
 			  				<p class="title"><%= reward.title %></p>
 			  				<p class="description"><%= reward.description %></p>
 			  				<p class="delivery">Estimated Delivery: <%= reward.delivery_date %></p>
-			  				<p class="claimed"><%= reward.payments.length %> of <%= reward.number %> claimed <% if reward.sold_out? %> (All gone!) <% end %></p>
+			  				<p class="claimed">
+			  					<%= reward.payments.length %> <%= "of #{reward.number}" unless reward.unlimited? %> claimed <%= '(All gone!)' if reward.sold_out? %>
+			  				</p>
 							</li>
 		  			<% end %>
 	  			</ul>

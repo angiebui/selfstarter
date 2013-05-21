@@ -64,4 +64,10 @@ Selfstarter::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+  
+	# Assets syncing to S3
+	if ENV['ENABLE_FOG'] == 'true'
+  	config.action_controller.asset_host = "https://#{ENV['FOG_DIRECTORY']}.s3.amazonaws.com"
+  end
+  
 end

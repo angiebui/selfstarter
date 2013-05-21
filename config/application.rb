@@ -42,7 +42,7 @@ module Selfstarter
     config.assets.initialize_on_precompile = false
     
     #Paperclip default options
-    paperclip_path = ":class/:attachment/:id_partition/:style.:extension" 
+    paperclip_path = "/:class/:attachment/:id_partition/:style.:extension" 
     if defined?(ENV['APP_NAME']) && !ENV['APP_NAME'].nil?
       paperclip_path = ENV['APP_NAME'] + paperclip_path
     end

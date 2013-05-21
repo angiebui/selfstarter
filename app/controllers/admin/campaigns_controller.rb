@@ -166,8 +166,8 @@ class Admin::CampaignsController < ApplicationController
 		      		r.title = reward['title']
 		      		r.description = reward['description']
 		      		r.delivery_date = reward['delivery_date']
-		      		r.number = reward['number']
-		      		r.price = reward['price']
+		      		r.number = reward['number'].to_i
+		      		r.price = reward['price'].to_f
 		      		unless r.save
 					      flash.now[:error] = "Invalid rewards"
 					      render action: "edit"

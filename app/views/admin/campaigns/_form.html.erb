@@ -108,8 +108,8 @@
 				          <textarea name="reward[][description]"><%= reward.description %></textarea><br/>
 				          <label>Estimated Delivery Date (i.e. May 2013)</label>
 				          <input name="reward[][delivery_date]" type="text" value="<%= reward.delivery_date %>"/><br/>
-				          <label>Number Available</label>
-				          <input name="reward[][number]" type="text" value="<%= reward.number %>"/>
+				          <label>Number Available (leave blank if unlimited)</label>
+				          <input name="reward[][number]" type="text" value="<%= reward.unlimited? ? '' : reward.number %>"/>
 				          <input type="hidden" name="reward[][id]" value="<%= reward.id %>"/>
 			    			</td>
 			    			<td><%= reward.payments.length %></td>

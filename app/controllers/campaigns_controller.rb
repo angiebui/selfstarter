@@ -170,7 +170,7 @@ class CampaignsController < ApplicationController
   
   def check_exp
     if @campaign.expired?
-      redirect_to campaign_home_url, :flash => { :error => "Campaign is expired!" }
+      redirect_to campaign_home_url(@campaign), :flash => { :error => "Campaign is expired!" }
     end
   end
 

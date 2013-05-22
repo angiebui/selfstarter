@@ -49,9 +49,9 @@
 					
 					<% if @campaign.rewards? %>
 						<div id="reward_select">
-						<h4>Select a <%= @campaign.reward_reference %>: </h4>
+						<h4>Select your <%= @campaign.reward_reference %>: </h4>
 		  			<ul>
-			  			<li class="reward_option active clearfix" data-id="0" data-price="1">
+			  			<li class="reward_option active clearfix" data-id="0" data-price="<%= short_price(@campaign.min_payment_amount) %>">
 				  				<input class="reward_input" type="radio" name="reward" value="0">
 				  				<label class="price"></label>
 				  				<div class="reward_description">

@@ -6,7 +6,7 @@
     <%= render 'layouts/facebook_metas' %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    "application" %>
-    <style type="text/css"><%= @settings.custom_css %></style>
+    <style type="text/css"><%= raw(@settings.custom_css) %></style>
     
     <%= javascript_include_tag "application" %>
     <%= render 'layouts/google_analytics' %>

@@ -5,12 +5,20 @@ Date: <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/>
 Amount: $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/>
 Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %> 
       (<%= @payment.card_expiration_month.to_s + '/' + @payment.card_expiration_year.to_s %>) <br/>   
-<% if @campaign.goal_type == 'orders' %>
-Quantity: <%= @payment.quantity %> <br/>
-<% end %>
 <% if @campaign.rewards? %>
-Reward Selected: <%= @payment.reward ? @payment.reward.title : 'None' %> <br/>
-<% end %>   
+	Reward Selected: <%= @payment.reward ? @payment.reward.title : 'None' %> <br/>
+<% end %>
+<% if @campaign.goal_type == 'orders' %>
+	Quantity: <%= @payment.quantity %> <br/>
+<% end %>
+<% if @campaign.collect_shipping %>
+	Shipping Address:<br/> 
+	<%= @payment.address_one %><br/>
+	<% if !@payment.address_two.blank? %><%= @payment.address_two %><br/><% end %>
+	<%= @payment.city %>, <%= @payment.state %> <%= @payment.postal_code %><br/>
+	<%= @payment.country %>
+	<br/>
+<% end %>
 Payment ID: <%= @payment.ct_payment_id %>
 <br/><br/>
 Please keep this email as your receipt

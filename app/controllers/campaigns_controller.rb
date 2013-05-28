@@ -69,6 +69,7 @@ class CampaignsController < ApplicationController
     city = params.has_key?(:city) ? params[:city] : ''
     state = params.has_key?(:state) ? params[:state] : ''
     postal_code = params.has_key?(:postal_code) ? params[:postal_code] : ''
+    country = params.has_key?(:country) ? params[:country] : ''
     
     @reward = false
     if params[:reward].to_i != 0
@@ -103,7 +104,8 @@ class CampaignsController < ApplicationController
     																	address_two: address_two,
     																	city: city,
     																	state: state,
-    																	postal_code: postal_code
+    																	postal_code: postal_code,
+    																	country: country
                               
     if !@payment.valid?   
       message = ''

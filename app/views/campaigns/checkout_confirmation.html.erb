@@ -20,6 +20,14 @@
       <% if @campaign.goal_type == 'orders' %>
       	<strong>Quantity:</strong><br/> <%= @payment.quantity %> <br/><br/>
       <% end %>
+      <% if @campaign.collect_shipping %>
+      	<strong>Shipping Address:</strong><br/> 
+      	<%= @payment.address_one %><br/>
+      	<% if !@payment.address_two.blank? %><%= @payment.address_two %><br/><% end %>
+      	<%= @payment.city %>, <%= @payment.state %> <%= @payment.postal_code %><br/>
+      	<%= @payment.country %>
+      	<br/><br/>
+      <% end %>
       <strong>ID:</strong><br/> <%= @payment.ct_payment_id %><br/><br/>
       <p class="center">An email confirmation was sent to <%= @payment.email %></p>
       </p>

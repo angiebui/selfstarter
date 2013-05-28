@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514214040) do
+ActiveRecord::Schema.define(:version => 20130528182659) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(:version => 20130514214040) do
     t.float    "min_payment_amount",                   :default => 1.0,          :null => false
     t.float    "fixed_payment_amount",                 :default => 1.0,          :null => false
     t.boolean  "apply_processing_fee",                 :default => false,        :null => false
-    t.boolean  "collect_shipping_address",             :default => false,        :null => false
     t.string   "tweet_text"
     t.string   "facebook_title"
     t.text     "facebook_description"

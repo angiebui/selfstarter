@@ -46,7 +46,8 @@ Selfstarter.campaigns =
         $.each errors, (index, value) -> 
           $('#errors').append('<p>' + value + '</p>')
         $('.loader').hide()
-        $('button[type="submit"]').attr('disabled', false).html('Confirm Payment')
+        $button = $('button[type="submit"]')
+        $button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total'))
       else
         user_id = $this.find('#ct_user_id').val()
         crowdtilt.card.create(user_id, cardData, _this.cardResponseHandler)   
@@ -63,4 +64,5 @@ Selfstarter.campaigns =
       else
       	$('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p>')
       	$('.loader').hide()
-      	$('button[type="submit"]').attr('disabled', false).html('Confirm Payment')
+      	$button = $('button[type="submit"]')
+      	$button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total') )

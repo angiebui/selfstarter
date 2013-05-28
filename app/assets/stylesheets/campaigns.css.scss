@@ -8,7 +8,6 @@
     h3 {
       margin: 0px 0px 30px;
       color: #4b4b4b;
-      line-height: 1;
       a {
       	color: #4b4b4b;
       	text-decoration: none;
@@ -113,7 +112,14 @@
     
     h4 {
     	margin-top: 20px;
+    	i {
+    		margin-top: 6px;
+    	}
     }
+    
+		h4.contact {
+    	margin-top: 0px;
+		}
     
     fieldset {
       display: inline-block;
@@ -122,6 +128,12 @@
     
     #fullname, #email, #address_one, #address_two{
     	width: 470px;
+    }
+    
+    .billing_address {
+    	margin-top: 7px;
+    	font-size: 14px;
+    	padding-bottom: 10px;
     }
     
     .payment-submit {

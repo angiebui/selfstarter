@@ -143,23 +143,25 @@
     	}
     }
     
-    .crowdhoster-powered {
-      font-size: 12px;
-      color: black;
-      i {
-        margin-top: -1px;
-      }
-      img {
-        vertical-align: baseline;
-        width: 60px;
-        height: 11px;
-      }
+    form {
+    	margin-bottom: 0px;
+    }
+    
+    #errors {
+    	margin-top: 20px;
     }
   }
    
   .sidebar {
     float: right;
     width: 345px;
+    
+    .crowdtilt-powered {
+    	margin-bottom: 34px;
+      img {
+        float: right;
+      }
+    }
     
     .well {
     	background: white;

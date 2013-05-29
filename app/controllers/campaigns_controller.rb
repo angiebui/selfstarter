@@ -127,7 +127,8 @@ class CampaignsController < ApplicationController
         metadata: {
         	fullname: fullname,
         	email: email,
-        	quantity: quantity
+        	quantity: quantity,
+        	reward: @reward ? @reward.id : 0
         }     
       }
       @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox

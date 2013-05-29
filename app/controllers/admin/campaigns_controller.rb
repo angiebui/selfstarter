@@ -143,7 +143,7 @@ class Admin::CampaignsController < ApplicationController
     @campaign.assign_attributes(params[:campaign])
      
     # Completely refresh the FAQ data
-    @campaign.faqs.delete_all 
+    @campaign.faqs.destroy_all
     if params.has_key?(:faq)        
       params[:faq].each do |faq|
         if !faq['question'].empty?
@@ -200,7 +200,7 @@ class Admin::CampaignsController < ApplicationController
 
     #if campaign has been promoted to production, delete all sandbox payments
     if @campaign.production_flag && @campaign.production_flag_changed?
-    	@campaign.payments.delete_all
+    	@campaign.payments.destroy_all
     end
     
 		# calculate the goal amount (in case of a tilt by orders campaign)

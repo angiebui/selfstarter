@@ -30,9 +30,11 @@ Selfstarter.campaigns =
     
     $('#payment_form').on "submit", (e) ->
       e.preventDefault()
+      $('#errors').hide()
+      $('#errors').html('')
       $('.loader').show()
       $('button[type="submit"]').attr('disabled', true).html('Processing, please wait...')
-      $('#errors').html('')        
+          
       $this = $(this)
       
       cardData =
@@ -45,6 +47,7 @@ Selfstarter.campaigns =
       if !$.isEmptyObject(errors)
         $.each errors, (index, value) -> 
           $('#errors').append('<p>' + value + '</p>')
+        $('#errors').show()
         $('.loader').hide()
         $button = $('button[type="submit"]')
         $button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total'))
@@ -63,6 +66,7 @@ Selfstarter.campaigns =
         form.submit()     
       else
       	$('#errors').append('<p>An error occurred. Please check your credit card details and try again.</p>')
+      	$('#errors').show()
       	$('.loader').hide()
       	$button = $('button[type="submit"]')
       	$button.attr('disabled', false).html('Confirm payment of $' + $button.attr('data-total') )

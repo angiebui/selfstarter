@@ -25,7 +25,7 @@ Selfstarter.campaigns =
     	$this.find('input').prop('checked', true)
     	$('.reward_option').css('background-color', '')
     	$this.css('background-color', '#e6e6e6')
-      $amount.val($this.attr('data-price'))
+    	$amount.val($this.attr('data-price'))
     
     $('#payment_form').on "submit", (e) ->
       e.preventDefault()

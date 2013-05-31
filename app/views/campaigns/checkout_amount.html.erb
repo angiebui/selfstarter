@@ -40,7 +40,7 @@
 	            <input id="amount" type="text" name="amount"/>&nbsp;&nbsp;
 	            <span style="position:absolute">$</span>
 	          </div>
-	          <span>Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %></span>
+	          <span class="minimum">Minimum is $<%= number_with_precision(@campaign.min_payment_amount, precision: 2) %></span>
 	          </div>
 	          
 	          <input id="quantity" type="hidden" name="quantity" value="1"/>

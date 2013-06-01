@@ -6,7 +6,7 @@ Amount: $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fe
 Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %> 
       (<%= @payment.card_expiration_month.to_s + '/' + @payment.card_expiration_year.to_s %>) <br/>   
 <% if @campaign.rewards? %>
-	Reward Selected: <%= @payment.reward ? @payment.reward.title : 'None' %> <br/>
+	<%= @campaign.reward_reference.titleize %> Selected: <%= @payment.reward ? @payment.reward.title : 'None' %> <br/>
 <% end %>
 <% if @campaign.goal_type == 'orders' %>
 	Quantity: <%= @payment.quantity %> <br/>

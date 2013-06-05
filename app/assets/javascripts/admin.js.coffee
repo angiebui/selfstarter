@@ -37,9 +37,9 @@ Selfstarter.admin =
       $date = $('#campaign_expiration_date')
       $date.val(new Date($date.val()).toUTCString())
       this.submit()
-  
-    $('form.edit_campaign').on "submit", ->
-      $('#form-loader').show()
+
+    $('input#campaign_collect_additional_info').on "change", ->
+      $('.additional_info_input').slideToggle()
   
     $('input[name="campaign[media_type]"]').on "change", ->
       $('#video-options').slideToggle()
@@ -116,7 +116,6 @@ Selfstarter.admin =
 
     $('#bank_form').on "submit", (e) ->
       e.preventDefault()
-      $('.loader').show()
       $('#errors').html('')        
       $this = $(this)
       

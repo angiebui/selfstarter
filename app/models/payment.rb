@@ -1,7 +1,8 @@
 class Payment < ActiveRecord::Base
   attr_accessible :ct_payment_id, :status, :amount, :user_fee_amount, :admin_fee_amount, :fullname, :email,
   								:card_type, :card_last_four, :card_expiration_month, :card_expiration_year,
-  								:address_one, :address_two, :city, :state, :postal_code, :country, :quantity
+  								:address_one, :address_two, :city, :state, :postal_code, :country, :quantity,
+  								:additional_info
  	
  	validates :fullname, :email, :quantity, presence: true
  	validate :check_email

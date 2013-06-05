@@ -19,6 +19,11 @@ Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %>
 	<%= @payment.country %>
 	<br/>
 <% end %>
+<% if @campaign.collect_additional_info %>
+	Additional Information:<br/> 
+	<%= @payment.additional_info %>
+	<br/>
+<% end %>
 Payment ID: <%= @payment.ct_payment_id %>
 <br/><br/>
 Please keep this email as your receipt

@@ -14,7 +14,7 @@ class Campaign < ActiveRecord::Base
                   :payment_type, :fixed_payment_amount, :min_payment_amount, :apply_processing_fee,
                   :stats_number_of_contributors, :stats_raised_amount, :stats_tilt_percent,
                   :stats_unique_contributors, :published_flag, :collect_shipping, :production_flag,
-                  :include_rewards, :reward_reference          
+                  :include_rewards, :reward_reference, :collect_additional_info, :additional_info_label       
                   
   attr_accessor :main_image_delete, :video_placeholder_delete, :facebook_image_delete
   

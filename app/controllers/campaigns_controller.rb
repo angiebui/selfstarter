@@ -71,6 +71,9 @@ class CampaignsController < ApplicationController
     postal_code = params.has_key?(:postal_code) ? params[:postal_code] : ''
     country = params.has_key?(:country) ? params[:country] : ''
     
+    #Additional Info
+    additional_info = params.has_key?(:additional_info) ? params[:additional_info] : ''
+    
     @reward = false
     if params[:reward].to_i != 0
     	begin
@@ -105,7 +108,8 @@ class CampaignsController < ApplicationController
     																	city: city,
     																	state: state,
     																	postal_code: postal_code,
-    																	country: country
+    																	country: country,
+    																	additional_info: additional_info
                               
     if !@payment.valid?   
       message = ''
@@ -128,7 +132,8 @@ class CampaignsController < ApplicationController
         	fullname: fullname,
         	email: email,
         	quantity: quantity,
-        	reward: @reward ? @reward.id : 0
+        	reward: @reward ? @reward.id : 0,
+        	additional_info: additional_info
         }     
       }
       @campaign.production_flag ? Crowdtilt.production : Crowdtilt.sandbox

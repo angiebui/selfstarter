@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528182659) do
+ActiveRecord::Schema.define(:version => 20130604232404) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(:version => 20130528182659) do
     t.boolean  "production_flag",                      :default => false,        :null => false
     t.boolean  "include_rewards",                      :default => false,        :null => false
     t.string   "reward_reference",                     :default => "reward",     :null => false
+    t.boolean  "collect_additional_info",              :default => false,        :null => false
+    t.string   "additional_info_label"
   end
 
   add_index "campaigns", ["slug"], :name => "index_campaigns_on_slug", :unique => true
@@ -118,6 +120,7 @@ ActiveRecord::Schema.define(:version => 20130528182659) do
     t.string   "country"
     t.integer  "quantity"
     t.integer  "reward_id"
+    t.text     "additional_info"
   end
 
   create_table "rewards", :force => true do |t|

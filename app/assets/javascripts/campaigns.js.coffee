@@ -31,7 +31,6 @@ Selfstarter.campaigns =
       e.preventDefault()
       $('#errors').hide()
       $('#errors').html('')
-      $('.loader').show()
       $('button[type="submit"]').attr('disabled', true).html('Processing, please wait...')
           
       $this = $(this)

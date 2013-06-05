@@ -1,3 +1,13 @@
+# crowdhoster
+
+1. set up .env
+
+
+launch with foreman run rails s
+
+
+
+
 # Selfstarter
 Selfstarter makes it easy to roll your own crowdfunding site. To get started, fork this repository and change around ```config/settings.yml``` to suit your needs.
 

@@ -8,6 +8,7 @@ class Settings < ActiveRecord::Base
   attr_accessor :logo_image_delete, :facebook_image_delete
   
   validates :site_name, presence: true
+  before_create :set_api_key
 
   before_validation { logo_image.clear if logo_image_delete == '1' }
   before_validation { facebook_image.clear if facebook_image_delete == '1' }
@@ -18,4 +19,9 @@ class Settings < ActiveRecord::Base
   has_attached_file :facebook_image, 
                     styles: { thumb: "100x100#" }
     
+  private
+
+  def set_api_key
+    self[:api_key] = SecureRandom.hex(10)
+  end
 end

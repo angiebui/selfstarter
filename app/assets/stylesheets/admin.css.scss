@@ -48,6 +48,13 @@
 	      display: inline-block;
 	    }
 	  }
+	  
+	  .additional_info_input {
+	  	margin-top: 20px;
+	  	textarea {
+	  		width: 360px;
+	  	}
+	  }
   
 	  #preset-amount, #min-amount {
 	    margin-left: 20px;

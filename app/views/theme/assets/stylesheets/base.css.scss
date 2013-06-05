@@ -173,6 +173,7 @@ body.lt-ie9 {
   -webkit-box-shadow: none;
   box-shadow: none;
   text-shadow: none;
+  cursor: not-allowed;
   &:hover {
     background-image: none;
     background-color: #bbbbbb;

@@ -105,6 +105,7 @@
   </div>
 </div>
 
+<%= javascript_include_tag "https://api.crowdtilt.com/v1/js/crowdtilt.js" %>
 <%= javascript_tag do %>
-  window.crowdtilt_mode = "production";
+  crowdtilt.init('production')
 <% end %>

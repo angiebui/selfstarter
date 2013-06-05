@@ -64,6 +64,16 @@
       <%= f.check_box :collect_shipping %> 
     </div>
 
+		<div class="field clearfix">
+      <p class="explanation">Requires the user to provide additional information in a text box, such as sizes, colors, or other details.</p>
+      <label>Collect Additional Information?</label>
+      <%= f.check_box :collect_additional_info %>
+      <div class="additional_info_input" style="<%= @campaign.collect_additional_info ? "" : "display:none" %>">
+      	<label>Include a message describing what you need:</label>
+      	<%= f.text_area :additional_info_label, rows: 2 %>
+      </div>
+    </div>
+
     <div class="field clearfix">
       <p class="explanation">This passes the <%= Rails.configuration.processing_fee %>% processing fee onto your contributors, adding the fee amount to their contribution amount when they checkout. If you do not select this option, the processing fee will be deducted from the amount raised before being disbursed to your bank.</p>
       <label>Pass Credit Card Processing Fee to Contributors?</label>

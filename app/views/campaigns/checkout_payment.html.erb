@@ -301,6 +301,16 @@
           <p class="billing_address">*Billing address is not needed</p>
 					<% end %>
 					
+					<% if @campaign.collect_additional_info %>
+          <h4>Additional Information</h4>
+					
+					<fieldset>
+          <label for="additional_info"><%= @campaign.additional_info_label %></label>
+          <textarea id="additional_info" name="additional_info"></textarea>
+          </fieldset>
+          <% end %>
+          
+					
 					<h4>Credit/Debit Card <i class="icon icon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></i></h4>
 					
           <fieldset>
@@ -429,6 +439,7 @@
   </div>
 </div>
 
+<%= javascript_include_tag "https://api.crowdtilt.com/v1/js/crowdtilt.js" %>
 <%= javascript_tag do %>
-  window.crowdtilt_mode = "<%= @campaign.production_flag ? 'production' : 'sandbox' %>";
+  crowdtilt.init('<%= @campaign.production_flag ? 'production' : 'sandbox' %>')
 <% end %>

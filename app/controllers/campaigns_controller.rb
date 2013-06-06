@@ -142,24 +142,25 @@ class CampaignsController < ApplicationController
       redirect_to checkout_amount_url(@campaign), flash: { error: exception.to_s }
       return
     end  
-    
-    # Sync payment data
-		@payment.update_api_data(response['payment'])
-		@payment.save
 		
 		# Associate payment with reward
 		@reward.payments << @payment if @reward
+
+    # Sync payment data
+		@payment.update_api_data(response['payment'])
+		@payment.save
+
+    # Sync campaign data
+    @campaign.update_api_data(response['payment']['campaign'])
+    @campaign.save
 		
     # Send a confirmation email 
     begin
-      UserMailer.payment_confirmation(@payment).deliver
+      UserMailer.payment_confirmation(@payment, @campaign).deliver
     rescue => exception
     	puts exception.to_s
     end               
     
-    # Sync campaign data
-    @campaign.update_api_data(response['payment']['campaign'])
-    @campaign.save
   end
   
   private

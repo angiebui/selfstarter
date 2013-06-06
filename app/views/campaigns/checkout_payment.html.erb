@@ -362,8 +362,8 @@
     			<input id="reward" type="hidden" name="reward" value="<%= @reward ? @reward.id : '0' %>">
     			
     			<div class="payment-submit">
-          	<button class="btn btn-primary" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>">Confirm payment of $<%= number_with_precision(@total, precision: 2) %></button>
-          	<span id="loader" class="loader" style="display:none"></span>    
+          	<button class="btn btn-primary show_loader" type="submit" data-total="<%= number_with_precision(@total, precision: 2) %>" data-loader="payment_form">Confirm payment of $<%= number_with_precision(@total, precision: 2) %></button>
+          	<span class="loader" data-loader="payment_form" style="display:none"></span>   
           </div> 
         
         </form>

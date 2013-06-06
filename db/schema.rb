@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604232404) do
+ActiveRecord::Schema.define(:version => 20130605200524) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(:version => 20130604232404) do
     t.string   "ct_sandbox_admin_id"
     t.string   "ct_production_admin_id"
     t.string   "ct_production_guest_id"
+    t.string   "api_key"
   end
 
   create_table "users", :force => true do |t|

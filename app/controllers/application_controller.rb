@@ -74,7 +74,7 @@ class ApplicationController < ActionController::Base
         rescue => exception     
           @settings.update_attribute :initialized_flag, false
           sign_out current_user
-          redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com" }
+          redirect_to new_user_registration_url, :flash => { :error => "An error occurred, please contact team@crowdhoster.com: #{exception.message}" }
           return
         else
           @settings.update_attribute :ct_sandbox_guest_id, sandbox_guest['user']['id']

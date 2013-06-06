@@ -19,6 +19,15 @@
           <label for="email">Email Address</label>
           <input id="email" name="email" type="text">
           </fieldset>
+
+					<% if @campaign.collect_additional_info %>
+          <h4>Additional Information</h4>
+					
+					<fieldset>
+          <label for="additional_info"><%= @campaign.additional_info_label %></label>
+          <textarea id="additional_info" name="additional_info"></textarea>
+          </fieldset>
+          <% end %>
           
           <% if @campaign.collect_shipping %>
           <h4>Shipping Address</h4>
@@ -299,17 +308,7 @@
           </fieldset>
           
           <p class="billing_address">*Billing address is not needed</p>
-					<% end %>
-					
-					<% if @campaign.collect_additional_info %>
-          <h4>Additional Information</h4>
-					
-					<fieldset>
-          <label for="additional_info"><%= @campaign.additional_info_label %></label>
-          <textarea id="additional_info" name="additional_info"></textarea>
-          </fieldset>
-          <% end %>
-          
+					<% end %>  
 					
 					<h4>Credit/Debit Card <i class="icon icon-lock show_tooltip" data-placement="top" data-title="Payments are encrypted"></i></h4>
 					

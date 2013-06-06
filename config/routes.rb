@@ -25,5 +25,14 @@ Selfstarter::Application.routes.draw do
   match '/:id/checkout/payment',               to: 'campaigns#checkout_payment',            as: :checkout_payment
   match '/:id/checkout/confirmation',          to: 'campaigns#checkout_confirmation',       as: :checkout_confirmation
   match '/:id',                                to: 'campaigns#home',                        as: :campaign_home
-  
+
+
+  resources :campaigns, path: '/', only: :show do
+    namespace :api, defaults: {format: 'json'} do
+      scope module: :v0  do
+        get '/', action: 'show'
+        resources :payments, only: :index
+      end
+    end
+  end
 end

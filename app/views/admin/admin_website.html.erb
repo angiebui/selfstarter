@@ -125,7 +125,16 @@
             <%= f.text_area :custom_css, rows: 3, style: "width:400px; height: 200px" %>
           </div>
         
+
+         <div class="field clearfix">
+            <p class="explanation">An api key to use the Crowdhoster API</p>
+            <label>API key</label>
+            <p><%=@settings.api_key %></p>
+          </div>
+        
          </div>
+         
+       </div>
       </fieldset>
 
       

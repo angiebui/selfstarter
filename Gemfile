@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 ruby "1.9.3"
 
+gem 'unicorn'
+
 gem 'rails', '3.2.13'
 gem 'bootstrap-sass', '2.1'
 gem 'devise'
@@ -18,7 +20,6 @@ group :development do
 end
 
 group :production do
-  gem 'thin'
   gem 'newrelic_rpm'
 end
 

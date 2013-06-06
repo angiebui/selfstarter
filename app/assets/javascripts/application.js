@@ -14,7 +14,7 @@
 //= require html5shiv-printshiv
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery.ui.all
 //= require jquery.textchange
 //= require jquery.timepicker
 //= require ckeditor/init

@@ -4,8 +4,8 @@ class Payment < ActiveRecord::Base
   								:address_one, :address_two, :city, :state, :postal_code, :country, :quantity,
   								:additional_info
  	
- 	validates :fullname, :email, :quantity, presence: true
- 	validate :check_email
+ 	validates :fullname, :quantity, presence: true
+ 	validate :email, presence: true, email: true
  								
   belongs_to :campaign
   belongs_to :reward
@@ -21,14 +21,5 @@ class Payment < ActiveRecord::Base
     self.card_expiration_month = payment['card']['expiration_month']
     self.card_expiration_year = payment['card']['expiration_year']
   end
-  
-  private
-  
-  def check_email
-  	if !self.email.nil?
-		  unless self.email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
-		    errors.add(:email, self.email + "is not a valid email address")
-		  end
-		end
-  end
+
 end

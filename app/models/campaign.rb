@@ -12,7 +12,7 @@ class Campaign < ActiveRecord::Base
                   :checkout_sidebar_content, :confirmation_page_content, :confirmation_email_content,
                   :tweet_text, :facebook_title, :facebook_description,  :facebook_image, :facebook_image_delete,
                   :payment_type, :fixed_payment_amount, :min_payment_amount, :apply_processing_fee,
-                  :stats_number_of_contributors, :stats_raised_amount, :stats_tilt_percent,
+                  :stats_number_of_contributions, :stats_raised_amount, :stats_tilt_percent,
                   :stats_unique_contributors, :published_flag, :collect_shipping, :production_flag,
                   :include_rewards, :reward_reference, :collect_additional_info, :additional_info_label       
                   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130605200524) do
+ActiveRecord::Schema.define(:version => 20130607043849) do
 
   create_table "campaigns", :force => true do |t|
     t.string   "name"
@@ -135,13 +135,13 @@ ActiveRecord::Schema.define(:version => 20130605200524) do
   end
 
   create_table "settings", :force => true do |t|
-    t.string   "site_name",                   :default => "Selfstarter", :null => false
+    t.string   "site_name",                   :default => "Selfstarter",          :null => false
     t.string   "facebook_app_id"
     t.string   "tweet_text"
     t.string   "google_id"
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
-    t.boolean  "initialized_flag",            :default => false,         :null => false
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
+    t.boolean  "initialized_flag",            :default => false,                  :null => false
     t.string   "logo_image_file_name"
     t.string   "logo_image_content_type"
     t.integer  "logo_image_file_size"
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20130605200524) do
     t.string   "ct_production_admin_id"
     t.string   "ct_production_guest_id"
     t.string   "api_key"
+    t.string   "reply_to_email",              :default => "team@crowdhoster.com", :null => false
   end
 
   create_table "users", :force => true do |t|

@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
         # Set intiatilized flag to true
         @settings.update_attribute :initialized_flag, true
         
-        # Create the Crowdtilt API User for guest checkout
+        # Create the Crowdtilt API Users
         begin
          	Crowdtilt.sandbox
           sandbox_guest = {

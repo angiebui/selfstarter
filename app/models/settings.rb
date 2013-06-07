@@ -3,11 +3,12 @@ class Settings < ActiveRecord::Base
                   :logo_image, :logo_image_delete, :copyright_text, :facebook_title, 
                   :facebook_description, :facebook_image, :facebook_image_delete, :homepage_content,
                   :custom_css, :header_link_text, :header_link_url, :ct_sandbox_guest_id, :ct_production_guest_id,
-                  :ct_sandbox_admin_id, :ct_production_admin_id
+                  :ct_sandbox_admin_id, :ct_production_admin_id, :reply_to_email
                   
   attr_accessor :logo_image_delete, :facebook_image_delete
   
   validates :site_name, presence: true
+  validates :reply_to_email, presence: true, email: true
   before_create :set_api_key
 
   before_validation { logo_image.clear if logo_image_delete == '1' }

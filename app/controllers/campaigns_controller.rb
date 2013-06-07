@@ -158,7 +158,7 @@ class CampaignsController < ApplicationController
     begin
       UserMailer.payment_confirmation(@payment, @campaign).deliver
     rescue => exception
-    	puts exception.to_s
+    	logger.debug "Error with email receipt: #{exception.message}"
     end               
     
   end

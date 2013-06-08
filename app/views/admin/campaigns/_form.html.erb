@@ -317,6 +317,16 @@
     </div>
 
   </fieldset>
+  <fieldset>
+     <div class="field clearfix">
+      <p class="explanation">An api key to use the Crowdhoster API for <%=@campaign.name %></p>
+      <label>API Endpoint</label>
+      <p><%= api_campaign_url(id: @campaign.id)%></p>
+      <label>API key</label>
+      <p><%= @settings.api_key %></p>
+    </div>
+   </div>
+ </fieldset>
   
   
   <%= f.submit "Save", :'class' => "btn btn-primary show_loader", :'data-loader' => "campaign_form" %>

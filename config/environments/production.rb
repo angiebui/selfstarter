@@ -67,7 +67,8 @@ Selfstarter::Application.configure do
   
 	# Assets syncing to S3
 	if ENV['ENABLE_ASSET_SYNC'] == 'true'
-  	config.action_controller.asset_host = "https://#{ENV['APP_NAME'] + '-assets'}.s3.amazonaws.com"
+  	config.action_controller.asset_host = "https://#{ENV['APP_NAME']}.s3.amazonaws.com"
+  	config.assets.prefix = "/assets"
   end
   
 end

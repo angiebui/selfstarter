@@ -40,19 +40,14 @@ module Selfstarter
     config.assets.initialize_on_precompile = false
     
     #Paperclip default options
-    paperclip_path = "/:class/:attachment/:id_partition/:style.:extension" 
-    if defined?(ENV['APP_NAME']) && !ENV['APP_NAME'].nil?
-      paperclip_path = ENV['APP_NAME'] + paperclip_path
-    end
-
     config.paperclip_defaults = {
       storage: :s3,
       s3_credentials: { 
         access_key_id: ENV['AWS_ACCESS_KEY_ID'], 
         access_key_secret: ENV['AWS_SECRET_ACCESS_KEY']  
       },
-      path: paperclip_path,
-      bucket: "crowdhoster",
+      path: "/uploads/:class/:attachment/:id_partition/:style.:extension",
+      bucket: ENV['APP_NAME'],
       s3_protocol: 'https',
       default_url: '/images/missing_:style.jpg'
     }

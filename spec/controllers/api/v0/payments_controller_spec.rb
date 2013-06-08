@@ -10,7 +10,7 @@ describe Api::V0::PaymentsController do
     let!(:first_payment) { create(:payment, campaign: campaign) }
     let!(:second_payment) { create(:payment, campaign: campaign) }
 
-    subject { get :index, campaign_id: campaign.slug, api_key: api_key }
+    subject { get :index, campaign_id: campaign.id, api_key: api_key }
 
     it 'lists ALL of the payments for the campaign' do
       serializer_double = double("serializer", serializable_hash: {payment: true})

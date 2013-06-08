@@ -27,10 +27,9 @@ Selfstarter::Application.routes.draw do
   match '/:id',                                to: 'campaigns#home',                        as: :campaign_home
 
 
-  resources :campaigns, path: '/', only: :show do
-    namespace :api, defaults: {format: 'json'} do
-      scope module: :v0  do
-        get '/', action: 'show'
+  namespace :api, defaults: {format: 'json'} do
+    scope module: :v0  do
+      resources :campaigns, only: :show do
         resources :payments, only: :index
       end
     end

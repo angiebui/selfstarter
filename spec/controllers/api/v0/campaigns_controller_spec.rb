@@ -8,7 +8,7 @@ describe Api::V0::CampaignsController do
   let!(:reward) { create(:reward, campaign: campaign) }
 
   describe '#show' do
-    subject { get :show, campaign_id: campaign.slug, api_key: api_key }
+    subject { get :show, id: campaign.id, api_key: api_key }
 
     it 'includes the campaign rewards' do
       serializer_double = double("serializer", serializable_hash: { reward: true })

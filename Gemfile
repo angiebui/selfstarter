@@ -15,9 +15,7 @@ gem 'aws-sdk'
 
 gem 'foreman'
 
-group :development do
-  gem 'pry-rails'
-end
+gem 'active_model_serializers'
 
 group :production do
   gem 'newrelic_rpm'
@@ -33,8 +31,10 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'pry-rails'
+  gem 'rspec-rails'
   gem 'shoulda'
+  gem 'factory_girl_rails'
 end
 
 # jQuery & jQuery UI

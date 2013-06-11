@@ -24,6 +24,8 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.0)
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -75,6 +77,11 @@ GEM
     excon (0.22.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     faraday_middleware (0.9.0)
@@ -208,6 +215,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   asset_sync
   aws-sdk
   bootstrap-sass (= 2.1)
@@ -215,6 +223,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   crowdtilt!
   devise
+  factory_girl_rails
   foreman
   friendly_id (~> 4.0.9)
   jquery-rails
@@ -224,7 +233,7 @@ DEPENDENCIES
   pg
   pry-rails
   rails (= 3.2.13)
-  rspec-rails (~> 2.0)
+  rspec-rails
   sass-rails (~> 3.2.3)
   shoulda
   uglifier (>= 1.0.3)

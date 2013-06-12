@@ -5,7 +5,7 @@ Selfstarter.admin =
     _this = this
 
     #
-    # Admin Website
+    # All admin pages
     #
 
     $('a.advanced_toggle').on "click", (e) ->

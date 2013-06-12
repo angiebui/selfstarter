@@ -46,8 +46,8 @@ module Selfstarter
         access_key_id: ENV['AWS_ACCESS_KEY_ID'], 
         access_key_secret: ENV['AWS_SECRET_ACCESS_KEY']  
       },
-      path: "/uploads/:class/:attachment/:id_partition/:style.:extension",
-      bucket: ENV['APP_NAME'],
+      path: "/#{ENV['APP_NAME']}/uploads/:class/:attachment/:id_partition/:style.:extension",
+      bucket: ENV['AWS_BUCKET'],
       s3_protocol: 'https',
       default_url: '/images/missing_:style.jpg'
     }

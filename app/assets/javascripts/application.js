@@ -17,6 +17,7 @@
 //= require jquery.ui.all
 //= require jquery.textchange
 //= require jquery.timepicker
+//= require ckeditorbase
 //= require ckeditor/init
 //= require bootstrap
 //= require main

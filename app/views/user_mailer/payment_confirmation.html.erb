@@ -11,8 +11,7 @@ This email is a confirmation of your $<%= number_with_precision(@payment.amount.
 Name: <%= @payment.fullname %> <br/>
 Date: <%= @payment.created_at.strftime("%m/%d/%Y") %> <br/>
 Amount: $<%= number_with_precision(@payment.amount.to_f/100.0 + @payment.user_fee_amount.to_f/100.0, precision: 2) %> <br/>
-Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %> 
-      (<%= @payment.card_expiration_month.to_s + '/' + @payment.card_expiration_year.to_s %>) <br/>   
+Card: <%= @payment.card_type %> ************<%= @payment.card_last_four %><br/>
 <% if @campaign.rewards? %>
 	<%= @campaign.reward_reference.titleize %> Selected: <%= @payment.reward ? @payment.reward.title : 'None' %> <br/>
 <% end %>

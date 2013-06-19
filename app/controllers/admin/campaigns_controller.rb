@@ -276,7 +276,7 @@ def update
       @payments = @campaign.payments.order("created_at ASC")
       respond_to do |format|
         format.html
-        format.csv { send_data @payments.to_csv }
+        format.csv { send_data @payments.to_csv, filename: "#{@campaign.name}.csv" }
       end
     end
   end

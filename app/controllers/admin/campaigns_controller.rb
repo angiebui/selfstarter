@@ -277,6 +277,7 @@ def update
       respond_to do |format|
         format.html
         format.csv { send_data @payments.to_csv, filename: "#{@campaign.name}.csv" }
+        format.xls { send_data @payments.to_csv(col_sep: "\t"), filename: "#{@campaign.name}.xls" }
       end
     end
   end

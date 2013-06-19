@@ -1,6 +1,4 @@
 class Payment < ActiveRecord::Base
-
-
   attr_accessible :ct_payment_id, :status, :amount, :user_fee_amount, :admin_fee_amount, :fullname, :email,
 				  :card_type, :card_last_four, :card_expiration_month, :card_expiration_year,
 				  :address_one, :address_two, :city, :state, :postal_code, :country, :quantity,
@@ -33,14 +31,6 @@ class Payment < ActiveRecord::Base
     end
   end
 
-  def self.display_dollars(amount)
-    "$#{(amount.to_f/100.0).round(2)}"
-  end
-
-  def self.display_date(date)
-    date.strftime("%m/%d/%Y")
-  end
-
   def update_api_data(payment)
     self.ct_payment_id = payment['id']
     self.status = payment['status']
@@ -51,6 +41,16 @@ class Payment < ActiveRecord::Base
     self.card_last_four = payment['card']['last_four']
     self.card_expiration_month = payment['card']['expiration_month']
     self.card_expiration_year = payment['card']['expiration_year']
+  end
+
+  private
+
+  def self.display_dollars(amount)
+    "$#{(amount.to_f/100.0).round(2)}"
+  end
+
+  def self.display_date(date)
+    date.strftime("%m/%d/%Y")
   end
 
 end
